@@ -8,6 +8,23 @@ No query credits — cache responses under ./data/ and avoid redundant runs.
 Optional: Dune Analytics. Free-tier credits are tiny; this script defaults to *no*
 Dune calls. Use --dune latest to pull the last successful result without a new
 execution, or --dune execute only when you accept fresh execution cost.
+
+-------------------------------------------------------------------------------
+DATA PLAN (what we ingest and why — for dashboard + debrief prep)
+-------------------------------------------------------------------------------
+1) Core snapshot (always): incident assets, collateral markets, liquidations,
+   V1 vaults whose queues touch those markets, top TVL V2 vaults (curators),
+   supplyingVaults per market.
+2) Extended analysis (default on; --no-extended to skip): time series over the
+   incident window for liquidity / borrow / collateral (markets), TVL & share
+   price (vaults), Morpho-marked collateral USD price (oracle view), top
+   borrowers per market, non-liquidation market flows, MetaMorpho vault
+   deposits/withdraws, liquidation rollups.
+3) Still out of scope without Dune / extra work: DEX TWAP vs oracle, off-chain
+   curator comms, full V2 adapter→market mapping, subgraph-level traces.
+
+Extended pulls use the *analysis window* (--history-start/--history-end or
+default November 2025 UTC), which can differ from the liquidation time filter.
 """
 
 from __future__ import annotations
@@ -20,7 +37,7 @@ import time
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Optional, Sequence, Set, Tuple
 
 import requests
 from dotenv import load_dotenv
@@ -32,6 +49,21 @@ DEFAULT_SYMBOLS = ["xUSD", "deUSD", "sdeUSD"]
 VAULT_PAGE = 200
 TX_PAGE = 500
 MARKET_KEYS_PER_TX_QUERY = 40
+
+MARKET_ACTIVITY_TYPES = [
+    "MarketBorrow",
+    "MarketRepay",
+    "MarketSupply",
+    "MarketWithdraw",
+    "MarketSupplyCollateral",
+    "MarketWithdrawCollateral",
+]
+METAMORPHO_TYPES = [
+    "MetaMorphoDeposit",
+    "MetaMorphoWithdraw",
+    "MetaMorphoTransfer",
+    "MetaMorphoFee",
+]
 
 
 def _ts_range_nov_2025() -> Tuple[int, int]:
@@ -51,7 +83,28 @@ def morpho_post(payload: Dict[str, Any], session: requests.Session) -> Dict[str,
     body = r.json()
     if body.get("errors"):
         raise RuntimeError(f"GraphQL errors: {body['errors']}")
-    return body["data"]
+    data = body.get("data")
+    if data is None:
+        raise RuntimeError("GraphQL returned no data")
+    return data
+
+
+def morpho_post_maybe(payload: Dict[str, Any], session: requests.Session) -> Optional[Dict[str, Any]]:
+    """POST GraphQL; return None on a single NOT_FOUND error (e.g. wrong vault version)."""
+    r = session.post(
+        MORPHO_GRAPHQL,
+        json=payload,
+        headers={"Content-Type": "application/json"},
+        timeout=120,
+    )
+    r.raise_for_status()
+    body = r.json()
+    errors = body.get("errors") or []
+    if errors:
+        if len(errors) == 1 and errors[0].get("status") == "NOT_FOUND":
+            return None
+        raise RuntimeError(f"GraphQL errors: {errors}")
+    return body.get("data")
 
 
 def write_json(path: Path, obj: Any) -> None:
@@ -306,6 +359,442 @@ def fetch_vault_v2_curators_sample(
     return data["vaultV2s"]["items"]
 
 
+def rollup_liquidations(liquidations: List[Dict[str, Any]]) -> Dict[str, Any]:
+    by_market: Dict[str, Dict[str, Any]] = defaultdict(
+        lambda: {
+            "liquidation_count": 0,
+            "bad_debt_usd": 0.0,
+            "repaid_usd": 0.0,
+            "seized_usd": 0.0,
+        }
+    )
+    per_day: Dict[str, int] = defaultdict(int)
+    for tx in liquidations:
+        d = tx.get("data") or {}
+        mk = (d.get("market") or {}).get("uniqueKey") or "unknown"
+        agg = by_market[mk]
+        agg["liquidation_count"] += 1
+        agg["bad_debt_usd"] += float(d.get("badDebtAssetsUsd") or 0)
+        agg["repaid_usd"] += float(d.get("repaidAssetsUsd") or 0)
+        agg["seized_usd"] += float(d.get("seizedAssetsUsd") or 0)
+        ts = tx.get("timestamp")
+        if ts is not None:
+            day = datetime.fromtimestamp(int(ts), tz=timezone.utc).strftime("%Y-%m-%d")
+            per_day[day] += 1
+    total_bad = sum(m["bad_debt_usd"] for m in by_market.values())
+    return {
+        "byMarket": {k: dict(v) for k, v in by_market.items()},
+        "liquidationsPerDayUtc": dict(sorted(per_day.items())),
+        "totals": {
+            "liquidation_txs": len(liquidations),
+            "bad_debt_usd": total_bad,
+        },
+    }
+
+
+def fetch_market_history(
+    session: requests.Session,
+    unique_key: str,
+    chain_id: int,
+    options: Dict[str, Any],
+) -> Dict[str, Any]:
+    q = """
+    query MHist($uniqueKey: String!, $chainId: Int!, $options: TimeseriesOptions!) {
+      marketByUniqueKey(uniqueKey: $uniqueKey, chainId: $chainId) {
+        uniqueKey
+        collateralAsset { symbol address }
+        loanAsset { symbol }
+        historicalState {
+          borrowAssetsUsd(options: $options) { x y }
+          supplyAssetsUsd(options: $options) { x y }
+          liquidityAssetsUsd(options: $options) { x y }
+          collateralAssetsUsd(options: $options) { x y }
+          utilization(options: $options) { x y }
+        }
+      }
+    }
+    """
+    data = morpho_post(
+        {"query": q, "variables": {"uniqueKey": unique_key, "chainId": chain_id, "options": options}},
+        session,
+    )
+    m = data.get("marketByUniqueKey")
+    if not m:
+        raise RuntimeError(f"market not found: {unique_key}")
+    return {"chainId": chain_id, **m}
+
+
+def fetch_vault_v1_history(
+    session: requests.Session, address: str, chain_id: int, options: Dict[str, Any]
+) -> Dict[str, Any]:
+    q = """
+    query V1H($address: String!, $chainId: Int!, $options: TimeseriesOptions!) {
+      vaultByAddress(address: $address, chainId: $chainId) {
+        address
+        name
+        historicalState {
+          totalAssetsUsd(options: $options) { x y }
+          sharePriceUsd(options: $options) { x y }
+        }
+      }
+    }
+    """
+    data = morpho_post(
+        {"query": q, "variables": {"address": address, "chainId": chain_id, "options": options}},
+        session,
+    )
+    v = data.get("vaultByAddress")
+    if not v:
+        raise RuntimeError(f"V1 vault not found: {address}")
+    return {"vaultKind": "v1", "chainId": chain_id, **v}
+
+
+def fetch_vault_v2_history(
+    session: requests.Session, address: str, chain_id: int, options: Dict[str, Any]
+) -> Dict[str, Any]:
+    q = """
+    query V2H($address: String!, $chainId: Int!, $options: TimeseriesOptions!) {
+      vaultV2ByAddress(address: $address, chainId: $chainId) {
+        address
+        name
+        historicalState {
+          totalAssetsUsd(options: $options) { x y }
+          sharePrice(options: $options) { x y }
+          idleAssetsUsd(options: $options) { x y }
+          realAssetsUsd(options: $options) { x y }
+        }
+      }
+    }
+    """
+    data = morpho_post(
+        {"query": q, "variables": {"address": address, "chainId": chain_id, "options": options}},
+        session,
+    )
+    v = data.get("vaultV2ByAddress")
+    if not v:
+        raise RuntimeError(f"V2 vault not found: {address}")
+    return {"vaultKind": "v2", "chainId": chain_id, **v}
+
+
+def fetch_collateral_price_history(
+    session: requests.Session, address: str, chain_id: int, options: Dict[str, Any]
+) -> Dict[str, Any]:
+    q = """
+    query A($address: String!, $chainId: Int!, $options: TimeseriesOptions!) {
+      assetByAddress(address: $address, chainId: $chainId) {
+        address
+        symbol
+        historicalPriceUsd(options: $options) { x y }
+      }
+    }
+    """
+    data = morpho_post(
+        {"query": q, "variables": {"address": address, "chainId": chain_id, "options": options}},
+        session,
+    )
+    a = data.get("assetByAddress")
+    if not a:
+        raise RuntimeError(f"asset not found: {address}")
+    return {"chainId": chain_id, **a}
+
+
+def fetch_top_market_positions(
+    session: requests.Session, unique_key: str, first: int
+) -> List[Dict[str, Any]]:
+    q = """
+    query Pos($uk: String!, $n: Int!) {
+      marketPositions(
+        first: $n
+        orderBy: BorrowShares
+        orderDirection: Desc
+        where: { marketUniqueKey_in: [$uk] }
+      ) {
+        items {
+          user { address }
+          state {
+            borrowAssets borrowAssetsUsd
+            collateral collateralUsd
+            supplyAssets supplyAssetsUsd
+          }
+        }
+      }
+    }
+    """
+    data = morpho_post({"query": q, "variables": {"uk": unique_key, "n": first}}, session)
+    return data["marketPositions"]["items"]
+
+
+def fetch_market_activity_capped(
+    session: requests.Session,
+    unique_key: str,
+    chain_id: int,
+    ts_gte: int,
+    ts_lte: int,
+    cap: int,
+) -> List[Dict[str, Any]]:
+    q = """
+    query Act($where: TransactionFilters!, $first: Int!, $skip: Int!) {
+      transactions(first: $first, skip: $skip, orderBy: Timestamp, orderDirection: Desc, where: $where) {
+        items {
+          timestamp
+          blockNumber
+          hash
+          type
+          user { address }
+          data { __typename }
+        }
+      }
+    }
+    """
+    where: Dict[str, Any] = {
+        "marketUniqueKey_in": [unique_key],
+        "chainId_in": [chain_id],
+        "type_in": list(MARKET_ACTIVITY_TYPES),
+        "timestamp_gte": ts_gte,
+        "timestamp_lte": ts_lte,
+    }
+    out: List[Dict[str, Any]] = []
+    skip = 0
+    while len(out) < cap:
+        first = min(TX_PAGE, cap - len(out))
+        data = morpho_post(
+            {"query": q, "variables": {"where": where, "first": first, "skip": skip}},
+            session,
+        )
+        items = data["transactions"]["items"]
+        out.extend(items)
+        if len(items) < first:
+            break
+        skip += first
+        time.sleep(0.04)
+    return out[:cap]
+
+
+def fetch_metamorpho_activity_capped(
+    session: requests.Session,
+    vault_addresses: Sequence[str],
+    chain_id: int,
+    ts_gte: int,
+    ts_lte: int,
+    cap_per_vault: int,
+) -> Dict[str, List[Dict[str, Any]]]:
+    q = """
+    query Mv($where: TransactionFilters!, $first: Int!, $skip: Int!) {
+      transactions(first: $first, skip: $skip, orderBy: Timestamp, orderDirection: Desc, where: $where) {
+        items {
+          timestamp
+          blockNumber
+          hash
+          type
+          user { address }
+          data { __typename }
+        }
+      }
+    }
+    """
+    result: Dict[str, List[Dict[str, Any]]] = {}
+    for addr in vault_addresses:
+        where: Dict[str, Any] = {
+            "vaultAddress_in": [addr],
+            "chainId_in": [chain_id],
+            "type_in": list(METAMORPHO_TYPES),
+            "timestamp_gte": ts_gte,
+            "timestamp_lte": ts_lte,
+        }
+        rows: List[Dict[str, Any]] = []
+        skip = 0
+        while len(rows) < cap_per_vault:
+            first = min(TX_PAGE, cap_per_vault - len(rows))
+            data = morpho_post(
+                {"query": q, "variables": {"where": where, "first": first, "skip": skip}},
+                session,
+            )
+            items = data["transactions"]["items"]
+            rows.extend(items)
+            if len(items) < first:
+                break
+            skip += first
+            time.sleep(0.04)
+        result[addr] = rows[:cap_per_vault]
+    return result
+
+
+def market_key_to_chain(flat_markets: List[Dict[str, Any]]) -> Dict[str, int]:
+    key_to_chain: Dict[str, int] = {}
+    for m in flat_markets:
+        la = m.get("loanAsset") or {}
+        ch = (la.get("chain") or {}).get("id")
+        if ch is not None:
+            key_to_chain[m["uniqueKey"]] = int(ch)
+    return key_to_chain
+
+
+def run_extended_analysis(
+    session: requests.Session,
+    bundle: Dict[str, Any],
+    hist_start: int,
+    hist_end: int,
+    history_interval: str,
+    positions_limit: int,
+    market_activity_cap: int,
+    metamorpho_cap: int,
+    include_supplying_metamorpho: bool,
+) -> Dict[str, Any]:
+    """Heavy pulls for charts, rollups, and flow timelines."""
+    options = {
+        "startTimestamp": hist_start,
+        "endTimestamp": hist_end,
+        "interval": history_interval,
+    }
+    errors: List[Dict[str, Any]] = []
+    flat = bundle["marketsFlat"]
+    k2c = market_key_to_chain(flat)
+
+    liquidation_summary = rollup_liquidations(bundle.get("liquidations") or [])
+
+    historical_markets: List[Dict[str, Any]] = []
+    for m in flat:
+        uk = m["uniqueKey"]
+        cid = k2c.get(uk)
+        if cid is None:
+            continue
+        try:
+            historical_markets.append(fetch_market_history(session, uk, cid, options))
+        except Exception as exc:  # noqa: BLE001
+            errors.append({"phase": "market_history", "market": uk, "error": str(exc)})
+        time.sleep(0.05)
+
+    v2_keys: Set[Tuple[str, int]] = {
+        (v["address"].lower(), int(v["chain"]["id"])) for v in bundle["vaultV2TopByTvlSample"]
+    }
+
+    historical_vaults: List[Dict[str, Any]] = []
+    for v in bundle["vaultsV1WithIncidentAllocation"]:
+        addr = v["address"]
+        cid = int(v["chain"]["id"])
+        if (addr.lower(), cid) in v2_keys:
+            continue
+        try:
+            historical_vaults.append(fetch_vault_v1_history(session, addr, cid, options))
+        except Exception as exc:  # noqa: BLE001
+            errors.append({"phase": "vault_v1_history", "vault": addr, "error": str(exc)})
+        time.sleep(0.05)
+
+    for v in bundle["vaultV2TopByTvlSample"]:
+        addr = v["address"]
+        cid = int(v["chain"]["id"])
+        data = morpho_post_maybe(
+            {
+                "query": """
+                query V2H($address: String!, $chainId: Int!, $options: TimeseriesOptions!) {
+                  vaultV2ByAddress(address: $address, chainId: $chainId) {
+                    address
+                    name
+                    historicalState {
+                      totalAssetsUsd(options: $options) { x y }
+                      sharePrice(options: $options) { x y }
+                      idleAssetsUsd(options: $options) { x y }
+                      realAssetsUsd(options: $options) { x y }
+                    }
+                  }
+                }
+                """,
+                "variables": {"address": addr, "chainId": cid, "options": options},
+            },
+            session,
+        )
+        if not data or not data.get("vaultV2ByAddress"):
+            errors.append({"phase": "vault_v2_history", "vault": addr, "error": "not_found"})
+            continue
+        historical_vaults.append(
+            {"vaultKind": "v2", "chainId": cid, **data["vaultV2ByAddress"]}
+        )
+        time.sleep(0.05)
+
+    collateral_prices: List[Dict[str, Any]] = []
+    seen_asset: Set[Tuple[str, int]] = set()
+    for a in bundle["incidentAssets"]:
+        addr = a["address"]
+        cid = int(a["chain"]["id"])
+        key = (addr.lower(), cid)
+        if key in seen_asset:
+            continue
+        seen_asset.add(key)
+        try:
+            collateral_prices.append(fetch_collateral_price_history(session, addr, cid, options))
+        except Exception as exc:  # noqa: BLE001
+            errors.append({"phase": "collateral_price", "asset": addr, "error": str(exc)})
+        time.sleep(0.05)
+
+    market_top_positions: Dict[str, Any] = {}
+    for m in flat:
+        uk = m["uniqueKey"]
+        try:
+            market_top_positions[uk] = fetch_top_market_positions(session, uk, positions_limit)
+        except Exception as exc:  # noqa: BLE001
+            errors.append({"phase": "market_positions", "market": uk, "error": str(exc)})
+            market_top_positions[uk] = []
+        time.sleep(0.04)
+
+    market_activity: Dict[str, Any] = {}
+    for m in flat:
+        uk = m["uniqueKey"]
+        cid = k2c.get(uk)
+        if cid is None:
+            continue
+        try:
+            market_activity[uk] = fetch_market_activity_capped(
+                session, uk, cid, hist_start, hist_end, market_activity_cap
+            )
+        except Exception as exc:  # noqa: BLE001
+            errors.append({"phase": "market_activity", "market": uk, "error": str(exc)})
+            market_activity[uk] = []
+        time.sleep(0.04)
+
+    metamorpho_targets: Dict[str, int] = {}
+    for v in bundle["vaultsV1WithIncidentAllocation"]:
+        metamorpho_targets[v["address"]] = int(v["chain"]["id"])
+    if include_supplying_metamorpho:
+        for uk, svs in (bundle.get("supplyingVaultsByMarket") or {}).items():
+            cid = k2c.get(uk)
+            if cid is None:
+                continue
+            for sv in svs:
+                metamorpho_targets[sv["address"]] = cid
+
+    metamorpho_activity: Dict[str, Any] = {}
+    by_chain_vaults: Dict[int, List[str]] = defaultdict(list)
+    for addr, cid in metamorpho_targets.items():
+        by_chain_vaults[cid].append(addr)
+    for cid, addrs in by_chain_vaults.items():
+        for addr in addrs:
+            try:
+                metamorpho_activity[addr] = fetch_metamorpho_activity_capped(
+                    session, [addr], cid, hist_start, hist_end, metamorpho_cap
+                ).get(addr, [])
+            except Exception as exc:  # noqa: BLE001
+                errors.append({"phase": "metamorpho", "vault": addr, "error": str(exc)})
+                metamorpho_activity[addr] = []
+            time.sleep(0.04)
+
+    return {
+        "fetchedAt": datetime.now(timezone.utc).isoformat(),
+        "historyWindow": {
+            "startTimestamp": hist_start,
+            "endTimestamp": hist_end,
+            "interval": history_interval,
+        },
+        "liquidationSummary": liquidation_summary,
+        "historicalMarkets": historical_markets,
+        "historicalVaults": historical_vaults,
+        "collateralPrices": collateral_prices,
+        "marketTopPositions": market_top_positions,
+        "marketActivityTransactions": market_activity,
+        "metamorphoVaultActivity": metamorpho_activity,
+        "errors": errors,
+    }
+
+
 def parse_query_ids() -> List[int]:
     raw = os.environ.get("DUNE_QUERY_IDS", "").strip()
     if not raw:
@@ -323,7 +812,6 @@ def dune_fetch_latest(query_id: int, api_key: str) -> Dict[str, Any]:
     from dune_client.client import DuneClient
 
     client = DuneClient(api_key)
-    # Large max_age avoids implicit refresh / re-execution inside the client.
     resp = client.get_latest_result(query_id, max_age_hours=8760)
     rows = resp.get_rows()
     return {
@@ -461,6 +949,52 @@ def main() -> int:
         action="store_true",
         help="Only run Dune steps (if any).",
     )
+    parser.add_argument(
+        "--no-extended",
+        action="store_true",
+        help="Skip extended analysis (history series, positions, activity txs, rollups).",
+    )
+    parser.add_argument(
+        "--history-start",
+        type=int,
+        default=None,
+        help="Analysis window start (Unix UTC). Default: 2025-11-01 00:00 UTC.",
+    )
+    parser.add_argument(
+        "--history-end",
+        type=int,
+        default=None,
+        help="Analysis window end (Unix UTC). Default: 2025-11-30 23:59:59 UTC.",
+    )
+    parser.add_argument(
+        "--history-interval",
+        type=str,
+        default="DAY",
+        help="Timeseries interval for Morpho historicalState (default: DAY).",
+    )
+    parser.add_argument(
+        "--positions-limit",
+        type=int,
+        default=25,
+        help="Top borrow-share market positions per incident market (default: 25).",
+    )
+    parser.add_argument(
+        "--market-activity-cap",
+        type=int,
+        default=200,
+        help="Max non-liquidation txs to keep per incident market in the analysis window.",
+    )
+    parser.add_argument(
+        "--metamorpho-activity-cap",
+        type=int,
+        default=150,
+        help="Max MetaMorpho txs per vault in the analysis window.",
+    )
+    parser.add_argument(
+        "--include-supplying-metamorpho",
+        action="store_true",
+        help="Also pull MetaMorpho activity for markets' supplyingVaults addresses (more API calls).",
+    )
     args = parser.parse_args()
 
     chain_ids = [int(x.strip()) for x in args.chains.split(",") if x.strip()]
@@ -472,6 +1006,9 @@ def main() -> int:
         ts_gte, ts_lte = _ts_range_nov_2025()
     else:
         ts_gte, ts_lte = None, None
+
+    hist_start = args.history_start if args.history_start is not None else _ts_range_nov_2025()[0]
+    hist_end = args.history_end if args.history_end is not None else _ts_range_nov_2025()[1]
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -486,14 +1023,35 @@ def main() -> int:
             args.skip_vault_scan,
             args.v2_top,
         )
+        if not args.no_extended:
+            bundle["extended"] = run_extended_analysis(
+                session,
+                bundle,
+                hist_start,
+                hist_end,
+                args.history_interval,
+                args.positions_limit,
+                args.market_activity_cap,
+                args.metamorpho_activity_cap,
+                args.include_supplying_metamorpho,
+            )
         write_json(DATA_DIR / "morpho_bundle.json", bundle)
-        # Split mirrors for smaller downstream tools
         write_json(DATA_DIR / "incident_assets.json", bundle["incidentAssets"])
         write_json(DATA_DIR / "markets.json", bundle["marketsFlat"])
         write_json(DATA_DIR / "liquidations.json", bundle["liquidations"])
         write_json(DATA_DIR / "vaults_v1_incident.json", bundle["vaultsV1WithIncidentAllocation"])
         write_json(DATA_DIR / "vaults_v2_top.json", bundle["vaultV2TopByTvlSample"])
         write_json(DATA_DIR / "supplying_vaults.json", bundle["supplyingVaultsByMarket"])
+        if not args.no_extended and bundle.get("extended"):
+            ext = bundle["extended"]
+            write_json(DATA_DIR / "liquidation_summary.json", ext["liquidationSummary"])
+            write_json(DATA_DIR / "historical_markets.json", ext["historicalMarkets"])
+            write_json(DATA_DIR / "historical_vaults.json", ext["historicalVaults"])
+            write_json(DATA_DIR / "collateral_prices.json", ext["collateralPrices"])
+            write_json(DATA_DIR / "market_top_positions.json", ext["marketTopPositions"])
+            write_json(DATA_DIR / "market_activity_tx.json", ext["marketActivityTransactions"])
+            write_json(DATA_DIR / "metamorpho_activity.json", ext["metamorphoVaultActivity"])
+            write_json(DATA_DIR / "etl_extended_errors.json", ext["errors"])
         print(f"Wrote Morpho extracts under {DATA_DIR}/")
 
     if args.dune != "off":
