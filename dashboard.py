@@ -389,7 +389,7 @@ def main():
         st.markdown('<div class="sidebar-logo">🔵 Morpho</div>', unsafe_allow_html=True)
         st.markdown('<div class="sidebar-sub">Depeg Incident Dashboard</div>', unsafe_allow_html=True)
         st.markdown("---")
-        section = st.radio("", [
+        section = st.radio("Navigation", [
             "📋 Executive Summary",
             "📉 Asset Price Collapse",
             "🏛 Exposed Markets & Vaults",
