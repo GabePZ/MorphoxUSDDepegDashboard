@@ -8,8 +8,8 @@
       "id": 1,
       "network": "Ethereum"
     },
-    "totalAssetsUsd": 276669664.6599588,
-    "liquidityUsd": 97254270.20511252,
+    "totalAssetsUsd": 330352305.9066034,
+    "liquidityUsd": 150824814.12148306,
     "owner": {
       "address": "0xe8C9C99EcaD0686A14A00d8521c572281E938008"
     },
@@ -37,8 +37,8 @@
       "id": 1,
       "network": "Ethereum"
     },
-    "totalAssetsUsd": 130884929.33388874,
-    "liquidityUsd": 22412260.337564312,
+    "totalAssetsUsd": 133914258.52837317,
+    "liquidityUsd": 25416409.964252874,
     "owner": {
       "address": "0xe8C9C99EcaD0686A14A00d8521c572281E938008"
     },
@@ -51,6 +51,1004 @@
             },
             {
               "address": "0x9e396dE3312D373b87F9BD8763fb48184b42aac0"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0x23f5E9c35820f4baB695Ac1F19c203cC3f8e1e11",
+    "name": "sky.money USDT Savings",
+    "symbol": "skyMoneyUsdtSavings",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 127726289.61819996,
+    "liquidityUsd": 32030700.022487495,
+    "owner": {
+      "address": "0x3F32bC09d41eE699844F8296e806417D6bf61Bba"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x3F32bC09d41eE699844F8296e806417D6bf61Bba"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xBEeFF047C03714965a54b671A37C18beF6b96210",
+    "name": "Steakhouse Reservoir USDC",
+    "symbol": "bbqSUDCreservoir",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 80641153.51595058,
+    "liquidityUsd": 12323877.881346744,
+    "owner": {
+      "address": "0xa18315d7E05220795562c67964034800995eB786"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x59f7d7D34dB803961ce5882BbA168fD711292392"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x4e3e778bE779Cd55484A4A405f35C7d66b748e4e"
+            },
+            {
+              "address": "0xFb345Ae28cCe3C55481190771e8c6D18c0f3D279"
+            },
+            {
+              "address": "0xEB4FC6AB5323Dd245EbF26B0EcD9030c68Cb39a2"
+            },
+            {
+              "address": "0xDE40458958799E8b955cc3cDDfe551a6E72DBF63"
+            },
+            {
+              "address": "0xa18315d7E05220795562c67964034800995eB786"
+            },
+            {
+              "address": "0xD700038b3f8d2F1a8193F35d7dD25c02e7155427"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0x8c106EEDAd96553e64287A5A6839c3Cc78afA3D0",
+    "name": "Gauntlet USDC Prime",
+    "symbol": "gtusdcp",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 68012671.30451688,
+    "liquidityUsd": 68012671.30451688,
+    "owner": {
+      "address": "0xC684c6587712e5E7BDf9fD64415F23Bd2b05fAec"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
+            },
+            {
+              "address": "0xC684c6587712e5E7BDf9fD64415F23Bd2b05fAec"
+            },
+            {
+              "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
+            },
+            {
+              "address": "0x5a4E19842e09000a582c20A4f524C26Fb48Dd4D0"
+            },
+            {
+              "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
+            },
+            {
+              "address": "0x5a4E19842e09000a582c20A4f524C26Fb48Dd4D0"
+            },
+            {
+              "address": "0x5a4E19842e09000a582c20A4f524C26Fb48Dd4D0"
+            },
+            {
+              "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
+            },
+            {
+              "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
+            },
+            {
+              "address": "0x5a4E19842e09000a582c20A4f524C26Fb48Dd4D0"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xbeeff77CE5C059445714E6A3490E273fE7F2492F",
+    "name": "Steakhouse High Yield",
+    "symbol": "bbqUSDT0",
+    "listed": true,
+    "chain": {
+      "id": 42161,
+      "network": "Arbitrum One"
+    },
+    "totalAssetsUsd": 54063311.547284365,
+    "liquidityUsd": 9557025.352847163,
+    "owner": {
+      "address": "0x218fD0dfdeBB594b00bB7380843125Cc012E572a"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x218fD0dfdeBB594b00bB7380843125Cc012E572a"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xA7A78E8e98c734f87A3B07D8DB627C67001ABD02",
+    "name": "gtsy",
+    "symbol": "gtsy",
+    "listed": false,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 50413819.48629007,
+    "liquidityUsd": 50413819.48629007,
+    "owner": {
+      "address": "0xfe7bE004ccAAc2EAA7273F6C613e3E96b4B0b934"
+    },
+    "curators": {
+      "items": []
+    }
+  },
+  {
+    "address": "0xe479bCbc98579bA3E1a1261f7bE85C4C10303d88",
+    "name": "Sentora PYUSD Core V2",
+    "symbol": "senPYUSDcoreV2",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 50032841.68856509,
+    "liquidityUsd": 36132824.48592377,
+    "owner": {
+      "address": "0xe8C9C99EcaD0686A14A00d8521c572281E938008"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0xe8C9C99EcaD0686A14A00d8521c572281E938008"
+            },
+            {
+              "address": "0x9e396dE3312D373b87F9BD8763fb48184b42aac0"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xa30D20cB10c869bAf99EbeADFD79408fe7Ad8FaA",
+    "name": "gtsy (usdt)",
+    "symbol": "gusdt",
+    "listed": false,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 48228911.252570204,
+    "liquidityUsd": 2244925.4340958884,
+    "owner": {
+      "address": "0xfe7bE004ccAAc2EAA7273F6C613e3E96b4B0b934"
+    },
+    "curators": {
+      "items": []
+    }
+  },
+  {
+    "address": "0x050cE30b927Da55177A4914EC73480238BAD56f0",
+    "name": "Gauntlet USDC Prime",
+    "symbol": "gtusdcp",
+    "listed": true,
+    "chain": {
+      "id": 8453,
+      "network": "Base"
+    },
+    "totalAssetsUsd": 45467998.03122539,
+    "liquidityUsd": 45467998.03122539,
+    "owner": {
+      "address": "0x5a4E19842e09000a582c20A4f524C26Fb48Dd4D0"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
+            },
+            {
+              "address": "0xC684c6587712e5E7BDf9fD64415F23Bd2b05fAec"
+            },
+            {
+              "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
+            },
+            {
+              "address": "0x5a4E19842e09000a582c20A4f524C26Fb48Dd4D0"
+            },
+            {
+              "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
+            },
+            {
+              "address": "0x5a4E19842e09000a582c20A4f524C26Fb48Dd4D0"
+            },
+            {
+              "address": "0x5a4E19842e09000a582c20A4f524C26Fb48Dd4D0"
+            },
+            {
+              "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
+            },
+            {
+              "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
+            },
+            {
+              "address": "0x5a4E19842e09000a582c20A4f524C26Fb48Dd4D0"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0x56bfa6f53669B836D1E0Dfa5e99706b12c373ecf",
+    "name": "sky.money USDC Risk Capital",
+    "symbol": "skyMoneyUsdcRiskCapital",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 40016382.391395874,
+    "liquidityUsd": 4001227.4223552914,
+    "owner": {
+      "address": "0x3F32bC09d41eE699844F8296e806417D6bf61Bba"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x3F32bC09d41eE699844F8296e806417D6bf61Bba"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0x2bD3A43863c07B6A01581FADa0E1614ca5DF0E3d",
+    "name": "sky.money USDT Risk Capital",
+    "symbol": "skyMoneyUsdtRiskCapital",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 35220504.03758808,
+    "liquidityUsd": 5106849.47920978,
+    "owner": {
+      "address": "0x3F32bC09d41eE699844F8296e806417D6bf61Bba"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x3F32bC09d41eE699844F8296e806417D6bf61Bba"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xE15fcC81118895b67b6647BBd393182dF44E11E0",
+    "name": "sky.money USDS Flagship",
+    "symbol": "skyMoneyUsdsFlagship",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 30961874.506369215,
+    "liquidityUsd": 24195330.323487837,
+    "owner": {
+      "address": "0x3F32bC09d41eE699844F8296e806417D6bf61Bba"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x3F32bC09d41eE699844F8296e806417D6bf61Bba"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xbeeff1D5dE8F79ff37a151681100B039661da518",
+    "name": "Steakhouse High Yield",
+    "symbol": "bbqUSDC",
+    "listed": true,
+    "chain": {
+      "id": 42161,
+      "network": "Arbitrum One"
+    },
+    "totalAssetsUsd": 30660726.820532527,
+    "liquidityUsd": 5982129.276655904,
+    "owner": {
+      "address": "0xdb580693b031f50dEbE541371Db92490f33463b2"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0xdb580693b031f50dEbE541371Db92490f33463b2"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xbeeff2C5bF38f90e3482a8b19F12E5a6D2FCa757",
+    "name": "Steakhouse High Yield Instant",
+    "symbol": "bbqUSDC",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 20871699.156052493,
+    "liquidityUsd": 20871699.156052493,
+    "owner": {
+      "address": "0x29a08239ca7D303F02D219119a024e9773CB1486"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x59f7d7D34dB803961ce5882BbA168fD711292392"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x29a08239ca7D303F02D219119a024e9773CB1486"
+            },
+            {
+              "address": "0x2f06934AfC376f41d4CCFe1D000496107bCf6e21"
+            },
+            {
+              "address": "0xFb345Ae28cCe3C55481190771e8c6D18c0f3D279"
+            },
+            {
+              "address": "0xEB4FC6AB5323Dd245EbF26B0EcD9030c68Cb39a2"
+            },
+            {
+              "address": "0xa18315d7E05220795562c67964034800995eB786"
+            },
+            {
+              "address": "0xD700038b3f8d2F1a8193F35d7dD25c02e7155427"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xbeef0e0834849aCC03f0089F01f4F1Eeb06873C9",
+    "name": "Steakhouse Prime Instant",
+    "symbol": "steakUSDC",
+    "listed": true,
+    "chain": {
+      "id": 8453,
+      "network": "Base"
+    },
+    "totalAssetsUsd": 20466054.47654157,
+    "liquidityUsd": 20466054.47654157,
+    "owner": {
+      "address": "0x74E9c67ddB0Ef85D6EcC8dD03A3Cf8Ed1e0c827B"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x29a08239ca7D303F02D219119a024e9773CB1486"
+            },
+            {
+              "address": "0x74E9c67ddB0Ef85D6EcC8dD03A3Cf8Ed1e0c827B"
+            },
+            {
+              "address": "0x2f06934AfC376f41d4CCFe1D000496107bCf6e21"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xbeef0C075Da5D01112AE5cF34d257074fB5DDB2f",
+    "name": "Steakhouse Prime Instant",
+    "symbol": "steakEURCV",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 20101762.70915936,
+    "liquidityUsd": 20111280.603802036,
+    "owner": {
+      "address": "0xE67d850dE6E6Fc913fb613573dc00d3Ba863C099"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x0A0e559bc3b0950a7e448F0d4894db195b9cf8DD"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0xE67d850dE6E6Fc913fb613573dc00d3Ba863C099"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xbeef0046fcab1dE47E41fB75BB3dC4Dfc94108E3",
+    "name": "Steakhouse Prime Instant",
+    "symbol": "steakETH",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 19860632.6925172,
+    "liquidityUsd": 19860632.6925172,
+    "owner": {
+      "address": "0xEB4FC6AB5323Dd245EbF26B0EcD9030c68Cb39a2"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x59f7d7D34dB803961ce5882BbA168fD711292392"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x4e3e778bE779Cd55484A4A405f35C7d66b748e4e"
+            },
+            {
+              "address": "0xFb345Ae28cCe3C55481190771e8c6D18c0f3D279"
+            },
+            {
+              "address": "0xEB4FC6AB5323Dd245EbF26B0EcD9030c68Cb39a2"
+            },
+            {
+              "address": "0xDE40458958799E8b955cc3cDDfe551a6E72DBF63"
+            },
+            {
+              "address": "0xa18315d7E05220795562c67964034800995eB786"
+            },
+            {
+              "address": "0xD700038b3f8d2F1a8193F35d7dD25c02e7155427"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xE571B648569619566CF6ce1060C97B621CB635D3",
+    "name": "Gauntlet USDT Frontier",
+    "symbol": "gtusdtf",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 18807695.633778702,
+    "liquidityUsd": 13576094.806522131,
+    "owner": {
+      "address": "0xC684c6587712e5E7BDf9fD64415F23Bd2b05fAec"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
+            },
+            {
+              "address": "0xC684c6587712e5E7BDf9fD64415F23Bd2b05fAec"
+            },
+            {
+              "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
+            },
+            {
+              "address": "0x5a4E19842e09000a582c20A4f524C26Fb48Dd4D0"
+            },
+            {
+              "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
+            },
+            {
+              "address": "0x5a4E19842e09000a582c20A4f524C26Fb48Dd4D0"
+            },
+            {
+              "address": "0x5a4E19842e09000a582c20A4f524C26Fb48Dd4D0"
+            },
+            {
+              "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
+            },
+            {
+              "address": "0x9E33faAE38ff641094fa68c65c2cE600b3410585"
+            },
+            {
+              "address": "0x5a4E19842e09000a582c20A4f524C26Fb48Dd4D0"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xBEEfF0d672ab7F5018dFB614c93981045D4aA98a",
+    "name": "Grove x Steakhouse AUSD",
+    "symbol": "grove-bbqAUSD",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 18632206.34291214,
+    "liquidityUsd": 1729541.8394981686,
+    "owner": {
+      "address": "0xD700038b3f8d2F1a8193F35d7dD25c02e7155427"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x59f7d7D34dB803961ce5882BbA168fD711292392"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x4e3e778bE779Cd55484A4A405f35C7d66b748e4e"
+            },
+            {
+              "address": "0xFb345Ae28cCe3C55481190771e8c6D18c0f3D279"
+            },
+            {
+              "address": "0xEB4FC6AB5323Dd245EbF26B0EcD9030c68Cb39a2"
+            },
+            {
+              "address": "0xDE40458958799E8b955cc3cDDfe551a6E72DBF63"
+            },
+            {
+              "address": "0xa18315d7E05220795562c67964034800995eB786"
+            },
+            {
+              "address": "0xD700038b3f8d2F1a8193F35d7dD25c02e7155427"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xD1E9242e075Db4bdd3f3c721D7d5fd4180A94A7e",
+    "name": "Re Ecosystem Vault",
+    "symbol": "REECOUSDC",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 17915211.737573277,
+    "liquidityUsd": 2764460.46050967,
+    "owner": {
+      "address": "0x30988479C2E6a03E7fB65138b94762D41a733458"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x30988479C2E6a03E7fB65138b94762D41a733458"
+            },
+            {
+              "address": "0x72882eb5D27C7088DFA6DDE941DD42e5d184F0ef"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xBeefF08dF54897e7544aB01d0e86f013DA354111",
+    "name": "Grove x Steakhouse USDC",
+    "symbol": "grove-bbqUSDC",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 15173241.716540439,
+    "liquidityUsd": 13943795.89017609,
+    "owner": {
+      "address": "0xD700038b3f8d2F1a8193F35d7dD25c02e7155427"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x59f7d7D34dB803961ce5882BbA168fD711292392"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x4e3e778bE779Cd55484A4A405f35C7d66b748e4e"
+            },
+            {
+              "address": "0xFb345Ae28cCe3C55481190771e8c6D18c0f3D279"
+            },
+            {
+              "address": "0xEB4FC6AB5323Dd245EbF26B0EcD9030c68Cb39a2"
+            },
+            {
+              "address": "0xDE40458958799E8b955cc3cDDfe551a6E72DBF63"
+            },
+            {
+              "address": "0xa18315d7E05220795562c67964034800995eB786"
+            },
+            {
+              "address": "0xD700038b3f8d2F1a8193F35d7dD25c02e7155427"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xbeeff7aE5E00Aae3Db302e4B0d8C883810a58100",
+    "name": "Steakhouse High Yield Instant",
+    "symbol": "bbqUSDC",
+    "listed": true,
+    "chain": {
+      "id": 8453,
+      "network": "Base"
+    },
+    "totalAssetsUsd": 13328097.800971482,
+    "liquidityUsd": 3531177.3969719396,
+    "owner": {
+      "address": "0x2f06934AfC376f41d4CCFe1D000496107bCf6e21"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x59f7d7D34dB803961ce5882BbA168fD711292392"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x29a08239ca7D303F02D219119a024e9773CB1486"
+            },
+            {
+              "address": "0x2f06934AfC376f41d4CCFe1D000496107bCf6e21"
+            },
+            {
+              "address": "0xFb345Ae28cCe3C55481190771e8c6D18c0f3D279"
+            },
+            {
+              "address": "0xEB4FC6AB5323Dd245EbF26B0EcD9030c68Cb39a2"
+            },
+            {
+              "address": "0xa18315d7E05220795562c67964034800995eB786"
+            },
+            {
+              "address": "0xD700038b3f8d2F1a8193F35d7dD25c02e7155427"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xE7F8Fb5CccC3e70B922FE696ae6B550557f88Da5",
+    "name": "August AUSD V2",
+    "symbol": "augustAUSDv2",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 12939073.518499723,
+    "liquidityUsd": 1503759.787583347,
+    "owner": {
+      "address": "0x2a155ed454Dc5861a755F9C6bc7334a23B80cdAF"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x2a155ed454Dc5861a755F9C6bc7334a23B80cdAF"
+            },
+            {
+              "address": "0xA81AE7d57D68Fd6eF76a3082134BD2F3019aec24"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0x6aB8dd6124E5F5789B8b5074C5760b9917A2DFc6",
+    "name": "Gauntlet USDT Core",
+    "symbol": "SGUTC",
+    "listed": false,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 12371859.128668599,
+    "liquidityUsd": 12371859.128668599,
+    "owner": {
+      "address": "0x1b0448bf6bD7eF8165A6350191d7338F5c2464f4"
+    },
+    "curators": {
+      "items": []
+    }
+  },
+  {
+    "address": "0xBb50A5341368751024ddf33385BA8cf61fE65FF9",
+    "name": "kpk ETH Prime V2",
+    "symbol": "kpk_ETH_PrimeV2",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 12058445.523547377,
+    "liquidityUsd": 10481888.39517909,
+    "owner": {
+      "address": "0x354C92aF243d53A24feb3dFF20372Af7b7c47478"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x354C92aF243d53A24feb3dFF20372Af7b7c47478"
+            },
+            {
+              "address": "0xC266b1181A80E84EDC2c6596718E88E8115c1eaa"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xbeef003C68896c7D2c3c60d363e8d71a49Ab2bf9",
+    "name": "Steakhouse Prime Instant",
+    "symbol": "steakUSDT",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 11975148.560079485,
+    "liquidityUsd": 11975148.560079485,
+    "owner": {
+      "address": "0xFb345Ae28cCe3C55481190771e8c6D18c0f3D279"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x59f7d7D34dB803961ce5882BbA168fD711292392"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x827e86072B06674a077f592A531dcE4590aDeCdB"
+            },
+            {
+              "address": "0x4e3e778bE779Cd55484A4A405f35C7d66b748e4e"
+            },
+            {
+              "address": "0xFb345Ae28cCe3C55481190771e8c6D18c0f3D279"
+            },
+            {
+              "address": "0xEB4FC6AB5323Dd245EbF26B0EcD9030c68Cb39a2"
+            },
+            {
+              "address": "0xDE40458958799E8b955cc3cDDfe551a6E72DBF63"
+            },
+            {
+              "address": "0xa18315d7E05220795562c67964034800995eB786"
+            },
+            {
+              "address": "0xD700038b3f8d2F1a8193F35d7dD25c02e7155427"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0x093272C07700d3cA5301C3Bf9B3A392624179E2F",
+    "name": "Hyperithm USDC Apex",
+    "symbol": "hyperUSDCa",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 11003778.310992708,
+    "liquidityUsd": 11003778.310992708,
+    "owner": {
+      "address": "0xEe7E9bb21D5589BF657b94083dB2fA349a3918C8"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0xEe7E9bb21D5589BF657b94083dB2fA349a3918C8"
+            },
+            {
+              "address": "0x75178137D3B4B9A0F771E0e149b00fB8167BA325"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0x7ceB0f01Cb7187a2EBED5661eCC4d5701d8F2350",
+    "name": "August USDC V2",
+    "symbol": "augustUSDCv2",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 9881365.685132897,
+    "liquidityUsd": 1040276.1134422498,
+    "owner": {
+      "address": "0x2a155ed454Dc5861a755F9C6bc7334a23B80cdAF"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0x2a155ed454Dc5861a755F9C6bc7334a23B80cdAF"
+            },
+            {
+              "address": "0xA81AE7d57D68Fd6eF76a3082134BD2F3019aec24"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0xe2221Aa07ec3266DA87763E2b1e28d07A8a4e53b",
+    "name": "Api3 Core USDC",
+    "symbol": "Api3CoreUSDC",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 8964973.714202976,
+    "liquidityUsd": 7816694.389324375,
+    "owner": {
+      "address": "0xBBE0dE9757F93e3306aDBfeBE906AB285EDD13DA"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0xBBE0dE9757F93e3306aDBfeBE906AB285EDD13DA"
             }
           ]
         }

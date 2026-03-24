@@ -1,0 +1,208 @@
+{
+  "total_vault_count": 1320,
+  "fetched_count": 1320,
+  "incident_vault_count": 13,
+  "incident_vaults": [
+    {
+      "address": "0x55555815a5595991C3A0Ff119B59AEF6C8B55555",
+      "name": "Adpend USDC",
+      "symbol": "adpUSDC",
+      "listed": false,
+      "total_assets_usd": 6763683.476407201,
+      "incident_allocations": [
+        {
+          "market_key": "0x0f9563442d64ab3bd3bcb27058db0b0d4046a4c46f0acd811dacae9551d2b129",
+          "collateral_symbol": "sdeUSD",
+          "loan_symbol": "USDC",
+          "supply_usd": 6763683.325814366
+        }
+      ]
+    },
+    {
+      "address": "0x94643e86aa5E38DDAc6c7791C1297f4E40cD96c1",
+      "name": "1337 USDC",
+      "symbol": "1337USDC",
+      "listed": false,
+      "total_assets_usd": 3605782.11575697,
+      "incident_allocations": [
+        {
+          "market_key": "0x0f9563442d64ab3bd3bcb27058db0b0d4046a4c46f0acd811dacae9551d2b129",
+          "collateral_symbol": "sdeUSD",
+          "loan_symbol": "USDC",
+          "supply_usd": 3605782.11575697
+        }
+      ]
+    },
+    {
+      "address": "0x3014ED70B39be395e1a5Eb8ab4c4b8a5378E6522",
+      "name": "Not Gauntlet",
+      "symbol": "AUSD",
+      "listed": false,
+      "total_assets_usd": 567560.3683767165,
+      "incident_allocations": [
+        {
+          "market_key": "0x9e90aec7d768403dacc9dd0d8320307fda3f980eed4df43e3e52168a1c667709",
+          "collateral_symbol": "xUSD",
+          "loan_symbol": "USDC",
+          "supply_usd": 567560.3038551111
+        }
+      ]
+    },
+    {
+      "address": "0x1265a81d42d513Df40d0031f8f2e1346954d665a",
+      "name": "MEV Capital Elixir USDC",
+      "symbol": "MC.eUSDC",
+      "listed": false,
+      "total_assets_usd": 20557.668426006458,
+      "incident_allocations": [
+        {
+          "market_key": "0xbd1ad3b968f5f0552dbd8cf1989a62881407c5cccf9e49fb3657c8731caf0c1f",
+          "collateral_symbol": "deUSD",
+          "loan_symbol": "USDC",
+          "supply_usd": 20557.668426006458
+        }
+      ]
+    },
+    {
+      "address": "0x76B2406D29F1A2Be4DB638aBBD5c7Cab2eE2D8FE",
+      "name": "Vaultik USDC",
+      "symbol": "vUSDC",
+      "listed": false,
+      "total_assets_usd": 19102.61835778786,
+      "incident_allocations": [
+        {
+          "market_key": "0x9e90aec7d768403dacc9dd0d8320307fda3f980eed4df43e3e52168a1c667709",
+          "collateral_symbol": "xUSD",
+          "loan_symbol": "USDC",
+          "supply_usd": 19102.61835778786
+        }
+      ]
+    },
+    {
+      "address": "0xB8C9Ae462626Ec6162645F3E7e3441E7918c89F0",
+      "name": "Bandit USDC",
+      "symbol": "BUSDCV",
+      "listed": false,
+      "total_assets_usd": 34.03923707036064,
+      "incident_allocations": [
+        {
+          "market_key": "0x0f9563442d64ab3bd3bcb27058db0b0d4046a4c46f0acd811dacae9551d2b129",
+          "collateral_symbol": "sdeUSD",
+          "loan_symbol": "USDC",
+          "supply_usd": 0
+        }
+      ]
+    },
+    {
+      "address": "0x6ed386Ee386199D0E1D9D712Ef2071bE433844F4",
+      "name": "ABRC",
+      "symbol": "abrc",
+      "listed": false,
+      "total_assets_usd": 3.9090595844195186,
+      "incident_allocations": [
+        {
+          "market_key": "0x9e90aec7d768403dacc9dd0d8320307fda3f980eed4df43e3e52168a1c667709",
+          "collateral_symbol": "xUSD",
+          "loan_symbol": "USDC",
+          "supply_usd": 0
+        }
+      ]
+    },
+    {
+      "address": "0x38248d715336d4CAd20d3e12E8dc34DA596f9d6c",
+      "name": "RIMU USDC",
+      "symbol": "RIMUusdc",
+      "listed": false,
+      "total_assets_usd": 0.01020597220508944,
+      "incident_allocations": [
+        {
+          "market_key": "0xbd1ad3b968f5f0552dbd8cf1989a62881407c5cccf9e49fb3657c8731caf0c1f",
+          "collateral_symbol": "deUSD",
+          "loan_symbol": "USDC",
+          "supply_usd": 3.9995972195902566e-06
+        }
+      ]
+    },
+    {
+      "address": "0x889dd190bB6b0662DB3fE0AAc29eEDCa3D2ba22A",
+      "name": "MEV Elixir sUSDS",
+      "symbol": "MC_sUSDS",
+      "listed": false,
+      "total_assets_usd": 0,
+      "incident_allocations": [
+        {
+          "market_key": "0x7527be7772eb6e2e6bd9a5a9cc83dcd67fd1c9e6103d09868d0308eb3b70af2c",
+          "collateral_symbol": "deUSD",
+          "loan_symbol": "sUSDS",
+          "supply_usd": 0
+        }
+      ]
+    },
+    {
+      "address": "0xbdbF0494Af9826ba25bcb810e23C36Bc6D8378fA",
+      "name": "Dream Charity Vault",
+      "symbol": "dreamUSDC",
+      "listed": false,
+      "total_assets_usd": 0,
+      "incident_allocations": [
+        {
+          "market_key": "0xe31af163f7ea13aa0d7719f3d865a8795a7973d9ff54ff418431718ad16f5c2d",
+          "collateral_symbol": "sdeUSD",
+          "loan_symbol": "USDC",
+          "supply_usd": 0
+        }
+      ]
+    },
+    {
+      "address": "0x4C289073eb6679393890b85eEC9D604271c18c28",
+      "name": "Alpha USDC Core",
+      "symbol": "aUSDC",
+      "listed": false,
+      "total_assets_usd": 0,
+      "incident_allocations": [
+        {
+          "market_key": "0x9e90aec7d768403dacc9dd0d8320307fda3f980eed4df43e3e52168a1c667709",
+          "collateral_symbol": "xUSD",
+          "loan_symbol": "USDC",
+          "supply_usd": 0
+        }
+      ]
+    },
+    {
+      "address": "0x3DE7AB60745f57Fdea1205E2379261D3C81C7bA6",
+      "name": "USDC Test",
+      "symbol": "USDC Test",
+      "listed": false,
+      "total_assets_usd": 0,
+      "incident_allocations": [
+        {
+          "market_key": "0x47994b98c35ff54b5c9e6375adceb7fe687808fb4d69eae830a695ce491fa9a9",
+          "collateral_symbol": "sdeUSD",
+          "loan_symbol": "USDC.e",
+          "supply_usd": 0
+        }
+      ]
+    },
+    {
+      "address": "0xBA465FCb8D32B875Aed5ae9e2FB53ea303c2D312",
+      "name": "Elixir Levered RWA vault",
+      "symbol": "elrwa_USDC",
+      "listed": false,
+      "total_assets_usd": 0,
+      "incident_allocations": [
+        {
+          "market_key": "0x82e7ab8ccabaac59b5f397507ed031ebf19a9a5b2657c00c93bc2423cd0a890d",
+          "collateral_symbol": "xUSD",
+          "loan_symbol": "USDC",
+          "supply_usd": 0
+        },
+        {
+          "market_key": "0xf62889596262da8f0745617b3c45f2b300f44774c17877cbb6f025ee99ca782c",
+          "collateral_symbol": "deUSD",
+          "loan_symbol": "USDC",
+          "supply_usd": 0
+        }
+      ]
+    }
+  ]
+}

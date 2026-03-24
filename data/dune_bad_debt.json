@@ -1,0 +1,45 @@
+{
+  "fetched_at": "2026-03-24T19:00:00Z",
+  "source": "Dune Analytics — morpho_blue_ethereum.morphoblue_evt_liquidate / morpho_blue_arbitrum.morphoblue_evt_liquidate",
+  "dune_query_ids": {
+    "sdeUSD_USDC_ethereum": 6900807,
+    "xUSD_USDC_arbitrum": 6900808,
+    "deUSD_USDC_ethereum": 6900815
+  },
+  "key_finding": "Zero badDebtAssets recorded in on-chain Liquidate events across all three incident markets in Nov-Dec 2025. The $916K/$700K bad debt figures from MEV Capital post-mortem are vault-level accounting losses, not protocol-level on-chain events. Oracle hardcoding at $1.00 prevented any liquidations from formally recording bad debt.",
+  "markets": [
+    {
+      "market": "sdeUSD/USDC",
+      "chain": "ethereum",
+      "market_key": "0x0f9563442d64ab3bd3bcb27058db0b0d4046a4c46f0acd811dacae9551d2b129",
+      "liquidation_count": 2,
+      "total_bad_debt_usdc": 0.0,
+      "total_repaid_usdc": 1.003545,
+      "note": "2 liquidations in Nov 2025, both with badDebtAssets=0. One on Nov 20 (dust), one on Nov 26 ($1 repaid, ~962B raw sdeUSD seized = near-zero real value).",
+      "rows": [
+        {"day": "2025-11-20", "liquidation_count": 1, "bad_debt_usdc": 0.0, "repaid_usdc": 0.000002, "seized_collateral_raw": 0.000001},
+        {"day": "2025-11-26", "liquidation_count": 1, "bad_debt_usdc": 0.0, "repaid_usdc": 1.003543, "seized_collateral_raw": 961921356822.83}
+      ]
+    },
+    {
+      "market": "xUSD/USDC",
+      "chain": "arbitrum",
+      "market_key": "0x9e90aec7d768403dacc9dd0d8320307fda3f980eed4df43e3e52168a1c667709",
+      "liquidation_count": 0,
+      "total_bad_debt_usdc": 0.0,
+      "total_repaid_usdc": 0.0,
+      "note": "Zero liquidation events in Nov-Dec 2025. Oracle hardcoding at $1.00 meant no positions triggered liquidation threshold.",
+      "rows": []
+    },
+    {
+      "market": "deUSD/USDC",
+      "chain": "ethereum",
+      "market_key": "0xbd1ad3b968f5f0552dbd8cf1989a62881407c5cccf9e49fb3657c8731caf0c1f",
+      "liquidation_count": 0,
+      "total_bad_debt_usdc": 0.0,
+      "total_repaid_usdc": 0.0,
+      "note": "Zero liquidation events in Nov-Dec 2025.",
+      "rows": []
+    }
+  ]
+}

@@ -62,6 +62,14 @@ The dashboard should support a walkthrough of:
 | **Dashboard** | **Dune** or **Streamlit** (or similar) — data and visuals that support **all** dashboard topics above |
 | **One-pager** | Short document with extra **talking points** for presenting alongside the dashboard, plus your answers to the **two** required debrief questions (liquidations + liquidity-sharing); include bonus mitigation if you addressed it |
 
+### Streamlit dashboard (this repo)
+
+1. Install deps: `pip install -r requirements.txt`  
+2. Ingest data: `python3 etl.py`  
+3. Run: `streamlit run dashboard.py`  
+
+The app walks through the five dashboard topics and the debrief prompts using `data/*.json`.
+
 ---
 
 ## Contacts

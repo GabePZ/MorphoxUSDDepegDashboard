@@ -21,15 +21,17 @@
       }
     },
     "state": {
-      "borrowAssets": 130061600087028,
-      "borrowAssetsUsd": 130058055.84034619,
-      "supplyAssets": 130061600087028,
-      "supplyAssetsUsd": 130058055.84034619,
+      "borrowAssets": 130298683748871,
+      "borrowAssetsUsd": 130285563.30956367,
+      "supplyAssets": 130298683748871,
+      "supplyAssetsUsd": 130285563.30956367,
       "collateralAssets": "8944788405981167225560721",
       "collateralAssetsUsd": null,
       "liquidityAssets": 0,
       "liquidityAssetsUsd": 0,
-      "utilization": 1
+      "utilization": 1,
+      "supplyApy": 2979.9579868427436,
+      "borrowApy": 2979.9579868427436
     },
     "warnings": [
       {
@@ -68,15 +70,17 @@
       }
     },
     "state": {
-      "borrowAssets": 20585734368,
-      "borrowAssetsUsd": 20585.173395963076,
-      "supplyAssets": 20585734368,
-      "supplyAssetsUsd": 20585.173395963076,
+      "borrowAssets": 20623430328,
+      "borrowAssetsUsd": 20621.353649570545,
+      "supplyAssets": 20623430328,
+      "supplyAssetsUsd": 20621.353649570545,
       "collateralAssets": "18821311274322130536979",
       "collateralAssetsUsd": null,
       "liquidityAssets": 0,
       "liquidityAssetsUsd": 0,
-      "utilization": 1
+      "utilization": 1,
+      "supplyApy": 2979.9579868427436,
+      "borrowApy": 2979.9579868427436
     },
     "warnings": [
       {
@@ -115,15 +119,17 @@
       }
     },
     "state": {
-      "borrowAssets": 7775488,
-      "borrowAssetsUsd": 7.775276113881999,
-      "supplyAssets": 10076496,
-      "supplyAssetsUsd": 10.076221410209559,
+      "borrowAssets": 7775490,
+      "borrowAssetsUsd": 7.774707046237962,
+      "supplyAssets": 10076498,
+      "supplyAssetsUsd": 10.075483346001697,
       "collateralAssets": "10000000000000000000",
       "collateralAssetsUsd": null,
       "liquidityAssets": 2301008,
-      "liquidityAssetsUsd": 2.3009452963275603,
-      "utilization": 0.7716460166311782
+      "liquidityAssetsUsd": 2.3007762997637347,
+      "utilization": 0.7716460619552546,
+      "supplyApy": 0.0006892780084712615,
+      "borrowApy": 0.0008933997825159175
     },
     "warnings": [
       {
@@ -158,15 +164,17 @@
       }
     },
     "state": {
-      "borrowAssets": 948722,
-      "borrowAssetsUsd": 0.9486961468289009,
-      "supplyAssets": 1048992,
-      "supplyAssetsUsd": 1.0489634144189155,
+      "borrowAssets": 948733,
+      "borrowAssetsUsd": 0.9486374672333809,
+      "supplyAssets": 1049003,
+      "supplyAssetsUsd": 1.0488973705354596,
       "collateralAssets": "10000000000000000000",
       "collateralAssetsUsd": null,
       "liquidityAssets": 100270,
-      "liquidityAssetsUsd": 0.10026726759001467,
-      "utilization": 0.9044129983832098
+      "liquidityAssetsUsd": 0.10025990330207878,
+      "utilization": 0.9044140007225909,
+      "supplyApy": 0.036571127434002926,
+      "borrowApy": 0.040558613051382156
     },
     "warnings": [
       {
@@ -201,15 +209,17 @@
       }
     },
     "state": {
-      "borrowAssets": 96304,
-      "borrowAssetsUsd": 0.09630137566559063,
-      "supplyAssets": 107341,
-      "supplyAssetsUsd": 0.10733807490156344,
+      "borrowAssets": 96306,
+      "borrowAssetsUsd": 0.09629630245746483,
+      "supplyAssets": 107343,
+      "supplyAssetsUsd": 0.10733219108561924,
       "collateralAssets": 1000000,
       "collateralAssetsUsd": null,
       "liquidityAssets": 11037,
-      "liquidityAssetsUsd": 0.011036699235972792,
-      "utilization": 0.8971781518711396
+      "liquidityAssetsUsd": 0.011035888628154416,
+      "utilization": 0.8971800676336603,
+      "supplyApy": 0.09110871397029165,
+      "borrowApy": 0.10237689306772323
     },
     "warnings": [
       {
@@ -256,7 +266,9 @@
       "collateralAssetsUsd": null,
       "liquidityAssets": 0,
       "liquidityAssetsUsd": 0,
-      "utilization": 0
+      "utilization": 0,
+      "supplyApy": 0,
+      "borrowApy": 0.002691114535206732
     },
     "warnings": [
       {
@@ -294,12 +306,14 @@
       "borrowAssets": 0,
       "borrowAssetsUsd": 0,
       "supplyAssets": 2000,
-      "supplyAssetsUsd": 0.00199994549895312,
+      "supplyAssetsUsd": 0.0019997986097951286,
       "collateralAssets": 0,
       "collateralAssetsUsd": null,
       "liquidityAssets": 2000,
-      "liquidityAssetsUsd": 0.00199994549895312,
-      "utilization": 0
+      "liquidityAssetsUsd": 0.0019997986097951286,
+      "utilization": 0,
+      "supplyApy": 0,
+      "borrowApy": 0.00025003122118847645
     },
     "warnings": [
       {
@@ -342,7 +356,9 @@
       "collateralAssetsUsd": null,
       "liquidityAssets": 0,
       "liquidityAssetsUsd": 0,
-      "utilization": 0
+      "utilization": 0,
+      "supplyApy": 0,
+      "borrowApy": 0.002691114535206732
     },
     "warnings": [
       {
@@ -380,12 +396,14 @@
       "borrowAssets": 0,
       "borrowAssetsUsd": 0,
       "supplyAssets": 101000,
-      "supplyAssetsUsd": 0.10099724769713257,
+      "supplyAssetsUsd": 0.100989829794654,
       "collateralAssets": 0,
       "collateralAssetsUsd": null,
       "liquidityAssets": 101000,
-      "liquidityAssetsUsd": 0.10099724769713257,
-      "utilization": 0
+      "liquidityAssetsUsd": 0.100989829794654,
+      "utilization": 0,
+      "supplyApy": 0,
+      "borrowApy": 0.00025003122118847645
     },
     "warnings": [
       {
@@ -432,7 +450,9 @@
       "collateralAssetsUsd": null,
       "liquidityAssets": 0,
       "liquidityAssetsUsd": 0,
-      "utilization": 0
+      "utilization": 0,
+      "supplyApy": 0,
+      "borrowApy": 0.002691114535206732
     },
     "warnings": [
       {
@@ -475,7 +495,107 @@
       "collateralAssetsUsd": null,
       "liquidityAssets": 0,
       "liquidityAssetsUsd": 0,
-      "utilization": 0
+      "utilization": 0,
+      "supplyApy": 0,
+      "borrowApy": 0.002691114535206732
+    },
+    "warnings": [
+      {
+        "type": "no_whitelisted_allocation",
+        "level": "RED"
+      },
+      {
+        "type": "not_whitelisted",
+        "level": "YELLOW"
+      }
+    ]
+  },
+  {
+    "uniqueKey": "0x9e90aec7d768403dacc9dd0d8320307fda3f980eed4df43e3e52168a1c667709",
+    "lltv": "915000000000000000",
+    "oracleAddress": "0x1837efFC34Bb5a96EFdA00d53560799bE3a4226E",
+    "irmAddress": "0x66F30587FB8D4206918deb78ecA7d5eBbafD06DA",
+    "loanAsset": {
+      "address": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
+      "symbol": "USDC",
+      "decimals": 6,
+      "chain": {
+        "id": 42161
+      }
+    },
+    "collateralAsset": {
+      "address": "0x6eAf19b2FC24552925dB245F9Ff613157a7dbb4C",
+      "symbol": "xUSD",
+      "decimals": 6,
+      "chain": {
+        "id": 42161
+      }
+    },
+    "state": {
+      "borrowAssets": 10962422741763,
+      "borrowAssetsUsd": 10961336.395440876,
+      "supplyAssets": 10962422741763,
+      "supplyAssetsUsd": 10961336.395440876,
+      "collateralAssets": 644314812208,
+      "collateralAssetsUsd": null,
+      "liquidityAssets": 0,
+      "liquidityAssetsUsd": 0,
+      "utilization": 1,
+      "supplyApy": 2979.9579868427436,
+      "borrowApy": 2979.9579868427436
+    },
+    "warnings": [
+      {
+        "type": "bad_debt_unrealized",
+        "level": "RED"
+      },
+      {
+        "type": "custom",
+        "level": "RED"
+      },
+      {
+        "type": "no_whitelisted_allocation",
+        "level": "RED"
+      },
+      {
+        "type": "not_whitelisted",
+        "level": "YELLOW"
+      }
+    ]
+  },
+  {
+    "uniqueKey": "0x7c03103c24ccfa9188bf41a8d44423cf5492645805eb1d23d9f862717d3fe5ab",
+    "lltv": "915000000000000000",
+    "oracleAddress": "0x14A7F156062D35861a285c7A7F5662964c2fe155",
+    "irmAddress": "0x66F30587FB8D4206918deb78ecA7d5eBbafD06DA",
+    "loanAsset": {
+      "address": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
+      "symbol": "USDC",
+      "decimals": 6,
+      "chain": {
+        "id": 42161
+      }
+    },
+    "collateralAsset": {
+      "address": "0x6eAf19b2FC24552925dB245F9Ff613157a7dbb4C",
+      "symbol": "xUSD",
+      "decimals": 6,
+      "chain": {
+        "id": 42161
+      }
+    },
+    "state": {
+      "borrowAssets": 7442003,
+      "borrowAssetsUsd": 7.441265517713582,
+      "supplyAssets": 7443913,
+      "supplyAssetsUsd": 7.4431753284377695,
+      "collateralAssets": 801180,
+      "collateralAssetsUsd": null,
+      "liquidityAssets": 1910,
+      "liquidityAssetsUsd": 0.0019098107241871498,
+      "utilization": 0.9997434145186812,
+      "supplyApy": 2602.407580703394,
+      "borrowApy": 2643.66038974099
     },
     "warnings": [
       {

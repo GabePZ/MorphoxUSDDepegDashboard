@@ -9,6 +9,15 @@
     }
   },
   {
+    "address": "0x6eAf19b2FC24552925dB245F9Ff613157a7dbb4C",
+    "symbol": "xUSD",
+    "decimals": 6,
+    "chain": {
+      "id": 42161,
+      "network": "Arbitrum One"
+    }
+  },
+  {
     "address": "0x5C5b196aBE0d54485975D1Ec29617D42D9198326",
     "symbol": "sdeUSD",
     "decimals": 18,

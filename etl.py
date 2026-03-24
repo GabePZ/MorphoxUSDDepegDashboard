@@ -156,6 +156,7 @@ def fetch_markets_for_collateral(
             collateralAssets collateralAssetsUsd
             liquidityAssets liquidityAssetsUsd
             utilization
+            supplyApy borrowApy
           }
           warnings { type level }
         }
@@ -198,6 +199,81 @@ def fetch_supplying_vaults(
     )
     m = data.get("marketByUniqueKey") or {}
     return m.get("supplyingVaults") or []
+
+
+def fetch_vault_summary(
+    session: requests.Session,
+    incident_collateral_symbols: Sequence[str],
+) -> Dict[str, Any]:
+    """Fetch total vault count and which vaults have incident-asset allocations."""
+    incident_syms = set(incident_collateral_symbols)
+    q = """
+    query VaultSummary($skip: Int!) {
+      vaults(first: 500, skip: $skip, orderBy: TotalAssetsUsd, orderDirection: Desc) {
+        pageInfo { count countTotal }
+        items {
+          address name symbol listed
+          state {
+            totalAssetsUsd
+            allocation {
+              supplyAssetsUsd
+              market {
+                uniqueKey
+                collateralAsset { symbol }
+                loanAsset { symbol }
+              }
+            }
+          }
+        }
+      }
+    }
+    """
+    all_vaults: List[Dict[str, Any]] = []
+    total_count = 0
+    skip = 0
+    while True:
+        data = morpho_post({"query": q, "variables": {"skip": skip}}, session)
+        vaults_data = data.get("vaults") or {}
+        items = vaults_data.get("items") or []
+        if not total_count:
+            total_count = (vaults_data.get("pageInfo") or {}).get("countTotal") or 0
+        all_vaults.extend(items)
+        if len(items) < 500:
+            break
+        skip += 500
+        time.sleep(0.3)
+
+    incident_vaults = []
+    for v in all_vaults:
+        state = v.get("state") or {}
+        allocs = state.get("allocation") or []
+        incident_allocs = []
+        for a in allocs:
+            mkt = a.get("market") or {}
+            coll_sym = (mkt.get("collateralAsset") or {}).get("symbol") or ""
+            if coll_sym in incident_syms:
+                incident_allocs.append({
+                    "market_key": mkt.get("uniqueKey"),
+                    "collateral_symbol": coll_sym,
+                    "loan_symbol": (mkt.get("loanAsset") or {}).get("symbol"),
+                    "supply_usd": a.get("supplyAssetsUsd") or 0,
+                })
+        if incident_allocs:
+            incident_vaults.append({
+                "address": v.get("address"),
+                "name": v.get("name"),
+                "symbol": v.get("symbol"),
+                "listed": v.get("listed"),
+                "total_assets_usd": (state.get("totalAssetsUsd") or 0),
+                "incident_allocations": incident_allocs,
+            })
+
+    return {
+        "total_vault_count": total_count,
+        "fetched_count": len(all_vaults),
+        "incident_vault_count": len(incident_vaults),
+        "incident_vaults": incident_vaults,
+    }
 
 
 def fetch_liquidations(
@@ -410,6 +486,8 @@ def fetch_market_history(
           liquidityAssetsUsd(options: $options) { x y }
           collateralAssetsUsd(options: $options) { x y }
           utilization(options: $options) { x y }
+          borrowApy(options: $options) { x y }
+          supplyApy(options: $options) { x y }
         }
       }
     }
@@ -890,6 +968,8 @@ def run_morpho_etl(
 
     vaults_v2_top = fetch_vault_v2_curators_sample(session, chain_ids, v2_top_n)
 
+    vault_summary = fetch_vault_summary(session, list(symbols))
+
     return {
         "fetchedAt": datetime.now(timezone.utc).isoformat(),
         "chains": list(chain_ids),
@@ -902,6 +982,7 @@ def run_morpho_etl(
         "liquidationFilter": {"timestamp_gte": liq_ts_gte, "timestamp_lte": liq_ts_lte},
         "vaultsV1WithIncidentAllocation": vaults_v1,
         "vaultV2TopByTvlSample": vaults_v2_top,
+        "vaultSummary": vault_summary,
     }
 
 
@@ -1042,6 +1123,7 @@ def main() -> int:
         write_json(DATA_DIR / "vaults_v1_incident.json", bundle["vaultsV1WithIncidentAllocation"])
         write_json(DATA_DIR / "vaults_v2_top.json", bundle["vaultV2TopByTvlSample"])
         write_json(DATA_DIR / "supplying_vaults.json", bundle["supplyingVaultsByMarket"])
+        write_json(DATA_DIR / "vault_summary.json", bundle["vaultSummary"])
         if not args.no_extended and bundle.get("extended"):
             ext = bundle["extended"]
             write_json(DATA_DIR / "liquidation_summary.json", ext["liquidationSummary"])
