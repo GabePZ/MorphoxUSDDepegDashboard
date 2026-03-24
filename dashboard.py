@@ -1090,27 +1090,30 @@ is not "is Morpho safe?" — it's "which curator's risk framework do I trust?"
   <span class="badge badge-red" style="font-size:12px;padding:4px 10px">F — Full loss; no pre-emptive action; recovery ongoing</span>
 </div>
 <table class="stbl">
-<thead><tr><th>Curator</th><th>Asset Exposure</th><th>Action</th><th>Speed</th><th>Bad Debt</th><th>Grade</th></tr></thead>
+<thead><tr><th>Curator</th><th>Asset</th><th>Peak Exposure</th><th>Action</th><th>Speed</th><th>Bad Debt</th><th>Grade</th></tr></thead>
 <tbody>
+<tr class="stbl-blue">
+  <td>Re7 Capital</td><td>None</td><td>$0</td><td>Risk framework excluded synthetic stables</td>
+  <td>⚡ Pre-emptive</td><td>$0</td><td><span class="badge badge-green">A+</span></td>
+</tr>
+<tr class="stbl-blue">
+  <td>Gauntlet</td><td>None</td><td>$0</td><td>Never entered; diversification policy enforced</td>
+  <td>⚡ Pre-emptive</td><td>$0</td><td><span class="badge badge-green">A+</span></td>
+</tr>
 <tr class="stbl-green">
-  <td>Smokehouse</td><td>deUSD</td><td>Exited pre-collapse (~Nov 1)</td>
-  <td>⚡ Pre-emptive</td><td>$0</td><td><span class="badge badge-green">A+</span></td>
-</tr>
-<tr class="stbl-blue">
-  <td>Re7 Capital</td><td>None</td><td>Risk framework excluded synthetic stables</td>
-  <td>⚡ Pre-emptive</td><td>$0</td><td><span class="badge badge-green">A+</span></td>
-</tr>
-<tr class="stbl-blue">
-  <td>Gauntlet</td><td>None</td><td>Never entered; diversification policy enforced</td>
-  <td>⚡ Pre-emptive</td><td>$0</td><td><span class="badge badge-green">A+</span></td>
+  <td>Smokehouse</td><td>deUSD</td><td>~$4.2M<br><span style="font-size:10.5px;color:#94a3b8">exited before collapse</span></td>
+  <td>Exited pre-collapse (~Nov 1)</td>
+  <td>⚡ Pre-emptive</td><td>$0</td><td><span class="badge badge-green">A</span></td>
 </tr>
 <tr class="stbl-amber">
-  <td>MEV Capital</td><td>sdeUSD + xUSD</td><td>Removed sdeUSD/USDC; published post-mortem</td>
-  <td>⏱ ~4 days</td><td>~$1.6M (3.6% TVL)</td><td><span class="badge badge-amber">C</span></td>
+  <td>MEV Capital</td><td>sdeUSD + xUSD</td><td>~$31.7M<br><span style="font-size:10.5px;color:#94a3b8">$25.4M ETH + $6.3M Arb</span></td>
+  <td>Removed sdeUSD/USDC; published post-mortem</td>
+  <td>⏱ ~4 days</td><td>~$1.6M (5% of exposure)</td><td><span class="badge badge-amber">C</span></td>
 </tr>
 <tr class="stbl-red">
-  <td>TelosC</td><td>xUSD (private)</td><td>Recovery negotiations</td>
-  <td>❌ Ongoing</td><td>~$68M (private)</td><td><span class="badge badge-red">F</span></td>
+  <td>TelosC</td><td>xUSD (private)</td><td>~$123.6M<br><span style="font-size:10.5px;color:#94a3b8">institutional OTC market</span></td>
+  <td>Recovery negotiations</td>
+  <td>❌ Ongoing</td><td>~$68M (55% of exposure)</td><td><span class="badge badge-red">F</span></td>
 </tr>
 </tbody>
 </table>
