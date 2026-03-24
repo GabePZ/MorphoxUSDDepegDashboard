@@ -1,80 +1,43 @@
-# Morpho — Risk Analyst Case Study
+# Morpho xUSD/deUSD Depeg Dashboard
 
-## Introduction
+Submission for the [Morpho Risk Analyst Case Study](https://www.notion.so/morpho-labs/Morpho-Risk-Analyst-Case-Study-2fdd69939e6d80abb067c0467ff27669).
 
-As a **Risk Analyst**, you are responsible for understanding how the Morpho protocol behaves under market stress. From that understanding, you build **dashboards and monitoring tools** for:
-
-- **Internal use** — e.g. Curator Specialists coordinating with curators  
-- **External use** — e.g. educating prospective integrators on Morpho risk as they decide whether to build on top of the protocol
+Built to walk a prospective curator (large asset manager) through the xUSD/deUSD/sdeUSD depeg incident of November 2025 — what happened, how Morpho's architecture responded, and what it means for anyone considering building on the protocol.
 
 ---
 
-## Task
+## What's in here
 
-### Scenario
-
-You are on the **integration team** and are educating a **prospective integrator** (e.g. a large US asset manager) interested in becoming a **curator** on Morpho. These conversations usually include questions about **historical stress events**.
-
-**Your assignment:** build a **dashboard** that walks the prospective integrator through the discussion points below, focused on the **xUSD** (Stream Finance) and **deUSD / sdeUSD** (Elixir USD & Staked Elixir USD) **depeg incidents in November 2025**.
-
-### Context
-
-Background reading (headlines summarized from reporting at the time):
-
-- **Stream Finance / xUSD** — withdrawal and deposit stress following market events (order of ~$93M scale reported in coverage).  
-- **Elixir** — wind-down / sunset of the **deUSD** synthetic stablecoin in connection with the Stream Finance situation.
-
-Use public reporting and on-chain data to ground the narrative; cite sources in the dashboard where appropriate.
-
-### Helpful resources
-
-| Resource | Notes |
-|----------|--------|
-| **Dune Analytics** | Morpho dashboards for inspiration — **do not** copy widgets or queries verbatim without meaningful modification |
-| **Morpho API** | For pulling protocol / market / vault data |
+| File | Description |
+|------|-------------|
+| `dashboard.py` | Streamlit app — the main deliverable |
+| `etl.py` | Data pipeline pulling from Morpho GraphQL API and Dune Analytics |
+| `TALKING_POINTS.md` | Presentation one-pager with debrief answers |
+| `analysis.ipynb` | Exploratory analysis and data QA |
+| `data/` | Cached JSON from ETL runs |
 
 ---
 
-## Dashboard topics
+## Running it
 
-The dashboard should support a walkthrough of:
+```bash
+pip install -r requirements.txt
+python3 etl.py          # fetch data (requires DUNE_API_KEY in .env)
+streamlit run dashboard.py
+```
 
-1. **Exposure** — Which Morpho **markets** and **vaults** held those assets as **collateral** during the depeg?  
-2. **Losses** — For exposed vaults, what were **bad debt** amounts and **exposures**?  
-3. **Early exits** — Were any **curators** previously exposed to those collateral assets but **exited before** the worst of the incident?  
-4. **Curator actions** — What did **vault curators** do in response?  
-5. **Liquidity** — How did **vault liquidity** evolve over the period? Which vaults were **more impacted** than others?
-
----
-
-## Debrief — be prepared to discuss
-
-1. **Liquidations** — Why did the **liquidation mechanism** fail or underperform in this case? (e.g. liquidations did not occur, or were **slow** — tie to data you show.)  
-2. **Liquidity sharing** — Morpho **Markets are isolated**, but some argue **liquidity risk** is still **shared** across the protocol. What is your view?  
-3. **Bonus: mitigation** — What would you **change or monitor** to reduce the chance or severity of similar issues in the future?
+Copy `.env.example` to `.env` and add your Dune API key before running the ETL.
 
 ---
 
-## Deliverables
+## The short answer
 
-| Deliverable | Description |
-|-------------|-------------|
-| **Dashboard** | **Dune** or **Streamlit** (or similar) — data and visuals that support **all** dashboard topics above |
-| **One-pager** | Short document with extra **talking points** for presenting alongside the dashboard, plus your answers to the **two** required debrief questions (liquidations + liquidity-sharing); include bonus mitigation if you addressed it |
+**The isolation architecture worked. The collateral underwriting did not.**
 
-### Streamlit dashboard (this repo)
+- 1,318 of 1,320 Morpho vaults had $0 bad debt throughout the incident
+- The 2 affected public vaults (MEV Capital) lost $1.6M — 0.13% of public vault TVL
+- Liquidations never fired because the oracle was hardcoded at $1.00. The protocol's ledger is accurate; it just never knew the collateral was worthless
+- The $68M TelosC figure is a private institutional market — structurally different from the public vault system, closer to an OTC repo position than a retail lending product
+- Curators with written collateral policies (Re7, Gauntlet) and concentration monitoring (Smokehouse) avoided the incident entirely. MEV Capital did not
 
-1. Install deps: `pip install -r requirements.txt`  
-2. Ingest data: `python3 etl.py`  
-3. Run: `streamlit run dashboard.py`  
-
-The app walks through the five dashboard topics and the debrief prompts using `data/*.json`.
-
----
-
-## Contacts
-
-Good questions are part of the job. You may reach Morpho Risk:
-
-- **Denny** — [denny@morpho.org](mailto:denny@morpho.org)  
-- **Thomas** — [thomas@morpho.org](mailto:thomas@morpho.org)
+The event is a clean proof of concept for isolated markets — and a clear demonstration that curator due diligence is the primary risk control, not protocol mechanics.
