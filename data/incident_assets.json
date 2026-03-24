@@ -1,0 +1,29 @@
+[
+  {
+    "address": "0xE2Fc85BfB48C4cF147921fBE110cf92Ef9f26F94",
+    "symbol": "xUSD",
+    "decimals": 6,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    }
+  },
+  {
+    "address": "0x5C5b196aBE0d54485975D1Ec29617D42D9198326",
+    "symbol": "sdeUSD",
+    "decimals": 18,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    }
+  },
+  {
+    "address": "0x15700B564Ca08D9439C58cA5053166E8317aa138",
+    "symbol": "deUSD",
+    "decimals": 18,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    }
+  }
+]

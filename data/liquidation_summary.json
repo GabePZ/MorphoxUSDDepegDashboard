@@ -1,0 +1,18 @@
+{
+  "byMarket": {
+    "0x0f9563442d64ab3bd3bcb27058db0b0d4046a4c46f0acd811dacae9551d2b129": {
+      "liquidation_count": 2,
+      "bad_debt_usd": 0.0,
+      "repaid_usd": 1.0032329093442751,
+      "seized_usd": 0.0012200062478666487
+    }
+  },
+  "liquidationsPerDayUtc": {
+    "2025-11-20": 1,
+    "2025-11-26": 1
+  },
+  "totals": {
+    "liquidation_txs": 2,
+    "bad_debt_usd": 0.0
+  }
+}

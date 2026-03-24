@@ -1,0 +1,52 @@
+[
+  {
+    "timestamp": 1764174311,
+    "blockNumber": 23884090,
+    "hash": "0x9604f11476f0ab40f543b06f97c3097301c4f325fbc04e1ab189bc2ac90865db",
+    "type": "MarketLiquidation",
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "user": {
+      "address": "0x1597E4B7cF6D2877A1d690b6088668afDb045763"
+    },
+    "data": {
+      "seizedAssets": "961921356822827945",
+      "repaidAssets": 1003543,
+      "seizedAssetsUsd": 0.0012200062478666487,
+      "repaidAssetsUsd": 1.0032309099294727,
+      "badDebtAssetsUsd": 0,
+      "badDebtShares": 0,
+      "liquidator": "0x41615c2FB0Db1A187D0CcE081897aBeD0f8D1D7c",
+      "market": {
+        "uniqueKey": "0x0f9563442d64ab3bd3bcb27058db0b0d4046a4c46f0acd811dacae9551d2b129"
+      }
+    }
+  },
+  {
+    "timestamp": 1763673407,
+    "blockNumber": 23842870,
+    "hash": "0x4070fd01815336a7b87b89afae6073764ec36e1b94180e5330f31a944f6b55a8",
+    "type": "MarketLiquidation",
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "user": {
+      "address": "0x1597E4B7cF6D2877A1d690b6088668afDb045763"
+    },
+    "data": {
+      "seizedAssets": 1,
+      "repaidAssets": 2,
+      "seizedAssetsUsd": 3.4790463428813394e-21,
+      "repaidAssetsUsd": 1.999414802301598e-06,
+      "badDebtAssetsUsd": 0,
+      "badDebtShares": 0,
+      "liquidator": "0x80C6C6438A438Ad3b3736a02b47793D6F854f2Bf",
+      "market": {
+        "uniqueKey": "0x0f9563442d64ab3bd3bcb27058db0b0d4046a4c46f0acd811dacae9551d2b129"
+      }
+    }
+  }
+]

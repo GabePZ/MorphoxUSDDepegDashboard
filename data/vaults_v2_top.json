@@ -1,0 +1,60 @@
+[
+  {
+    "address": "0xb576765fB15505433aF24FEe2c0325895C559FB2",
+    "name": "Sentora PYUSD Main",
+    "symbol": "senPYUSDmain",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 276669664.6599588,
+    "liquidityUsd": 97254270.20511252,
+    "owner": {
+      "address": "0xe8C9C99EcaD0686A14A00d8521c572281E938008"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0xe8C9C99EcaD0686A14A00d8521c572281E938008"
+            },
+            {
+              "address": "0x9e396dE3312D373b87F9BD8763fb48184b42aac0"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "address": "0x6dC58a0FdfC8D694e571DC59B9A52EEEa780E6bf",
+    "name": "Sentora RLUSD Main",
+    "symbol": "senRLUSDv2",
+    "listed": true,
+    "chain": {
+      "id": 1,
+      "network": "Ethereum"
+    },
+    "totalAssetsUsd": 130884929.33388874,
+    "liquidityUsd": 22412260.337564312,
+    "owner": {
+      "address": "0xe8C9C99EcaD0686A14A00d8521c572281E938008"
+    },
+    "curators": {
+      "items": [
+        {
+          "addresses": [
+            {
+              "address": "0xe8C9C99EcaD0686A14A00d8521c572281E938008"
+            },
+            {
+              "address": "0x9e396dE3312D373b87F9BD8763fb48184b42aac0"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

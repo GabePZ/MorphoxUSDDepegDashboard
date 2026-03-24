@@ -1,0 +1,375 @@
+{
+  "0x0f9563442d64ab3bd3bcb27058db0b0d4046a4c46f0acd811dacae9551d2b129": [
+    {
+      "timestamp": 1763232503,
+      "blockNumber": 23806474,
+      "hash": "0x0ba8117969c77a7b57ad357af4605f48e7b1940bfcab75f3f688b475552612ef",
+      "type": "MarketWithdraw",
+      "user": {
+        "address": "0x55555815a5595991C3A0Ff119B59AEF6C8B55555"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1763128235,
+      "blockNumber": 23797836,
+      "hash": "0x1e75d6d9ed6d01ef3cb70508dab7042dc7089a2057a0df2c066d3ebe7e2bbfc2",
+      "type": "MarketWithdraw",
+      "user": {
+        "address": "0x974c8FBf4fd795F66B85B73ebC988A51F1A040a9"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1763128199,
+      "blockNumber": 23797833,
+      "hash": "0xdc23546ac60a2cc0fcedd50bb92a9c7eb2593ad10d1837974ef22d92231c81b4",
+      "type": "MarketSupply",
+      "user": {
+        "address": "0x1b84AE5a02Eb58c7542bf876e4A875FdC82bd460"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1763043239,
+      "blockNumber": 23790811,
+      "hash": "0x9cdef728db07df33d4f92fd772ceb45b0190a8fafb9ce0fdaeed83533ad3916e",
+      "type": "MarketWithdraw",
+      "user": {
+        "address": "0x0F359FD18BDa75e9c49bC027E7da59a4b01BF32a"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1763043239,
+      "blockNumber": 23790811,
+      "hash": "0x9cdef728db07df33d4f92fd772ceb45b0190a8fafb9ce0fdaeed83533ad3916e",
+      "type": "MarketSupply",
+      "user": {
+        "address": "0x6c44E47b53Ce126dE8b4D1957BbF049bFCe0281A"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1763042003,
+      "blockNumber": 23790708,
+      "hash": "0xec7fc6510a2a5da211094bd328d5c0002348da7b84f8c4b7e12db60445ebc375",
+      "type": "MarketWithdraw",
+      "user": {
+        "address": "0x0F359FD18BDa75e9c49bC027E7da59a4b01BF32a"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1763042003,
+      "blockNumber": 23790708,
+      "hash": "0xec7fc6510a2a5da211094bd328d5c0002348da7b84f8c4b7e12db60445ebc375",
+      "type": "MarketSupply",
+      "user": {
+        "address": "0x6c44E47b53Ce126dE8b4D1957BbF049bFCe0281A"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1763041355,
+      "blockNumber": 23790654,
+      "hash": "0x553d5004012fc0dc3955376ca5e8d0ac44fe11f0583d72cc56684e9a5af2c80b",
+      "type": "MarketWithdraw",
+      "user": {
+        "address": "0x0F359FD18BDa75e9c49bC027E7da59a4b01BF32a"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1763041355,
+      "blockNumber": 23790654,
+      "hash": "0x553d5004012fc0dc3955376ca5e8d0ac44fe11f0583d72cc56684e9a5af2c80b",
+      "type": "MarketSupply",
+      "user": {
+        "address": "0x6c44E47b53Ce126dE8b4D1957BbF049bFCe0281A"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1763039483,
+      "blockNumber": 23790500,
+      "hash": "0x1912054612bb20739136712d6b60aa916cc97d67219e965a6eab878a36dd07f0",
+      "type": "MarketWithdraw",
+      "user": {
+        "address": "0x0F359FD18BDa75e9c49bC027E7da59a4b01BF32a"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1763039483,
+      "blockNumber": 23790500,
+      "hash": "0x1912054612bb20739136712d6b60aa916cc97d67219e965a6eab878a36dd07f0",
+      "type": "MarketSupply",
+      "user": {
+        "address": "0x6c44E47b53Ce126dE8b4D1957BbF049bFCe0281A"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1763035523,
+      "blockNumber": 23790172,
+      "hash": "0x6ab4c884be53ec43327afe15e151d987220a577690444a0b6af45b9b77ab1eb7",
+      "type": "MarketWithdraw",
+      "user": {
+        "address": "0x0F359FD18BDa75e9c49bC027E7da59a4b01BF32a"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1763035523,
+      "blockNumber": 23790172,
+      "hash": "0x6ab4c884be53ec43327afe15e151d987220a577690444a0b6af45b9b77ab1eb7",
+      "type": "MarketSupply",
+      "user": {
+        "address": "0x6c44E47b53Ce126dE8b4D1957BbF049bFCe0281A"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1763033507,
+      "blockNumber": 23790004,
+      "hash": "0xf2f19f1698ba2aea37b47e6aa3e6925b4e514812294c4f55b4f09a22014d0b40",
+      "type": "MarketWithdraw",
+      "user": {
+        "address": "0x0F359FD18BDa75e9c49bC027E7da59a4b01BF32a"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1763033507,
+      "blockNumber": 23790004,
+      "hash": "0xf2f19f1698ba2aea37b47e6aa3e6925b4e514812294c4f55b4f09a22014d0b40",
+      "type": "MarketSupply",
+      "user": {
+        "address": "0x6c44E47b53Ce126dE8b4D1957BbF049bFCe0281A"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    }
+  ],
+  "0xbd1ad3b968f5f0552dbd8cf1989a62881407c5cccf9e49fb3657c8731caf0c1f": [
+    {
+      "timestamp": 1762606859,
+      "blockNumber": 23754702,
+      "hash": "0xe2ad5a35d2da16f3726a9bdb459375b94dd2d49796c22eb91f4efa5bb7b3bf16",
+      "type": "MarketBorrow",
+      "user": {
+        "address": "0xB2AE1e77414e97b0A9Ba29Da3138Bd7196dEA377"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1762606859,
+      "blockNumber": 23754702,
+      "hash": "0xe2ad5a35d2da16f3726a9bdb459375b94dd2d49796c22eb91f4efa5bb7b3bf16",
+      "type": "MarketSupplyCollateral",
+      "user": {
+        "address": "0xB2AE1e77414e97b0A9Ba29Da3138Bd7196dEA377"
+      },
+      "data": {
+        "__typename": "MarketCollateralTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1762577723,
+      "blockNumber": 23752291,
+      "hash": "0x471e74d1734fafd35044b2b06b0a0438f3f40feb5bd36f98b83d5fe295a7139a",
+      "type": "MarketWithdrawCollateral",
+      "user": {
+        "address": "0x025f4b52478AF0849FB679eF0F3Cdf48a72786ba"
+      },
+      "data": {
+        "__typename": "MarketCollateralTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1762577663,
+      "blockNumber": 23752286,
+      "hash": "0xa4fef95901481f6c1a935d1c63c778d98bd3dd76d83cf2eb81cc9f5a28cea840",
+      "type": "MarketRepay",
+      "user": {
+        "address": "0x025f4b52478AF0849FB679eF0F3Cdf48a72786ba"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1762443611,
+      "blockNumber": 23741193,
+      "hash": "0xd9cdf61f8191e425fb84f4ce03fbd02b39a062d578e00f11520cd7ee7eca4ea6",
+      "type": "MarketWithdrawCollateral",
+      "user": {
+        "address": "0x0C9464a8e75fC4688b084623C1FBc2a70D93B6F6"
+      },
+      "data": {
+        "__typename": "MarketCollateralTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1762443563,
+      "blockNumber": 23741189,
+      "hash": "0xd911f22560e33b4521a7030db53c04ab57e0db2aee13acca1303f6a6a0eb4235",
+      "type": "MarketWithdrawCollateral",
+      "user": {
+        "address": "0x0C9464a8e75fC4688b084623C1FBc2a70D93B6F6"
+      },
+      "data": {
+        "__typename": "MarketCollateralTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1762443347,
+      "blockNumber": 23741171,
+      "hash": "0x632fbb1a8d0682e737d4141849c41da87ea72e0ab7601a3a999d68fe5a762744",
+      "type": "MarketWithdrawCollateral",
+      "user": {
+        "address": "0xFabc88f604a25f177e2CA284256F2BCCb84Fd9C2"
+      },
+      "data": {
+        "__typename": "MarketCollateralTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1762442963,
+      "blockNumber": 23741139,
+      "hash": "0xe90c260852b00ed9cbb1fd9f605aba88fe573b4399f9ba7c27fc2cdc4e4a4949",
+      "type": "MarketSupplyCollateral",
+      "user": {
+        "address": "0xFabc88f604a25f177e2CA284256F2BCCb84Fd9C2"
+      },
+      "data": {
+        "__typename": "MarketCollateralTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1762442963,
+      "blockNumber": 23741139,
+      "hash": "0x88ae621ca0d02438b691ef78a1c2ea33b1dc3ba512d51fee3aab46704a9a77ae",
+      "type": "MarketSupplyCollateral",
+      "user": {
+        "address": "0x7513e61B0f9c817C67cED9FEc76c5f2084bA116d"
+      },
+      "data": {
+        "__typename": "MarketCollateralTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1762442855,
+      "blockNumber": 23741131,
+      "hash": "0xfb9327ad843a071735b03caee3078a2805a10c49254085f4044d84ba2110e95f",
+      "type": "MarketSupplyCollateral",
+      "user": {
+        "address": "0x0C9464a8e75fC4688b084623C1FBc2a70D93B6F6"
+      },
+      "data": {
+        "__typename": "MarketCollateralTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1762442723,
+      "blockNumber": 23741120,
+      "hash": "0xa1744a0a448a4771efdff5c4ce9e7a884261608d87b6382a600d3d118b58743a",
+      "type": "MarketBorrow",
+      "user": {
+        "address": "0x0C9464a8e75fC4688b084623C1FBc2a70D93B6F6"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1762442699,
+      "blockNumber": 23741118,
+      "hash": "0xd96c5ea664f640725370554ae19ea757ceb1def6bc10465b3c5f3b24e30bb6bc",
+      "type": "MarketSupplyCollateral",
+      "user": {
+        "address": "0x0C9464a8e75fC4688b084623C1FBc2a70D93B6F6"
+      },
+      "data": {
+        "__typename": "MarketCollateralTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1762442579,
+      "blockNumber": 23741108,
+      "hash": "0x6841e3421588bc5f5a56cdde5761df100b3b6ed1e6f3a7fd5efb87f44f0a798f",
+      "type": "MarketSupplyCollateral",
+      "user": {
+        "address": "0x0C9464a8e75fC4688b084623C1FBc2a70D93B6F6"
+      },
+      "data": {
+        "__typename": "MarketCollateralTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1762442231,
+      "blockNumber": 23741079,
+      "hash": "0x883db70bb493078ef3179e053b88a06b1d1b6f5931a1560c78264471fb18c098",
+      "type": "MarketBorrow",
+      "user": {
+        "address": "0xDE2BbA83ca819910CCfB456596FA9648Db18e4ad"
+      },
+      "data": {
+        "__typename": "MarketTransferTransactionData"
+      }
+    },
+    {
+      "timestamp": 1762442231,
+      "blockNumber": 23741079,
+      "hash": "0x883db70bb493078ef3179e053b88a06b1d1b6f5931a1560c78264471fb18c098",
+      "type": "MarketSupplyCollateral",
+      "user": {
+        "address": "0xDE2BbA83ca819910CCfB456596FA9648Db18e4ad"
+      },
+      "data": {
+        "__typename": "MarketCollateralTransferTransactionData"
+      }
+    }
+  ],
+  "0x7182fd5e9c6a77156d6ac024d1e462b9ca3a85463961957a5e3d367c9ce44b84": [],
+  "0x1c6f0822b996c86b2cace788cc265beb4f84585456aba8f424c710e67116b93d": [],
+  "0x39fe55e5102beac5fb3caff54142f26250b97dcdb5bea6122818c7760f38b331": [],
+  "0x226a59cd57c8c75ddaf440e2be68b92dbf8dafaed6a715290d0789d1fdc521c2": [],
+  "0x46b46943e982bf04f7b07ff37c95b539e35ccd8cf93c331cd9659398aa8f7bee": [],
+  "0x7527be7772eb6e2e6bd9a5a9cc83dcd67fd1c9e6103d09868d0308eb3b70af2c": [],
+  "0xc05394d0261ed1c3c1af310007fdc4e64b3bcf650822b70526763fefc64b729e": [],
+  "0xe31af163f7ea13aa0d7719f3d865a8795a7973d9ff54ff418431718ad16f5c2d": [],
+  "0xeb0403429dabb5829047fb5c05dcaa816a41d164424341db7d10cc5dd86a967d": []
+}

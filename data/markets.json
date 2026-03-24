@@ -1,0 +1,491 @@
+[
+  {
+    "uniqueKey": "0x0f9563442d64ab3bd3bcb27058db0b0d4046a4c46f0acd811dacae9551d2b129",
+    "lltv": "915000000000000000",
+    "oracleAddress": "0x65F9f6d537C2D628D1c2663896436817440eDB72",
+    "irmAddress": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "loanAsset": {
+      "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "symbol": "USDC",
+      "decimals": 6,
+      "chain": {
+        "id": 1
+      }
+    },
+    "collateralAsset": {
+      "address": "0x5C5b196aBE0d54485975D1Ec29617D42D9198326",
+      "symbol": "sdeUSD",
+      "decimals": 18,
+      "chain": {
+        "id": 1
+      }
+    },
+    "state": {
+      "borrowAssets": 130061600087028,
+      "borrowAssetsUsd": 130058055.84034619,
+      "supplyAssets": 130061600087028,
+      "supplyAssetsUsd": 130058055.84034619,
+      "collateralAssets": "8944788405981167225560721",
+      "collateralAssetsUsd": null,
+      "liquidityAssets": 0,
+      "liquidityAssetsUsd": 0,
+      "utilization": 1
+    },
+    "warnings": [
+      {
+        "type": "custom",
+        "level": "RED"
+      },
+      {
+        "type": "no_whitelisted_allocation",
+        "level": "RED"
+      },
+      {
+        "type": "not_whitelisted",
+        "level": "YELLOW"
+      }
+    ]
+  },
+  {
+    "uniqueKey": "0xbd1ad3b968f5f0552dbd8cf1989a62881407c5cccf9e49fb3657c8731caf0c1f",
+    "lltv": "860000000000000000",
+    "oracleAddress": "0x1325Eb089Ac14B437E78D5D481e32611F6907eF8",
+    "irmAddress": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "loanAsset": {
+      "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "symbol": "USDC",
+      "decimals": 6,
+      "chain": {
+        "id": 1
+      }
+    },
+    "collateralAsset": {
+      "address": "0x15700B564Ca08D9439C58cA5053166E8317aa138",
+      "symbol": "deUSD",
+      "decimals": 18,
+      "chain": {
+        "id": 1
+      }
+    },
+    "state": {
+      "borrowAssets": 20585734368,
+      "borrowAssetsUsd": 20585.173395963076,
+      "supplyAssets": 20585734368,
+      "supplyAssetsUsd": 20585.173395963076,
+      "collateralAssets": "18821311274322130536979",
+      "collateralAssetsUsd": null,
+      "liquidityAssets": 0,
+      "liquidityAssetsUsd": 0,
+      "utilization": 1
+    },
+    "warnings": [
+      {
+        "type": "bad_debt_unrealized",
+        "level": "RED"
+      },
+      {
+        "type": "no_whitelisted_allocation",
+        "level": "RED"
+      },
+      {
+        "type": "not_whitelisted",
+        "level": "YELLOW"
+      }
+    ]
+  },
+  {
+    "uniqueKey": "0x7182fd5e9c6a77156d6ac024d1e462b9ca3a85463961957a5e3d367c9ce44b84",
+    "lltv": "860000000000000000",
+    "oracleAddress": "0x2aebFD1191F5a283298608002d30459a1cD7A24C",
+    "irmAddress": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "loanAsset": {
+      "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "symbol": "USDC",
+      "decimals": 6,
+      "chain": {
+        "id": 1
+      }
+    },
+    "collateralAsset": {
+      "address": "0x15700B564Ca08D9439C58cA5053166E8317aa138",
+      "symbol": "deUSD",
+      "decimals": 18,
+      "chain": {
+        "id": 1
+      }
+    },
+    "state": {
+      "borrowAssets": 7775488,
+      "borrowAssetsUsd": 7.775276113881999,
+      "supplyAssets": 10076496,
+      "supplyAssetsUsd": 10.076221410209559,
+      "collateralAssets": "10000000000000000000",
+      "collateralAssetsUsd": null,
+      "liquidityAssets": 2301008,
+      "liquidityAssetsUsd": 2.3009452963275603,
+      "utilization": 0.7716460166311782
+    },
+    "warnings": [
+      {
+        "type": "no_whitelisted_allocation",
+        "level": "RED"
+      },
+      {
+        "type": "not_whitelisted",
+        "level": "YELLOW"
+      }
+    ]
+  },
+  {
+    "uniqueKey": "0x1c6f0822b996c86b2cace788cc265beb4f84585456aba8f424c710e67116b93d",
+    "lltv": "915000000000000000",
+    "oracleAddress": "0x2D949A3621cf5D3B0E6A9EC764aEAFa35F55AA10",
+    "irmAddress": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "loanAsset": {
+      "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "symbol": "USDC",
+      "decimals": 6,
+      "chain": {
+        "id": 1
+      }
+    },
+    "collateralAsset": {
+      "address": "0x15700B564Ca08D9439C58cA5053166E8317aa138",
+      "symbol": "deUSD",
+      "decimals": 18,
+      "chain": {
+        "id": 1
+      }
+    },
+    "state": {
+      "borrowAssets": 948722,
+      "borrowAssetsUsd": 0.9486961468289009,
+      "supplyAssets": 1048992,
+      "supplyAssetsUsd": 1.0489634144189155,
+      "collateralAssets": "10000000000000000000",
+      "collateralAssetsUsd": null,
+      "liquidityAssets": 100270,
+      "liquidityAssetsUsd": 0.10026726759001467,
+      "utilization": 0.9044129983832098
+    },
+    "warnings": [
+      {
+        "type": "no_whitelisted_allocation",
+        "level": "RED"
+      },
+      {
+        "type": "not_whitelisted",
+        "level": "YELLOW"
+      }
+    ]
+  },
+  {
+    "uniqueKey": "0x39fe55e5102beac5fb3caff54142f26250b97dcdb5bea6122818c7760f38b331",
+    "lltv": "770000000000000000",
+    "oracleAddress": "0x2F05Ac98D85101b5F826D51337dF573CF02A0A38",
+    "irmAddress": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "loanAsset": {
+      "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "symbol": "USDC",
+      "decimals": 6,
+      "chain": {
+        "id": 1
+      }
+    },
+    "collateralAsset": {
+      "address": "0xE2Fc85BfB48C4cF147921fBE110cf92Ef9f26F94",
+      "symbol": "xUSD",
+      "decimals": 6,
+      "chain": {
+        "id": 1
+      }
+    },
+    "state": {
+      "borrowAssets": 96304,
+      "borrowAssetsUsd": 0.09630137566559063,
+      "supplyAssets": 107341,
+      "supplyAssetsUsd": 0.10733807490156344,
+      "collateralAssets": 1000000,
+      "collateralAssetsUsd": null,
+      "liquidityAssets": 11037,
+      "liquidityAssetsUsd": 0.011036699235972792,
+      "utilization": 0.8971781518711396
+    },
+    "warnings": [
+      {
+        "type": "no_whitelisted_allocation",
+        "level": "RED"
+      },
+      {
+        "type": "unrecognized_collateral_asset",
+        "level": "YELLOW"
+      },
+      {
+        "type": "not_whitelisted",
+        "level": "YELLOW"
+      }
+    ]
+  },
+  {
+    "uniqueKey": "0x226a59cd57c8c75ddaf440e2be68b92dbf8dafaed6a715290d0789d1fdc521c2",
+    "lltv": "860000000000000000",
+    "oracleAddress": "0x0A19215Ffd2B1B3FC47C49EBD7Fa6BaEF8EA75a0",
+    "irmAddress": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "loanAsset": {
+      "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "symbol": "USDC",
+      "decimals": 6,
+      "chain": {
+        "id": 1
+      }
+    },
+    "collateralAsset": {
+      "address": "0x15700B564Ca08D9439C58cA5053166E8317aa138",
+      "symbol": "deUSD",
+      "decimals": 18,
+      "chain": {
+        "id": 1
+      }
+    },
+    "state": {
+      "borrowAssets": 0,
+      "borrowAssetsUsd": 0,
+      "supplyAssets": 0,
+      "supplyAssetsUsd": 0,
+      "collateralAssets": 0,
+      "collateralAssetsUsd": null,
+      "liquidityAssets": 0,
+      "liquidityAssetsUsd": 0,
+      "utilization": 0
+    },
+    "warnings": [
+      {
+        "type": "no_whitelisted_allocation",
+        "level": "RED"
+      },
+      {
+        "type": "not_whitelisted",
+        "level": "YELLOW"
+      }
+    ]
+  },
+  {
+    "uniqueKey": "0x46b46943e982bf04f7b07ff37c95b539e35ccd8cf93c331cd9659398aa8f7bee",
+    "lltv": "915000000000000000",
+    "oracleAddress": "0x3024b653940976443fFDEF276bdee5452540eF80",
+    "irmAddress": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "loanAsset": {
+      "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "symbol": "USDC",
+      "decimals": 6,
+      "chain": {
+        "id": 1
+      }
+    },
+    "collateralAsset": {
+      "address": "0x5C5b196aBE0d54485975D1Ec29617D42D9198326",
+      "symbol": "sdeUSD",
+      "decimals": 18,
+      "chain": {
+        "id": 1
+      }
+    },
+    "state": {
+      "borrowAssets": 0,
+      "borrowAssetsUsd": 0,
+      "supplyAssets": 2000,
+      "supplyAssetsUsd": 0.00199994549895312,
+      "collateralAssets": 0,
+      "collateralAssetsUsd": null,
+      "liquidityAssets": 2000,
+      "liquidityAssetsUsd": 0.00199994549895312,
+      "utilization": 0
+    },
+    "warnings": [
+      {
+        "type": "no_whitelisted_allocation",
+        "level": "RED"
+      },
+      {
+        "type": "not_whitelisted",
+        "level": "YELLOW"
+      }
+    ]
+  },
+  {
+    "uniqueKey": "0x7527be7772eb6e2e6bd9a5a9cc83dcd67fd1c9e6103d09868d0308eb3b70af2c",
+    "lltv": "915000000000000000",
+    "oracleAddress": "0x27C549756d0a1c0d012525b1C39E5d9b1Cf30013",
+    "irmAddress": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "loanAsset": {
+      "address": "0xa3931d71877C0E7a3148CB7Eb4463524FEc27fbD",
+      "symbol": "sUSDS",
+      "decimals": 18,
+      "chain": {
+        "id": 1
+      }
+    },
+    "collateralAsset": {
+      "address": "0x15700B564Ca08D9439C58cA5053166E8317aa138",
+      "symbol": "deUSD",
+      "decimals": 18,
+      "chain": {
+        "id": 1
+      }
+    },
+    "state": {
+      "borrowAssets": 0,
+      "borrowAssetsUsd": 0,
+      "supplyAssets": 0,
+      "supplyAssetsUsd": 0,
+      "collateralAssets": 0,
+      "collateralAssetsUsd": null,
+      "liquidityAssets": 0,
+      "liquidityAssetsUsd": 0,
+      "utilization": 0
+    },
+    "warnings": [
+      {
+        "type": "no_whitelisted_allocation",
+        "level": "RED"
+      },
+      {
+        "type": "not_whitelisted",
+        "level": "YELLOW"
+      }
+    ]
+  },
+  {
+    "uniqueKey": "0xc05394d0261ed1c3c1af310007fdc4e64b3bcf650822b70526763fefc64b729e",
+    "lltv": "770000000000000000",
+    "oracleAddress": "0xc36F094172a04D93f97f7154183e13bf241c0EEF",
+    "irmAddress": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "loanAsset": {
+      "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "symbol": "USDC",
+      "decimals": 6,
+      "chain": {
+        "id": 1
+      }
+    },
+    "collateralAsset": {
+      "address": "0xE2Fc85BfB48C4cF147921fBE110cf92Ef9f26F94",
+      "symbol": "xUSD",
+      "decimals": 6,
+      "chain": {
+        "id": 1
+      }
+    },
+    "state": {
+      "borrowAssets": 0,
+      "borrowAssetsUsd": 0,
+      "supplyAssets": 101000,
+      "supplyAssetsUsd": 0.10099724769713257,
+      "collateralAssets": 0,
+      "collateralAssetsUsd": null,
+      "liquidityAssets": 101000,
+      "liquidityAssetsUsd": 0.10099724769713257,
+      "utilization": 0
+    },
+    "warnings": [
+      {
+        "type": "no_whitelisted_allocation",
+        "level": "RED"
+      },
+      {
+        "type": "unrecognized_collateral_asset",
+        "level": "YELLOW"
+      },
+      {
+        "type": "not_whitelisted",
+        "level": "YELLOW"
+      }
+    ]
+  },
+  {
+    "uniqueKey": "0xe31af163f7ea13aa0d7719f3d865a8795a7973d9ff54ff418431718ad16f5c2d",
+    "lltv": "915000000000000000",
+    "oracleAddress": "0xD634DbbcF06d99eDc0e2D6349Ef1Ea5873d17C02",
+    "irmAddress": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "loanAsset": {
+      "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "symbol": "USDC",
+      "decimals": 6,
+      "chain": {
+        "id": 1
+      }
+    },
+    "collateralAsset": {
+      "address": "0x5C5b196aBE0d54485975D1Ec29617D42D9198326",
+      "symbol": "sdeUSD",
+      "decimals": 18,
+      "chain": {
+        "id": 1
+      }
+    },
+    "state": {
+      "borrowAssets": 0,
+      "borrowAssetsUsd": 0,
+      "supplyAssets": 0,
+      "supplyAssetsUsd": 0,
+      "collateralAssets": 0,
+      "collateralAssetsUsd": null,
+      "liquidityAssets": 0,
+      "liquidityAssetsUsd": 0,
+      "utilization": 0
+    },
+    "warnings": [
+      {
+        "type": "no_whitelisted_allocation",
+        "level": "RED"
+      },
+      {
+        "type": "not_whitelisted",
+        "level": "YELLOW"
+      }
+    ]
+  },
+  {
+    "uniqueKey": "0xeb0403429dabb5829047fb5c05dcaa816a41d164424341db7d10cc5dd86a967d",
+    "lltv": "915000000000000000",
+    "oracleAddress": "0x7dD3FC7645555f78cC029f64a4C3965C58Aaf4C4",
+    "irmAddress": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+    "loanAsset": {
+      "address": "0xa3931d71877C0E7a3148CB7Eb4463524FEc27fbD",
+      "symbol": "sUSDS",
+      "decimals": 18,
+      "chain": {
+        "id": 1
+      }
+    },
+    "collateralAsset": {
+      "address": "0x15700B564Ca08D9439C58cA5053166E8317aa138",
+      "symbol": "deUSD",
+      "decimals": 18,
+      "chain": {
+        "id": 1
+      }
+    },
+    "state": {
+      "borrowAssets": 0,
+      "borrowAssetsUsd": 0,
+      "supplyAssets": 0,
+      "supplyAssetsUsd": 0,
+      "collateralAssets": 0,
+      "collateralAssetsUsd": null,
+      "liquidityAssets": 0,
+      "liquidityAssetsUsd": 0,
+      "utilization": 0
+    },
+    "warnings": [
+      {
+        "type": "no_whitelisted_allocation",
+        "level": "RED"
+      },
+      {
+        "type": "not_whitelisted",
+        "level": "YELLOW"
+      }
+    ]
+  }
+]

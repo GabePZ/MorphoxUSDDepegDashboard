@@ -1,0 +1,26 @@
+[
+  {
+    "vaultKind": "v2",
+    "chainId": 1,
+    "address": "0xb576765fB15505433aF24FEe2c0325895C559FB2",
+    "name": "Sentora PYUSD Main",
+    "historicalState": {
+      "totalAssetsUsd": [],
+      "sharePrice": [],
+      "idleAssetsUsd": [],
+      "realAssetsUsd": []
+    }
+  },
+  {
+    "vaultKind": "v2",
+    "chainId": 1,
+    "address": "0x6dC58a0FdfC8D694e571DC59B9A52EEEa780E6bf",
+    "name": "Sentora RLUSD Main",
+    "historicalState": {
+      "totalAssetsUsd": [],
+      "sharePrice": [],
+      "idleAssetsUsd": [],
+      "realAssetsUsd": []
+    }
+  }
+]
