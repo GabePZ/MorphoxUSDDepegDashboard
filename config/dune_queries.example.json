@@ -1,0 +1,9 @@
+{
+  "queries": [
+    {
+      "id": 0,
+      "label": "rename-me",
+      "note": "Paste your Dune query IDs here. Copy this file to dune_queries.json (gitignored) or set DUNE_QUERY_IDS in .env."
+    }
+  ]
+}

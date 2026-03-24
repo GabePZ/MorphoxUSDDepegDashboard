@@ -35,3 +35,6 @@ Thumbs.db
 # Logs and local scratch
 *.log
 *.tmp
+
+# Local ETL overrides (optional)
+config/dune_queries.local.json
