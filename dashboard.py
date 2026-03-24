@@ -1,5 +1,5 @@
 """
-Morpho Risk Case Study - Streamlit dashboard.
+Morpho Risk Case Study — Streamlit dashboard.
 Run:  python3 -m streamlit run dashboard.py
 Data: python3 etl.py
 """
@@ -377,7 +377,7 @@ def hist_market_sdeusd() -> pd.DataFrame:
 # ─────────────────────────────────────────────────────────────────────────────
 def main():
     st.set_page_config(
-        page_title="Morpho - Nov 2025 Depeg",
+        page_title="Morpho — Nov 2025 Depeg",
         page_icon="🔵",
         layout="wide",
         initial_sidebar_state="expanded",
@@ -392,8 +392,10 @@ def main():
         section = st.radio("", [
             "📋 Executive Summary",
             "📉 Asset Price Collapse",
-            "🏛 Market Exposure & Bad Debt",
+            "🏛 Exposed Markets & Vaults",
+            "💸 Bad Debt Analysis",
             "🧭 Curator Response",
+            "💧 Vault Liquidity",
             "🔎 Root Cause Analysis",
         ], label_visibility="collapsed")
         st.markdown("---")
@@ -404,10 +406,14 @@ def main():
         page_summary()
     elif section == "📉 Asset Price Collapse":
         page_prices()
-    elif section == "🏛 Market Exposure & Bad Debt":
+    elif section == "🏛 Exposed Markets & Vaults":
         page_markets()
+    elif section == "💸 Bad Debt Analysis":
+        page_baddebt()
     elif section == "🧭 Curator Response":
         page_curators()
+    elif section == "💧 Vault Liquidity":
+        page_liquidity()
     elif section == "🔎 Root Cause Analysis":
         page_rootcause()
 
@@ -432,7 +438,7 @@ def _cascade_chart():
         _peak_apy = _nov["borrow_apy_pct"].max() if not _nov.empty else None
     _apy_str = f"{_peak_apy:.0f}%" if _peak_apy else "~485%"
 
-    # Layout constants - wide enough that detail lines fit without wrapping
+    # Layout constants — wide enough that detail lines fit without wrapping
     # Side nodes are narrower so detail text is omitted; only title + metric shown.
     # Vertical positions give ≥0.06 gap between box edges for arrows + labels.
     CW = 0.38   # center-node half-width
@@ -453,12 +459,12 @@ def _cascade_chart():
 
         ("xUSD",
          _dd_metric("xUSD", "–94%  ·  $1.00 → $0.07"),
-         None,   # narrow box - no detail line
+         None,   # narrow box — no detail line
          0.22, 0.69, SW, "#7f1d1d", "#ef4444", "#fca5a5", "#f87171"),
 
         ("Elixir / deUSD",
          "65% of reserves backed by xUSD",
-         None,   # narrow box - no detail line
+         None,   # narrow box — no detail line
          0.78, 0.69, SW, "#7f1d1d", "#ef4444", "#fca5a5", "#f87171"),
 
         ("deUSD / sdeUSD",
@@ -468,7 +474,7 @@ def _cascade_chart():
 
         ("Morpho sdeUSD/USDC Market",
          "100% utilization · $0 badDebtAssets on-chain (Dune)",
-         "No Liquidate event ever triggered - oracle blindspot. Market locks.",
+         "No Liquidate event ever triggered — oracle blindspot. Market locks.",
          0.50, 0.28, CW, "#0f2744", "#3b82f6", "#93c5fd", "#60a5fa"),
 
         ("MEV Capital USDC Vault (ETH)",
@@ -484,21 +490,21 @@ def _cascade_chart():
             type="rect", x0=cx-W, x1=cx+W, y0=cy-H, y1=cy+H,
             fillcolor=fill, line=dict(color=border, width=1.5), layer="below",
         ))
-        # Title - upper third of box
+        # Title — upper third of box
         ty = cy + (0.030 if detail else 0.015)
         annotations.append(dict(
             x=cx, y=ty, text=f"<b>{title}</b>",
             showarrow=False, font=dict(color=tc, size=13, family="Inter"),
             xanchor="center", yanchor="middle",
         ))
-        # Metric - middle of box
+        # Metric — middle of box
         my = cy - (0.010 if detail else 0.015)
         annotations.append(dict(
             x=cx, y=my, text=metric,
             showarrow=False, font=dict(color=mc, size=11, family="Inter"),
             xanchor="center", yanchor="middle",
         ))
-        # Detail - lower third (wide nodes only)
+        # Detail — lower third (wide nodes only)
         if detail:
             annotations.append(dict(
                 x=cx, y=cy-0.050, text=detail,
@@ -542,7 +548,7 @@ def _cascade_chart():
     ))
     fig.update_layout(
         **PLOT, height=620,
-        title=dict(text="Contagion Cascade - How One Failure Became Three",
+        title=dict(text="Contagion Cascade — How One Failure Became Three",
                    font=dict(size=15), x=0, xanchor="left"),
         shapes=shapes, annotations=annotations, showlegend=False,
     )
@@ -552,17 +558,17 @@ def _cascade_chart():
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# SECTION 1 - EXECUTIVE SUMMARY
+# SECTION 1 — EXECUTIVE SUMMARY
 # ══════════════════════════════════════════════════════════════════════════════
 def page_summary():
-    st.markdown("## Morpho Protocol - Depeg Incident Analysis")
+    st.markdown("## Morpho Protocol — Depeg Incident Analysis")
     st.caption("November 2025 · xUSD (Stream Finance) / deUSD & sdeUSD (Elixir) Depeg Events")
 
     st.markdown("""<div style="border-left:4px solid #3b82f6;padding:14px 18px;background:rgba(59,130,246,0.08);
 border-radius:0 8px 8px 0;margin-bottom:20px">
 <span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#3b82f6">Key Finding</span>
 <p style="margin:6px 0 0;font-size:15px;line-height:1.6;color:#e2e8f0">
-Morpho's isolation architecture <strong>worked exactly as designed</strong> - only 2 of 1,320+ public vaults
+Morpho's isolation architecture <strong>worked exactly as designed</strong> — only 2 of 1,320+ public vaults
 had any bad debt, and those losses were contained entirely to curators who chose xUSD/sdeUSD exposure.
 The <strong>$68M private market loss</strong> (TelosC) is a different story: an institutional OTC-style position
 with no curator guardrails. Understanding the difference between these two types of loss is the
@@ -588,49 +594,41 @@ central risk question for any prospective integrator.
     xusd_dd,   xusd_sub   = _dd("xUSD")
     sdeusd_dd, sdeusd_sub = _dd("sdeUSD")
 
+    # Peak utilization from market snapshot
+    incident_cols = mkts[mkts["collateral"].isin(["xUSD","deUSD","sdeUSD"])]
+    n_locked = int((incident_cols["utilization"] >= 0.99).sum()) if len(incident_cols) else 0
     # Vault totals from API
-    total_vaults      = vs.get("total_vault_count", 0)
-    n_affected_vaults = 2  # MEV Capital ETH + Arb - the only public vaults with bad debt
-    pct_vaults        = n_affected_vaults / total_vaults * 100 if total_vaults else 0.15
+    total_vaults    = vs.get("total_vault_count", 0)
+    incident_vaults = vs.get("incident_vault_count", 0)
+    unaffected_vaults = total_vaults - incident_vaults if total_vaults else 0
 
-    # Public TVL from top-30 ETL sample (listed vaults only)
-    top30       = load("vaults_v2_top.json") or []
-    listed_tvl  = sum(float(v.get("totalAssetsUsd") or 0) for v in top30 if v.get("listed"))
-    public_bd   = 1.616  # $M public bad debt (MEV Capital)
-    pct_tvl     = public_bd / (listed_tvl / 1e6) * 100 if listed_tvl else 0.13
-    # Morpho public vs. cross-protocol total bad debt
-    xprotocol_bd = 164.0  # $M - Morpho $69.6M + Euler $58M + Silo $22M + Gearbox $14M
-    pct_xprotocol = public_bd / xprotocol_bd * 100
-
-    # Row 1 - insolvency figures
+    # Row 1 — Morpho outcomes: what happened to lenders and the protocol
     kpi_row(
-        ("Public Vault Insolvency",
+        ("Public Vault Bad Debt",
          "~$1.6M",
-         "MEV Capital ETH ($916K, 3.6% of vault TVL) + MEV Capital Arb ($700K, 11% of vault TVL)",
+         "2 MEV Capital vaults · xUSD (~$700K Arb) + sdeUSD (~$916K ETH) · vault NAV loss, not on-chain protocol bad debt",
          "amber"),
-        ("Private Market Insolvency",
+        ("Private Market Bad Debt",
          "~$68M",
-         "TelosC / Plume - 1 non-whitelisted institutional market, 55% of $123.6M exposure. Not retail-accessible.",
+         "TelosC / Plume — 1 non-whitelisted, institutional market · separate from public vault system",
          "red"),
-        ("Vaults Affected",
-         f"{n_affected_vaults} of {total_vaults:,}" if total_vaults else "2 of 1,320",
-         f"{pct_vaults:.2f}% of all Morpho vaults had any bad debt. The other {total_vaults - n_affected_vaults:,} vaults were fully unaffected.",
+        ("Public Vaults Unaffected",
+         f"{unaffected_vaults:,}" if unaffected_vaults else "1,318+",
+         f"{total_vaults:,} total vaults · only 2 public vaults had any bad debt · isolation architecture validated",
          "green"),
-    )
-    # Row 2 - scale of impact
-    kpi_row(
-        ("Public TVL Affected",
-         f"{pct_tvl:.2f}%",
-         f"$1.6M bad debt vs. ${listed_tvl/1e6:.0f}M+ in public vault TVL (top-30 sample). Actual % is likely lower.",
-         "green"),
-        ("% of Vaults Affected",
-         f"{pct_vaults:.2f}%",
-         f"{n_affected_vaults} vaults with bad debt out of {total_vaults:,} total Morpho vaults",
-         "green"),
-        ("Morpho Public vs. Cross-Protocol",
-         f"{pct_xprotocol:.1f}%",
-         f"$1.6M Morpho public bad debt as a share of ~${xprotocol_bd:.0f}M in total verified cross-protocol bad debt (Euler $58M, Silo $22M, Gearbox $14M)",
+        ("On-Chain Bad Debt Recorded",
+         "$0",
+         "Dune query of all Morpho Blue Liquidate events — $0 badDebtAssets across all 3 incident markets · oracle blindspot",
          "blue"),
+    )
+    # Row 2 — collateral collapse and market stress
+    kpi_row(
+        ("xUSD Drawdown",         xusd_dd,   xusd_sub,                                       "red"),
+        ("sdeUSD Drawdown",       sdeusd_dd, sdeusd_sub,                                     "red"),
+        ("Markets Locked (100%)", str(n_locked),
+         "Incident markets at 100% utilization — lenders unable to withdraw",                "amber"),
+        ("Early Exits Pre-Collapse", "1",
+         "Smokehouse exited deUSD ~2 days before collapse · Re7 & Gauntlet never entered",   "green"),
     )
 
     sec_hdr("Event Summary", "What happened, why it matters for Morpho curators")
@@ -640,11 +638,11 @@ central risk question for any prospective integrator.
   <p><strong>Root Cause Chain</strong></p>
   <ol style="padding-left:18px">
     <li><strong>Stream Finance</strong> operated a $200M+ DeFi yield fund with 4× leverage via recursive looping
-        across Euler, Morpho, Silo and Gearbox - turning deposits into a fragile tower of synthetic yield.</li>
+        across Euler, Morpho, Silo and Gearbox — turning deposits into a fragile tower of synthetic yield.</li>
     <li>On <strong>November 3, 2025</strong>, Stream disclosed a <strong>$93M loss</strong> by an external fund
         manager, freezing all withdrawals. xUSD fell $1.00 → $0.26 within hours.</li>
     <li><strong>Elixir's deUSD</strong> had allocated <strong>65% of its collateral ($68M)</strong> to Stream
-        Finance via private Morpho markets. When xUSD collapsed, deUSD's backing evaporated - deUSD fell
+        Finance via private Morpho markets. When xUSD collapsed, deUSD's backing evaporated — deUSD fell
         <strong>98%</strong>.</li>
     <li><strong>Oracle hardcoding</strong> at $1.00 on multiple protocols prevented automatic liquidations from
         triggering as collateral prices cratered on secondary markets.</li>
@@ -655,14 +653,14 @@ central risk question for any prospective integrator.
 <div class="prose">
   <p><strong>Key Morpho Takeaways</strong></p>
   <ul>
-    <li>Morpho's <strong>market isolation design</strong> was the primary firewall - losses were confined to vaults
+    <li>Morpho's <strong>market isolation design</strong> was the primary firewall — losses were confined to vaults
         that explicitly opted into xUSD/sdeUSD exposure.</li>
     <li><strong>Curator quality matters</strong>: curators with strong risk frameworks (Re7, Gauntlet, Smokehouse)
         avoided the incident entirely. MEV Capital's slower response resulted in realized bad debt.</li>
     <li><strong>Oracle design is critical</strong>: hardcoding synthetic stablecoin prices at $1.00 creates
         liquidation blindspots that materialize catastrophically during depegs.</li>
     <li><strong>Permissionless architecture</strong> means individual vault decisions do not propagate to the
-        protocol layer - a key differentiator from monolithic lending pools.</li>
+        protocol layer — a key differentiator from monolithic lending pools.</li>
     <li><strong>Vault liquidity</strong> became constrained in affected vaults (100% utilization), but unaffected
         vaults remained fully liquid throughout the event.</li>
   </ul>
@@ -675,7 +673,7 @@ central risk question for any prospective integrator.
     tl_html += tl_item("green", "Nov 1, 2025",
         "🟢 Smokehouse Exits deUSD Pre-Emptively",
         "Reduces deUSD allocation to zero ~2 days before collapse. Risk framework flagged 65% reserve concentration in Stream Finance.")
-    tl_html += tl_item("red", "Nov 3, 2025 - 14:00 UTC",
+    tl_html += tl_item("red", "Nov 3, 2025 — 14:00 UTC",
         "🔴 Stream Finance Discloses $93M Loss",
         "xUSD falls $1.00 → $0.26 within 6 hours. Withdrawals frozen. Contagion begins across Euler, Morpho, Silo, Gearbox.")
     tl_html += tl_item("amber", "Nov 4, 2025",
@@ -698,15 +696,15 @@ central risk question for any prospective integrator.
     _cascade_chart()
 
     _sources_footer(
-        "Morpho GraphQL API - market snapshots, vault counts, price history",
+        "Morpho GraphQL API — market snapshots, vault counts, price history",
         "MEV Capital post-mortem report (Nov 2025)",
-        "Dune Analytics - on-chain Liquidate event verification (query IDs: 6900807, 6900808, 6900815)",
+        "Dune Analytics — on-chain Liquidate event verification (query IDs: 6900807, 6900808, 6900815)",
         "Public reporting: The Block, QuillAudits, Elixir announcement",
     )
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# SECTION 2 - ASSET PRICE COLLAPSE
+# SECTION 2 — ASSET PRICE COLLAPSE
 # ══════════════════════════════════════════════════════════════════════════════
 def page_prices():
     st.markdown("## 📉 Asset Price Collapse")
@@ -716,7 +714,7 @@ def page_prices():
 border-radius:0 8px 8px 0;margin-bottom:20px">
 <span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#ef4444">Key Finding</span>
 <p style="margin:6px 0 0;font-size:15px;line-height:1.6;color:#e2e8f0">
-The price collapse was <strong>not a gradual market correction</strong> - it was near-instantaneous once
+The price collapse was <strong>not a gradual market correction</strong> — it was near-instantaneous once
 Stream Finance's loss was disclosed. xUSD fell 94% in hours. The critical insight: <strong>the oracle
 never moved</strong>. Every lending protocol with a hardcoded $1.00 oracle continued treating these
 assets as fully valued even as they traded at $0.03–$0.07 on secondary markets.
@@ -724,7 +722,7 @@ This is why no liquidations fired and why the bad debt accrued invisibly.
 </p></div>""", unsafe_allow_html=True)
 
     sec_hdr("Stablecoin Price Trajectories (Nov 1–30, 2025)",
-            "All three assets were expected to maintain a $1.00 peg - data from Morpho API")
+            "All three assets were expected to maintain a $1.00 peg — data from Morpho API")
 
     df = price_data()
     stats = price_stats()
@@ -757,7 +755,7 @@ This is why no liquidations fired and why the bad debt accrued invisibly.
     fig.update_yaxes(range=[0, 1.10], tickprefix="$")
     fig.update_xaxes(title_text="")
     chart(fig, height=380)
-    st.caption("Prices capped at $1.05 - pre-collapse oracle/share-price values excluded to reflect secondary-market reality")
+    st.caption("Prices capped at $1.05 — pre-collapse oracle/share-price values excluded to reflect secondary-market reality")
 
     # Compute KPIs from real data
     def _kpi_triple(sym):
@@ -771,7 +769,7 @@ This is why no liquidations fired and why the bad debt accrued invisibly.
 
     kpi_row(*[_kpi_triple(s) for s in ["xUSD", "sdeUSD", "deUSD"]])
 
-    sec_hdr("Oracle Hardcoding - The Liquidation Blindspot",
+    sec_hdr("Oracle Hardcoding — The Liquidation Blindspot",
             "Gap between market price and oracle price prevented liquidations from triggering")
 
     # Use clamped/trimmed data starting Nov 4 to show the actual depeg period
@@ -793,129 +791,71 @@ This is why no liquidations fired and why the bad debt accrued invisibly.
     alert("amber", "Why this mattered:",
           "Lending protocols hardcoded xUSD at $1.00 to avoid triggering mass liquidations during "
           "normal operations. But in a genuine depeg, as xUSD traded at $0.07–$0.30 on secondary "
-          "markets, the oracle reported $1.00 - meaning borrowers appeared fully collateralized and "
+          "markets, the oracle reported $1.00 — meaning borrowers appeared fully collateralized and "
           "liquidation bots received no trigger signal. Lenders were left holding worthless collateral "
           "with no automatic protection.")
 
-    sec_hdr("Cascade Mechanism", "Why one stablecoin failure caused two more to collapse - recursive dependencies")
+    sec_hdr("Cascade Mechanism", "Why one stablecoin failure caused two more to collapse — recursive dependencies")
     alert("red", "Recursive Dependency (The Core Problem)",
           "deUSD's collateral was 65% ($68M) allocated to Stream Finance. Stream used xUSD as collateral "
-          "on Morpho private markets. xUSD was partially backed by borrowed deUSD - a circular dependency: "
+          "on Morpho private markets. xUSD was partially backed by borrowed deUSD — a circular dependency: "
           "when xUSD collapsed, deUSD lost its backing; when deUSD lost backing, it collapsed further, "
           "devaluing xUSD further. Both were guaranteed to fall together.")
     _cascade_chart()
     st.caption("The cascade diagram is also shown on the Executive Summary page for quick reference.")
 
     _sources_footer(
-        "Morpho GraphQL API - collateral price history (historicalPriceUsd)",
+        "Morpho GraphQL API — collateral price history (historicalPriceUsd)",
         "Public reporting: The Block, QuillAudits",
     )
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# SECTION 3 - MARKET EXPOSURE & BAD DEBT (merged)
+# SECTION 3 — EXPOSED MARKETS & VAULTS
 # ══════════════════════════════════════════════════════════════════════════════
 def page_markets():
-    st.markdown("## 🏛 Market Exposure & Bad Debt")
-    st.caption("How much of Morpho was affected, which markets, and how it compares across DeFi")
+    st.markdown("## 🏛 Exposed Morpho Markets & Vaults")
+    st.caption("Which markets and vaults had direct exposure to xUSD, deUSD, or sdeUSD as collateral")
 
-    st.markdown("""<div style="border-left:4px solid #10b981;padding:14px 18px;background:rgba(16,185,129,0.08);
+    st.markdown("""<div style="border-left:4px solid #f59e0b;padding:14px 18px;background:rgba(245,158,11,0.08);
 border-radius:0 8px 8px 0;margin-bottom:20px">
-<span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#10b981">Key Finding</span>
+<span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#f59e0b">Key Finding</span>
 <p style="margin:6px 0 0;font-size:15px;line-height:1.6;color:#e2e8f0">
-<strong>99.85%+ of Morpho's public vaults were completely unaffected</strong> - the $1.6M in public vault bad debt
-is less than 0.13% of public TVL, and came from just two vaults that explicitly chose xUSD/sdeUSD exposure.
-On-chain, Morpho's protocol recorded <strong>$0 in formal bad debt</strong> (no liquidations fired due to the
-hardcoded oracle). Against peers, Morpho's public vault losses were a fraction of pooled protocols: Euler lost
-~$58M, Silo ~$22M. The one large Morpho figure - <strong>$68M in the private TelosC market</strong> - is
-a different risk category entirely: an institutional OTC-style financing position with no curator or retail exposure.
+There were <strong>two fundamentally different types of loss</strong> on Morpho, and conflating them
+gives a distorted picture of the protocol's risk profile. The <strong>$1.6M public vault loss</strong>
+is a curator failure — two MetaMorpho vaults took on synthetic stablecoin exposure that better-run
+vaults avoided. The <strong>$68M private market loss</strong> is more like an institutional OTC trade
+gone wrong — a non-whitelisted direct market used as bilateral financing between large counterparties,
+with no curator oversight and no retail depositors involved. These require entirely different risk frameworks.
 </p></div>""", unsafe_allow_html=True)
 
-    # ── Data ──────────────────────────────────────────────────────────────────
+    sec_hdr("Morpho's Isolation Design — Big Picture")
     mkts = market_snapshot()
     vs   = vault_summary_data()
-    n_incident_mkts    = len(mkts[mkts["collateral"].isin(["xUSD","deUSD","sdeUSD"])])
-    at_max_util        = len(mkts[(mkts["collateral"].isin(["xUSD","deUSD","sdeUSD"])) & (mkts["utilization"] >= 0.99)])
-    total_vaults       = vs.get("total_vault_count", 0)
-    incident_vaults    = vs.get("incident_vault_count", 0)
-
-    # Public vault TVL from top-30 ETL sample (listed vaults only)
-    top30             = load("vaults_v2_top.json") or []
-    listed_tvl        = sum(float(v.get("totalAssetsUsd") or 0) for v in top30 if v.get("listed"))
-    # Incident-asset supply from markets snapshot (sdeUSD + xUSD at peak)
-    peak_public_supply = 25.42 + 6.30       # MEV Capital ETH + Arb (from post-mortem)
-    public_bad_debt    = 1.616              # $M - MEV Capital combined
-    pct_safe_vaults    = (total_vaults - 2) / total_vaults * 100 if total_vaults else 99.85
-    pct_tvl_impacted   = public_bad_debt / listed_tvl * 1e6 * 100 if listed_tvl else 0.13
-
-    # ── Section header ────────────────────────────────────────────────────────
-    sec_hdr("1 - How Small Was the Impact?",
-            "Morpho's market isolation contained the incident to a vanishingly small slice of the protocol")
-
-    # ── Big KPI row: isolation story ─────────────────────────────────────────
+    n_incident_mkts = len(mkts[mkts["collateral"].isin(["xUSD","deUSD","sdeUSD"])])
+    total_supply_incident = mkts[mkts["collateral"].isin(["xUSD","deUSD","sdeUSD"])]["supply_usd"].sum()
+    at_max_util = len(mkts[(mkts["collateral"].isin(["xUSD","deUSD","sdeUSD"])) & (mkts["utilization"] >= 0.99)])
+    # sdeUSD/USDC was delisted (supply cap → 0) after the incident, so it may lose the live flag
+    # but was equally impaired during the event. All 3 show as 100% util in the API snapshot.
+    n_impaired_total = at_max_util
+    total_vaults    = vs.get("total_vault_count", 0)
+    incident_vaults = vs.get("incident_vault_count", 0)
     kpi_row(
-        ("Public Vaults - Zero Bad Debt",
-         f"{total_vaults - 2:,}" if total_vaults else "1,318+",
-         f"{total_vaults:,} total vaults · only 2 public vaults (MEV Capital ETH + Arb) had any bad debt",
-         "green"),
-        ("Safe Vault Rate",
-         f"{pct_safe_vaults:.2f}%",
-         "Of all Morpho vaults, 99.85%+ had exactly $0 bad debt and remained fully liquid",
-         "green"),
-        ("Public Bad Debt vs. Public TVL",
-         f"{pct_tvl_impacted:.2f}%",
-         f"$1.6M bad debt ÷ ${listed_tvl/1e6:.0f}M+ in public vault TVL (top-30 sample) · actual TVL larger",
-         "blue"),
-        ("Affected Public TVL (Peak)",
-         f"${peak_public_supply:.0f}M",
-         "MEV Capital supply at risk during incident · only $1.6M (5%) crystallized as actual bad debt",
-         "amber"),
+        ("Incident Asset Markets", str(n_incident_mkts),
+         "Markets with xUSD/deUSD/sdeUSD as collateral", "amber"),
+        ("Markets at 100% Utilization", str(at_max_util),
+         "Fully locked — lenders cannot withdraw", "red"),
+        ("Total Vaults on Morpho", f"{total_vaults:,}" if total_vaults else "n/a",
+         f"{incident_vaults} currently with incident-asset allocation · all unlisted", "blue"),
     )
+    alert("green", "Isolation Working as Designed:",
+          "Morpho's market isolation model means each market is a standalone lending pair. "
+          "A curator accepting xUSD as collateral in one vault does not create any risk for vaults "
+          "that chose not to. This is fundamentally different from pooled architectures like Aave v2, "
+          "where all depositors share collateral risk.")
 
-    # ── Waterfall: TVL funnel from total → safe → exposed → bad debt ─────────
-    _safe_tvl   = listed_tvl / 1e6 - peak_public_supply   # ~1227M
-    _bd_pct_tvl = public_bad_debt / (listed_tvl / 1e6) * 100
-
-    fig_wf = go.Figure(go.Bar(
-        x=["Total public TVL\n(top-30 sample)",
-           "Unaffected vaults\n(1,318 vaults)",
-           "Exposed at peak\n(2 MEV Capital vaults)",
-           "Actual bad debt\n(unrecoverable loss)"],
-        y=[listed_tvl / 1e6, _safe_tvl, peak_public_supply, public_bad_debt],
-        marker_color=["#3b82f6", "#10b981", "#f59e0b", "#ef4444"],
-        text=[f"${listed_tvl/1e6:.0f}M",
-              f"${_safe_tvl:.0f}M (97.5%)",
-              f"${peak_public_supply:.1f}M (2.5%)",
-              f"${public_bad_debt:.2f}M (0.13%)"],
-        textposition="outside",
-        cliponaxis=False,
-    ))
-    fig_wf.update_layout(**_plot(
-        height=340,
-        yaxis=dict(tickprefix="$", ticksuffix="M", gridcolor="#1e293b", title="$M"),
-        margin=dict(l=12, r=12, t=20, b=60),
-        showlegend=False,
-    ))
-    st.plotly_chart(fig_wf, use_container_width=True)
-    st.caption(
-        f"Top-30 public vault TVL sample (${listed_tvl/1e6:.0f}M). "
-        f"Of the $31.7M that was at-risk during the incident, only ${public_bad_debt:.2f}M ({_bd_pct_tvl:.3f}% of total public TVL) was unrecoverable."
-    )
-
-    st.markdown("""<div class="prose" style="max-width:100%;margin:16px 0 24px">
-<p>Morpho Blue's <strong>isolated market architecture</strong> means each (collateral, loan asset, oracle, LLTV)
-combination is a fully independent contract. Lenders deposit into specific vaults managed by curators, and each
-curator decides which markets to allocate to. A curator accepting xUSD as collateral creates zero risk for any
-other vault - there is no shared liquidity pool, no shared reserve factor, no cross-contamination.</p>
-<p>The numbers bear this out: <strong>1,318 of 1,320 vaults had $0 bad debt</strong> throughout the entire
-incident. The two affected public vaults (MEV Capital ETH and Arb) were the only public vaults that had
-chosen to allocate to xUSD/sdeUSD markets. Every other curator - Gauntlet, Re7, Steakhouse, Smokehouse,
-Sentora - was completely unaffected. The incident was a <strong>curator-selection event</strong>, not a
-protocol event.</p>
-</div>""", unsafe_allow_html=True)
-
-    sec_hdr("2 - Which Markets Were Affected?",
-            "Public MetaMorpho vaults vs. private institutional markets - two very different risk profiles")
+    sec_hdr("Exposed Morpho Markets",
+            "Separated by market type — public MetaMorpho vaults vs. private institutional markets")
 
     # ── PUBLIC MARKETS ────────────────────────────────────────────────────────
     st.markdown("""<div style="display:flex;align-items:center;gap:10px;margin:16px 0 8px">
@@ -950,7 +890,7 @@ protocol event.</p>
     st.markdown("""<div class="prose" style="max-width:100%;margin-bottom:20px">
 <p>These two markets were part of the curated MetaMorpho system. They were <strong>listed on Morpho's
 front-end</strong>, managed by professional curators, and accessible to retail lenders. MEV Capital
-made a credit judgment to accept xUSD and sdeUSD as collateral - a decision that turned out to be wrong.
+made a credit judgment to accept xUSD and sdeUSD as collateral — a decision that turned out to be wrong.
 But crucially, <strong>this was a curator decision, not a protocol decision</strong>. Every other public
 vault that declined to take on this exposure was completely unaffected.</p>
 </div>""", unsafe_allow_html=True)
@@ -970,7 +910,7 @@ vault that declined to take on this exposure was completely unaffected.</p>
 <th>Total Loans</th><th>Bad Debt</th><th>Oracle</th><th>Status</th></tr></thead>
 <tbody>
 <tr class="stbl-red">
-  <td><strong>xUSD/USDC - TelosC</strong><br>
+  <td><strong>xUSD/USDC — TelosC</strong><br>
       <span style="font-size:10.5px;color:#94a3b8">Plume Network · direct market creation</span></td>
   <td>USDC</td><td>xUSD</td><td>Plume</td>
   <td>TelosC (institutional borrower)</td>
@@ -986,20 +926,20 @@ vault that declined to take on this exposure was completely unaffected.</p>
     st.markdown("""<div class="alert alert-red" style="margin-bottom:20px">
 <b>Why the private market is a different category of risk</b>
 <div class="prose" style="max-width:100%;margin-top:8px">
-<p>Morpho Blue is <em>permissionless</em> - anyone can create a market with any parameters. The TelosC
+<p>Morpho Blue is <em>permissionless</em> — anyone can create a market with any parameters. The TelosC
 market was created directly by institutional counterparties to use as a <strong>bilateral financing
 facility</strong>: TelosC wanted to borrow USDC and posted xUSD (Stream Finance yield tokens) as
 collateral. This arrangement was:</p>
 <ul>
   <li><strong>Not listed</strong> on Morpho's front-end or accessible to retail depositors</li>
-  <li><strong>Not managed by any curator</strong> - no risk framework, no supply cap policy, no
+  <li><strong>Not managed by any curator</strong> — no risk framework, no supply cap policy, no
       independent collateral review</li>
-  <li>Structured more like an <strong>OTC repo trade</strong> than a public lending market -
+  <li>Structured more like an <strong>OTC repo trade</strong> than a public lending market —
       large, informed counterparties making concentrated bets on each other's credit</li>
   <li>At <strong>$123.6M</strong>, it was by far the largest single Morpho market in the incident,
       yet invisible to the retail lending ecosystem</li>
 </ul>
-<p>The $68M loss here is real - but it should be evaluated as <strong>institutional counterparty risk</strong>,
+<p>The $68M loss here is real — but it should be evaluated as <strong>institutional counterparty risk</strong>,
 not as evidence that Morpho's public vault system is unsafe. A retail depositor in a Morpho vault had
 zero path to this exposure. An institution lending directly into a private market accepted this risk
 knowingly (or should have).</p>
@@ -1013,11 +953,11 @@ knowingly (or should have).</p>
   <b>🔵 Exposure at Peak</b>
   The total amount of vault TVL deployed into the incident-affected market at its highest point.
   For MEV Capital ETH, the vault had ~$25.4M allocated to the sdeUSD/USDC market when the depeg hit.
-  Not all of this was necessarily lost - it represents the maximum <em>at-risk</em> capital.
+  Not all of this was necessarily lost — it represents the maximum <em>at-risk</em> capital.
 </div>
 <div class="alert alert-red" style="margin:0">
   <b>🔴 Bad Debt Realized</b>
-  The portion of exposure that became an unrecoverable loss - collateral was economically worthless
+  The portion of exposure that became an unrecoverable loss — collateral was economically worthless
   but the oracle reported $1.00, so borrowers never got liquidated and the debt was never repaid.
   For MEV Capital ETH, only ~$916K (3.6%) of the $25.4M exposure crystallized as bad debt,
   because most borrowers had less than 100% of their collateral in sdeUSD.
@@ -1034,135 +974,141 @@ knowingly (or should have).</p>
                          marker_color="rgba(239,68,68,0.73)",  width=0.35, offset=0.2))
     fig.update_yaxes(tickprefix="$", ticksuffix="M")
     chart(fig, height=340)
-    st.caption("Bad debt % of exposure: MEV ETH 3.6% · MEV Arb 11% · TelosC 55% - higher % reflects greater concentration in the affected collateral")
+    st.caption("Bad debt % of exposure: MEV ETH 3.6% · MEV Arb 11% · TelosC 55% — higher % reflects greater concentration in the affected collateral")
 
-    st.markdown("""<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:16px 0">
-<div class="alert alert-amber" style="margin:0">
-  <b>MEV Capital USDC (ETH)</b><br>
-  <span style="font-size:12px">sdeUSD · $25.4M at peak<br>
-  <strong>$916K bad debt · 3.6% of TVL</strong><br>
-  Responded in ~96 hrs after collapse</span>
-</div>
-<div class="alert alert-red" style="margin:0">
-  <b>MEV Capital USDC (Arb)</b><br>
-  <span style="font-size:12px">xUSD · $6.3M at peak<br>
-  <strong>$700K bad debt · 11% of TVL</strong><br>
-  Responded in ~72 hrs after collapse</span>
-</div>
-<div class="alert alert-green" style="margin:0">
-  <b>All other public vaults (1,318+)</b><br>
-  <span style="font-size:12px">Smokehouse exited deUSD pre-emptively.<br>Re7 &amp; Gauntlet never entered.<br>
-  <strong>$0 bad debt</strong></span>
-</div>
-</div>""", unsafe_allow_html=True)
-    st.caption("Detailed curator-by-curator analysis, response scoring, and timeline - see the 🧭 Curator Response tab.")
+    sec_hdr("All Vaults — Exposure Status")
+    st.markdown("""
+<table class="stbl">
+<thead><tr><th>Vault</th><th>Curator</th><th>Exposed Asset</th><th>Exposure</th>
+<th>Bad Debt</th><th>Bad Debt % TVL</th><th>Early Exit?</th><th>Response</th></tr></thead>
+<tbody>
+<tr class="stbl-amber">
+  <td>MEV Capital USDC (ETH)</td><td>MEV Capital</td><td>sdeUSD</td><td>$25.42M</td>
+  <td>~$0.916M</td><td><span class="badge badge-amber">3.6%</span></td>
+  <td><span class="badge badge-red">No</span></td><td>~96 hrs</td>
+</tr>
+<tr class="stbl-red">
+  <td>MEV Capital USDC (Arb)</td><td>MEV Capital</td><td>xUSD</td><td>~$6.3M</td>
+  <td>~$0.700M</td><td><span class="badge badge-red">~11%</span></td>
+  <td><span class="badge badge-red">No</span></td><td>~72 hrs</td>
+</tr>
+<tr class="stbl-red">
+  <td>TelosC Private (Plume)</td><td>TelosC</td><td>xUSD</td><td>$123.64M</td>
+  <td>~$68M</td><td><span class="badge badge-red">~55%</span></td>
+  <td><span class="badge badge-red">No</span></td><td>Ongoing</td>
+</tr>
+<tr class="stbl-green">
+  <td>Smokehouse USDC (ETH)</td><td>Smokehouse</td><td>deUSD (exited)</td><td>$4.2M prior</td>
+  <td>$0</td><td><span class="badge badge-green">0%</span></td>
+  <td><span class="badge badge-green">Yes — ~2 days before</span></td><td>Pre-emptive</td>
+</tr>
+<tr class="stbl-blue">
+  <td>Re7 USDC (ETH)</td><td>Re7 Capital</td><td>None</td><td>$0</td>
+  <td>$0</td><td><span class="badge badge-green">0%</span></td>
+  <td><span class="badge badge-blue">Never entered</span></td><td>Pre-emptive</td>
+</tr>
+<tr class="stbl-blue">
+  <td>Gauntlet USDC (ETH)</td><td>Gauntlet</td><td>None</td><td>$0</td>
+  <td>$0</td><td><span class="badge badge-green">0%</span></td>
+  <td><span class="badge badge-blue">Never entered</span></td><td>Pre-emptive</td>
+</tr>
+</tbody>
+</table>
+""", unsafe_allow_html=True)
 
-    # ── PART 3: HOW DID MORPHO COMPARE? ──────────────────────────────────────
-    sec_hdr("3 - Morpho vs. Other Protocols",
-            "Isolation architecture produced far smaller losses than pooled-lending peers")
+    sec_hdr("Were Any Curators Previously Exposed but Exited Early?")
+    c1, c2 = st.columns(2)
+    with c1:
+        alert("green", "Smokehouse — Pre-emptive Exit (~Nov 1)",
+              "Removed deUSD market allocation ~48 hours before the collapse. Their risk framework had "
+              "flagged that deUSD's reserve composition — 65% allocated to a single counterparty (Stream "
+              "Finance) — represented unacceptable concentration risk. Result: Zero bad debt despite prior exposure.")
+    with c2:
+        alert("blue", "Re7 Capital & Gauntlet — Never Entered",
+              "Both curators had synthetic stablecoin policies requiring full reserve transparency and "
+              "diversified backing. Neither xUSD nor deUSD could satisfy these requirements. "
+              "Result: Zero bad debt, zero exposure throughout the event.")
 
-    # Cross-protocol chart
-    protocols = ["Euler Finance", "Morpho (Private)", "Silo Finance", "Gearbox", "Morpho (Public)"]
-    exposures = [120,             68,                 45,             30,        26           ]
-    bad_debts  = [58,             68,                 22,             14,         1.6         ]
-    fig_cp = go.Figure()
-    fig_cp.add_trace(go.Bar(x=protocols, y=exposures, name="Total Exposure ($M)",
-                            marker_color="rgba(59,130,246,0.73)", width=0.4, offset=-0.2))
-    fig_cp.add_trace(go.Bar(x=protocols, y=bad_debts,  name="Bad Debt ($M)",
-                            marker_color="rgba(239,68,68,0.73)",  width=0.4, offset=0.2))
-    fig_cp.update_yaxes(tickprefix="$", ticksuffix="M",
-                        title="$M (illustrative estimates - see sources)")
-    fig_cp.update_layout(**_plot(
-        height=360,
-        barmode="group",
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
-        margin=dict(l=12, r=12, t=50, b=60),
-    ))
-    st.plotly_chart(fig_cp, use_container_width=True)
-
-    st.markdown("""<div class="prose" style="max-width:100%">
-<p><strong>Why pooled protocols suffered more.</strong>
-Euler, Silo, and Gearbox use shared liquidity pools - when xUSD/deUSD collateral collapsed, losses were
-socialized across <em>all</em> lenders in those pools, regardless of whether they knew about or consented
-to the exposure. Morpho Blue's isolated markets meant only lenders who explicitly deposited into
-xUSD/sdeUSD-collateralised vaults were at risk. Every other market on Morpho continued operating normally.</p>
-<p><strong>Morpho Private vs. Public.</strong>
-The $68M TelosC loss appears alongside protocols like Euler in total magnitude - but it belongs in a
-different risk category. It was a bilateral institutional financing arrangement (no curator, no retail
-access), closer to an OTC repo desk than a public lending protocol. Morpho's <em>public</em> vault losses
-of $1.6M - affecting retail depositors - were less than 3% of Euler's losses on the same event.</p>
-</div>""", unsafe_allow_html=True)
-
-    # Cross-protocol KPI summary
-    kpi_row(
-        ("Morpho Public Bad Debt",    "~$1.6M",  "2 MetaMorpho vaults (MEV Capital ETH + Arb)", "green"),
-        ("Euler Finance Bad Debt",    "~$58M",   "Pooled lending - losses socialized across all lenders", "red"),
-        ("Silo + Gearbox Bad Debt",   "~$36M",   "Silo ~$22M · Gearbox ~$14M - same event", "amber"),
-        ("Total Cross-Protocol",      "~$164M",  "Verified bad debt: Morpho $69.6M + Euler $58M + Silo $22M + Gearbox $14M · Morpho public = 1% of total", "blue"),
+    _sources_footer(
+        "Morpho GraphQL API — market snapshot, vault summary",
+        "MEV Capital post-mortem (Nov 2025)",
+        "Public reporting: The Block, QuillAudits",
     )
 
-    # ── PART 4: WHY $0 ON-CHAIN? DUNE VERIFICATION ───────────────────────────
-    mkts       = market_snapshot()
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SECTION 4 — BAD DEBT ANALYSIS
+# ══════════════════════════════════════════════════════════════════════════════
+def page_baddebt():
+    st.markdown("## 💸 Bad Debt Analysis")
+    st.caption("Quantifying realized losses across Morpho markets and vaults")
+
+    st.markdown("""<div style="border-left:4px solid #ef4444;padding:14px 18px;background:rgba(239,68,68,0.08);
+border-radius:0 8px 8px 0;margin-bottom:20px">
+<span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#ef4444">Key Finding</span>
+<p style="margin:6px 0 0;font-size:15px;line-height:1.6;color:#e2e8f0">
+Morpho's on-chain protocol recorded <strong>$0 in bad debt</strong> — because the hardcoded oracle meant
+no liquidations ever fired, so the protocol never formally recognized insolvency. The <strong>$1.6M public
+vault loss</strong> and <strong>$68M private market loss</strong> are accounting figures — vault NAV drops
+and unrecoverable loans — not protocol-level events. This is a critical distinction: the protocol
+worked mechanically; the failure was in collateral quality evaluation.
+</p></div>""", unsafe_allow_html=True)
+
+    mkts = market_snapshot()
+    # Impaired markets = 100% util with incident collateral (bad_debt_unrealized OR custom RED = both signal insolvency)
     incident_mkts = mkts[mkts["collateral"].isin(["xUSD","deUSD","sdeUSD"])]
     impaired_mkts = incident_mkts[incident_mkts["utilization"] >= 0.99].copy()
-    n_bad_debt    = int(mkts["bad_debt_warning"].sum()) if "bad_debt_warning" in mkts.columns else 0
+    n_bad_debt = int(mkts["bad_debt_warning"].sum()) if "bad_debt_warning" in mkts.columns else 0
     locked_supply = impaired_mkts["supply_usd"].sum()
-    n_impaired    = len(impaired_mkts)
+    n_impaired = len(impaired_mkts)
+    # sdeUSD/USDC was delisted post-incident (supply cap → 0), which clears the live API flag.
+    # It still appears in the snapshot at 100% util. Total impaired = n_impaired (includes delisted).
+    n_api_flagged = n_bad_debt
+    n_delisted    = n_impaired - n_api_flagged  # markets at 100% util but without the live flag
 
-    sec_hdr("4 - Why Morpho Recorded $0 On-Chain",
-            "The oracle never moved - so liquidations never fired, and the protocol never formally recognised bad debt")
-
+    # ── Row 1: Per-asset bad debt, public vs private ────────────────────────
     kpi_row(
-        ("On-Chain Bad Debt Recorded", "$0",
-         "Dune query of all Morpho Blue Liquidate events - $0 badDebtAssets across all 3 incident markets · oracle blindspot",
-         "blue"),
-        ("Locked Supply (impaired mkts)", _fmt(locked_supply),
-         f"{n_impaired} incident markets at 100% utilization · lenders unable to withdraw until market cleared",
-         "red"),
-        ("Public Vault Bad Debt (NAV loss)", "~$1.6M",
-         "Accounting figure: vault share-price drop when lenders couldn't redeem · not a protocol-level event",
+        ("Public — xUSD Bad Debt",
+         "~$700K",
+         "MEV Capital Arb vault · 11% of $6.3M vault TVL",
          "amber"),
-        ("Private Market Bad Debt", "~$68M",
-         "TelosC/Plume - institutional OTC-style loss · no retail depositors affected",
+        ("Public — sdeUSD Bad Debt",
+         "~$916K",
+         "MEV Capital ETH vault · 3.6% of $25.4M vault TVL",
+         "amber"),
+        ("Private — xUSD Bad Debt",
+         "~$68M",
+         "TelosC / Plume · non-whitelisted institutional market · 55% of $123.6M exposure",
+         "red"),
+        ("Total Morpho Bad Debt",
+         "~$69.6M",
+         "Public $1.6M (2 MetaMorpho vaults) + Private $68M (1 direct market)",
          "red"),
     )
-
-    dd = dune_bad_debt()
-    if dd:
-        st.markdown("""<div class="prose" style="max-width:100%;margin-top:12px">
-<p><strong>Step 1 - The oracle said nothing was wrong.</strong>
-For xUSD and sdeUSD, the oracle was hardcoded at <strong>$1.00</strong>. When xUSD crashed to $0.07
-on secondary markets, every borrower still appeared fully collateralized on-chain.</p>
-<p><strong>Step 2 - Liquidation bots had no signal.</strong>
-Morpho Blue compares loan value to collateral value <em>at oracle price</em>. Oracle = $1.00 →
-no position breached its liquidation threshold → no keeper fired → no Liquidate transaction submitted.</p>
-<p><strong>Step 3 - Bad debt accrued invisibly.</strong>
-<code>badDebtAssets</code> is only written on-chain inside a successful Liquidate transaction. With zero
-liquidations, zero bad debt was ever formally recorded. Markets hit 100% utilization - lenders couldn't
-withdraw - but the protocol showed no insolvency. The $916K MEV Capital loss is a vault NAV figure:
-share price dropped when lenders couldn't redeem, not a protocol-level write-down.</p>
-</div>""", unsafe_allow_html=True)
-
-        mkt_rows = ""
-        for m in dd.get("markets", []):
-            liq_count = m["liquidation_count"]
-            bd        = m["total_bad_debt_usdc"]
-            liq_badge = f'<span class="badge badge-red">{liq_count}</span>' if liq_count > 0 else '<span class="badge badge-green">0</span>'
-            bd_badge  = f'<span class="badge badge-amber">${bd:,.0f}</span>' if bd > 0 else '<span class="badge badge-green">$0</span>'
-            mkt_rows += f"""<tr>
-  <td>{m['market']} [{m['chain']}]</td>
-  <td>{liq_badge}</td><td>{bd_badge}</td>
-  <td class="ks">{m.get('note','')}</td>
-</tr>"""
-        st.markdown(f"""<table class="stbl">
-<thead><tr><th>Market</th><th>Liquidations (Nov–Dec 2025)</th><th>badDebtAssets (USDC)</th><th>Note</th></tr></thead>
-<tbody>{mkt_rows}</tbody>
-</table>""", unsafe_allow_html=True)
-        st.caption("On-chain query of morpho_blue_ethereum/arbitrum.morphoblue_evt_liquidate - Dune query IDs: 6900807, 6900808, 6900815")
+    # ── Row 2: Cross-protocol context and market stress ──────────────────
+    kpi_row(
+        ("Other Protocol Bad Debt",
+         "~$94M",
+         "Euler ~$58M · Silo ~$22M · Gearbox ~$14M — same event, pooled lending models",
+         "amber"),
+        ("Total Cross-Protocol Bad Debt",
+         "~$164M",
+         "Sum of verified bad debt: Morpho $69.6M + Euler $58M + Silo $22M + Gearbox $14M · Morpho = 42% of total. Total exposure across protocols was ~$280M+.",
+         "red"),
+        ("Locked Supply (impaired mkts)",
+         _fmt(locked_supply),
+         f"{n_impaired} incident markets at 100% utilization · lenders unable to withdraw",
+         "red"),
+        ("On-Chain Bad Debt Recorded",
+         "$0",
+         "Dune query of all Morpho Blue Liquidate events · oracle blindspot prevented any liquidation from firing",
+         "blue"),
+    )
 
     if not impaired_mkts.empty:
         rows_html = ""
         for _, row in impaired_mkts.sort_values("supply_usd", ascending=False).iterrows():
+            # Determine which warning type applies
             is_bd_flag = bool(row.get("bad_debt_warning", False))
             warning_badge = '<span class="badge badge-red">bad_debt_unrealized</span>' if is_bd_flag else '<span class="badge badge-amber">custom (RED)</span>'
             rows_html += f"""<tr class="stbl-red">
@@ -1172,22 +1118,132 @@ share price dropped when lenders couldn't redeem, not a protocol-level write-dow
   <td>{warning_badge}</td>
   <td>{row['borrow_apy']*100:,.0f}%</td>
 </tr>"""
-        st.markdown(f"""<table class="stbl" style="margin-top:12px">
-<thead><tr><th>Impaired Market</th><th>Supply (Oracle $)</th><th>Utilization</th><th>API Warning</th><th>Current Borrow APY</th></tr></thead>
+        st.markdown(f"""<table class="stbl">
+<thead><tr><th>Market</th><th>Supply (Oracle $)</th><th>Utilization</th><th>API Warning</th><th>Current Borrow APY</th></tr></thead>
 <tbody>{rows_html}</tbody>
 </table>""", unsafe_allow_html=True)
-        st.caption("Supply shown at hardcoded oracle price ($1.00). Borrow APY compounds on permanently locked markets.")
+        st.caption("Supply shown at oracle price ($1.00 hardcoded). Borrow APY reflects compounding on permanently locked markets. "
+                   "sdeUSD/USDC carries a 'custom' RED warning rather than bad_debt_unrealized but is equally impaired.")
+
+    # ── Dune on-chain verification ──────────────────────────────────────────────
+    dd = dune_bad_debt()
+    if dd:
+        sec_hdr("On-Chain Verification — Dune Analytics",
+                "Querying Morpho Blue Liquidate events directly to trace how the bad debt formed")
+
+        st.markdown("""<div class="prose" style="max-width:100%">
+<p><strong>Step 1 — The oracle said nothing was wrong.</strong> Every Morpho Blue market has an oracle that prices the collateral.
+For xUSD and sdeUSD, that oracle was hardcoded at <strong>$1.00</strong> — a static value that cannot respond to secondary-market prices.
+When xUSD crashed to $0.07 and sdeUSD became effectively worthless, the oracle kept reporting $1.00.
+From the protocol's perspective, every borrower was still <em>fully collateralized</em>.</p>
+
+<p><strong>Step 2 — Liquidation bots had no signal.</strong> Morpho Blue's liquidation mechanism works by comparing a position's
+loan value against its collateral value <em>at oracle price</em>. Since oracle price = $1.00 regardless of reality,
+no position ever breached its liquidation threshold. Liquidation bots — which monitor for undercollateralized
+positions — received zero trigger signals. No keeper fired. No Liquidate transaction was submitted.</p>
+
+<p><strong>Step 3 — Bad debt accrued silently.</strong> In Morpho Blue, <code>badDebtAssets</code> is only written to the chain
+inside a successful Liquidate transaction when seized collateral is worth less than the repaid debt.
+With no liquidations, no <code>badDebtAssets</code> was ever recorded. The markets hit 100% utilization —
+lenders couldn't withdraw — but the protocol had no formal record of insolvency.
+The bad debt existed economically but was <em>invisible to the protocol</em>.</p>
+
+<p><strong>On-chain evidence:</strong> Direct Dune queries of <code>morpho_blue_ethereum.morphoblue_evt_liquidate</code>
+and <code>morpho_blue_arbitrum.morphoblue_evt_liquidate</code> confirm this picture — <strong>$0 in badDebtAssets</strong>
+across all three incident markets for the entire November–December 2025 window.
+The $916K loss reported by MEV Capital is a <em>vault NAV accounting figure</em>: it measures the drop in
+their vault's share price when lenders could no longer redeem — not a protocol-level bad debt event.</p>
+</div>""", unsafe_allow_html=True)
+
+        # Summary table
+        mkt_rows = ""
+        for m in dd.get("markets", []):
+            liq_count = m["liquidation_count"]
+            bd = m["total_bad_debt_usdc"]
+            liq_badge = f'<span class="badge badge-red">{liq_count}</span>' if liq_count > 0 else '<span class="badge badge-green">0</span>'
+            bd_badge  = f'<span class="badge badge-amber">${bd:,.0f}</span>' if bd > 0 else '<span class="badge badge-green">$0</span>'
+            mkt_rows += f"""<tr>
+  <td>{m['market']} [{m['chain']}]</td>
+  <td>{liq_badge}</td>
+  <td>{bd_badge}</td>
+  <td class="ks">{m.get('note','')}</td>
+</tr>"""
+        st.markdown(f"""<table class="stbl">
+<thead><tr><th>Market</th><th>Liquidations (Nov–Dec)</th><th>badDebtAssets (USDC)</th><th>Note</th></tr></thead>
+<tbody>{mkt_rows}</tbody>
+</table>""", unsafe_allow_html=True)
+
+    alert("amber", "Important Distinction:",
+          "The $68M TelosC/Plume exposure was in a <strong>non-whitelisted, private</strong> Morpho market — "
+          "not accessible to retail depositors or standard vault curators. This is a separate risk surface "
+          "from the public MetaMorpho vault system. The $1.6M in public vault bad debt is what directly "
+          "affected public lenders.")
+
+    sec_hdr("Bad Debt as % of Vault TVL", "Relative severity across affected vaults")
+    fig = go.Figure()
+    fig.add_trace(go.Bar(
+        x=["MEV Capital USDC (Arb)\n~$700K bad debt / ~$6.3M TVL",
+           "MEV Capital USDC (ETH)\n~$916K bad debt / ~$25.4M TVL",
+           "TelosC Plume (Private)\n~$68M bad debt / ~$123.6M TVL"],
+        y=[11, 3.6, 55],
+        marker_color=["rgba(245,158,11,0.80)", "rgba(245,158,11,0.80)", "rgba(239,68,68,0.80)"],
+        text=["11%", "3.6%", "55%"],
+        textposition="outside",
+    ))
+    fig.update_yaxes(range=[0, 70], ticksuffix="%")
+    chart(fig, height=320)
+
+    sec_hdr("Cross-Protocol Context",
+            "Estimated exposure and bad debt across affected protocols — see sources for methodology")
+    # Compound removed — not a verified affected protocol in this incident
+    protocols = ["Euler Finance", "Morpho (Private)", "Silo Finance", "Gearbox", "Morpho (Public)"]
+    exposures = [120,             68,                 45,             30,        26            ]
+    bad_debts  = [58,             68,                 22,             14,         1.6          ]
+    fig2 = go.Figure()
+    fig2.add_trace(go.Bar(x=protocols, y=exposures, name="Total Exposure ($M)",
+                          marker_color="rgba(59,130,246,0.73)", width=0.4, offset=-0.2))
+    fig2.add_trace(go.Bar(x=protocols, y=bad_debts,  name="Bad Debt ($M)",
+                          marker_color="rgba(239,68,68,0.73)",  width=0.4, offset=0.2))
+    fig2.update_yaxes(tickprefix="$", ticksuffix="M")
+    chart(fig2, height=360)
+
+    st.markdown("""<div class="prose" style="max-width:100%">
+<p><strong>Why Morpho Public fared better.</strong>
+Pooled lending protocols (Aave, Euler, Silo) aggregate all depositors into a single liquidity pool.
+When one collateral type collapses, losses are socialized across every lender in that pool — regardless
+of whether they knew about or consented to the exposure. Morpho Blue uses <em>isolated markets</em>:
+each (collateral, loan, oracle, LLTV) combination is its own standalone contract. A lender deploying
+into a USDC/ETH market has zero exposure to a USDC/xUSD market, even on the same protocol.
+This isolation limited the blast radius of November's depeg to the specific markets that had taken on
+xUSD, sdeUSD, and deUSD collateral — every other Morpho market continued operating normally.</p>
+
+<p><strong>Public vs. Private: why the split matters.</strong>
+Morpho Blue has no concept of "public" or "private" at the protocol level — any address can create a market.
+The distinction is a vault-layer construct. <em>MetaMorpho</em> vaults (what we call "public") are managed
+by professional curators, listed on Morpho's front-end, and accessible to retail depositors.
+<em>Private markets</em> are direct peer-to-protocol deployments — often institutional or protocol-treasury
+positions — that bypass the curator layer entirely. The ~$68M TelosC/Plume exposure (categorized here
+under "Morpho Private") was in exactly this kind of arrangement: a large, non-whitelisted market
+invisible to retail lenders and not governed by any curator's risk policy.
+This is structurally different risk — it's closer to a bilateral OTC position than a retail lending product.</p>
+
+<p><strong>Net result:</strong> Morpho's public vaults recorded $1.6M in bad debt — less than 1% of the
+~$164M in verified cross-protocol bad debt, and less than 0.6% of ~$280M in total cross-protocol exposure.
+The isolation architecture did what it was designed to do.
+The private market losses reflect a different category of risk entirely: large, informed counterparties
+making concentrated bets without curator guardrails.</p>
+</div>""", unsafe_allow_html=True)
 
     _sources_footer(
-        "Morpho GraphQL API - market snapshot, vault summary, price history",
+        "Morpho GraphQL API — market snapshot, vault summary",
         "MEV Capital post-mortem (Nov 2025)",
-        "Dune Analytics - on-chain Liquidate events (query IDs: 6900807, 6900808, 6900815)",
+        "Dune Analytics — on-chain Liquidate events (query IDs: 6900807, 6900808, 6900815)",
         "Public reporting: The Block, QuillAudits, protocol post-mortems (Euler, Silo, Gearbox)",
     )
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# SECTION 5 - CURATOR RESPONSE
+# SECTION 5 — CURATOR RESPONSE
 # ══════════════════════════════════════════════════════════════════════════════
 def page_curators():
     st.markdown("## 🧭 Curator Response")
@@ -1197,54 +1253,58 @@ def page_curators():
 border-radius:0 8px 8px 0;margin-bottom:20px">
 <span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#10b981">Key Finding</span>
 <p style="margin:6px 0 0;font-size:15px;line-height:1.6;color:#e2e8f0">
-Curator selection is <strong>the most important risk decision</strong> in MetaMorpho - more important
+Curator selection is <strong>the most important risk decision</strong> in MetaMorpho — more important
 than protocol parameters, oracle choice, or LLTV setting. Three curators avoided the incident entirely
 through upfront due diligence. One did not. The protocol's isolation model ensured this remained
 <strong>a curator failure, not a protocol failure</strong>. For a prospective integrator, the question
-is not "is Morpho safe?" - it's "which curator's risk framework do I trust?"
+is not "is Morpho safe?" — it's "which curator's risk framework do I trust?"
 </p></div>""", unsafe_allow_html=True)
 
     sec_hdr("Curator Action Timeline")
     tl_html = '<div class="tl">'
-    tl_html += tl_item("green", "Nov 1 - 🟢 Smokehouse", "Pre-emptive Exit from deUSD",
+    tl_html += tl_item("green", "Nov 1 — 🟢 Smokehouse", "Pre-emptive Exit from deUSD",
         "Reduced deUSD allocation to zero ~2 days before collapse. Risk framework flagged unusual "
         "reserve composition (65% Stream exposure). Result: $0 bad debt.")
-    tl_html += tl_item("red", "Nov 3 - 🔴 Stream Finance", "Collapse Announced",
+    tl_html += tl_item("red", "Nov 3 — 🔴 Stream Finance", "Collapse Announced",
         "$93M loss disclosed. Withdrawals frozen. xUSD drops $1.00 → $0.26 within hours.")
-    tl_html += tl_item("amber", "Nov 4 - 🟡 MEV Capital", "Monitoring / Initial Response",
+    tl_html += tl_item("amber", "Nov 4 — 🟡 MEV Capital", "Monitoring / Initial Response",
         "Confirmed exposure to sdeUSD/USDC market on Ethereum vault. Began coordinating with Morpho risk team.")
-    tl_html += tl_item("red", "Nov 5 - 🔴 Elixir", "deUSD Collapses 98%",
+    tl_html += tl_item("red", "Nov 5 — 🔴 Elixir", "deUSD Collapses 98%",
         "deUSD falls to $0.03. 65% of reserves ($68M USDC) irrecoverable. "
         "MEV Capital ETH vault hits 100% utilization. Borrow rates spike to ~70% APY by Nov 5, reaching ~100% by Nov 7 (Morpho API).")
-    tl_html += tl_item("amber", "Nov 5 - 🟡 Morpho Protocol", "Emergency Governance",
+    tl_html += tl_item("amber", "Nov 5 — 🟡 Morpho Protocol", "Emergency Governance",
         "Morpho risk team flags sdeUSD/USDC as at-risk. Supply cap lowered to prevent new deposits.")
-    tl_html += tl_item("red", "Nov 6 - 🔴 TelosC", "Largest Exposure Revealed",
+    tl_html += tl_item("red", "Nov 6 — 🔴 TelosC", "Largest Exposure Revealed",
         "$123.64M in loans secured by Stream assets across private Plume markets. Recovery negotiations initiated.")
-    tl_html += tl_item("amber", "Nov 7 - 🟡 MEV Capital", "sdeUSD/USDC Delisted",
+    tl_html += tl_item("amber", "Nov 7 — 🟡 MEV Capital", "sdeUSD/USDC Delisted",
         "MEV Capital removes sdeUSD/USDC from Ethereum USDC vault. 3.6% bad debt (~$916K) realized. "
         "Supply limit set to zero per standard Morpho procedure.")
-    tl_html += tl_item("green", "Nov 8 - 🟢 Re7 / Gauntlet", "Unaffected Confirmed",
+    tl_html += tl_item("green", "Nov 8 — 🟢 Re7 / Gauntlet", "Unaffected Confirmed",
         "Major curators that avoided xUSD/deUSD report zero bad debt. Isolation design credited for containment.")
-    tl_html += tl_item("blue", "Nov 10 - 🔵 Elixir", "Compensation Program Announced",
+    tl_html += tl_item("blue", "Nov 10 — 🔵 Elixir", "Compensation Program Announced",
         "USDC compensation for all deUSD/sdeUSD holders. Aims for full $1 redemption for remaining holders.")
-    tl_html += tl_item("green", "Nov 12 - 🟢 MEV Capital", "Post-Mortem Published",
+    tl_html += tl_item("green", "Nov 12 — 🟢 MEV Capital", "Post-Mortem Published",
         "Commits to tighter oracle and synthetic-stablecoin policies. Full incident review published.")
-    tl_html += tl_item("green", "Nov 14 - 🟢 Morpho Protocol", "Stability Restored",
+    tl_html += tl_item("green", "Nov 14 — 🟢 Morpho Protocol", "Stability Restored",
         "All other Morpho vaults operating normally. Protocol demonstrates isolation design contained systemic contagion to just 2 public vaults.")
     tl_html += '</div>'
     st.markdown(tl_html, unsafe_allow_html=True)
 
     sec_hdr("Curator Response Scorecard",
             "Grades reflect pre-incident due diligence, speed of response, and depositor outcome")
-    st.markdown("""<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-  <span class="badge badge-green" style="font-size:12px;padding:4px 10px">A+ - Never exposed; $0 bad debt through policy alone</span>
-  <span class="badge badge-green" style="font-size:12px;padding:4px 10px">A - Pre-emptive exit; $0 bad debt; some prior exposure</span>
-  <span class="badge badge-amber" style="font-size:12px;padding:4px 10px">C - Reactive; bad debt realized; post-mortem published</span>
-  <span class="badge badge-red" style="font-size:12px;padding:4px 10px">F - Full loss; no pre-emptive action; recovery ongoing</span>
+    st.markdown("""<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+  <span class="badge badge-green" style="font-size:12px;padding:4px 10px">A+ — No exposure or pre-emptive exit; $0 bad debt</span>
+  <span class="badge badge-amber" style="font-size:12px;padding:4px 10px">B — Reactive exit; limited bad debt (&lt;5% TVL)</span>
+  <span class="badge badge-amber" style="font-size:12px;padding:4px 10px">C — Reactive; moderate bad debt; adequate post-mortem</span>
+  <span class="badge badge-red" style="font-size:12px;padding:4px 10px">F — Full loss; no pre-emptive action; recovery ongoing</span>
 </div>
 <table class="stbl">
 <thead><tr><th>Curator</th><th>Asset Exposure</th><th>Action</th><th>Speed</th><th>Bad Debt</th><th>Grade</th></tr></thead>
 <tbody>
+<tr class="stbl-green">
+  <td>Smokehouse</td><td>deUSD</td><td>Exited pre-collapse (~Nov 1)</td>
+  <td>⚡ Pre-emptive</td><td>$0</td><td><span class="badge badge-green">A+</span></td>
+</tr>
 <tr class="stbl-blue">
   <td>Re7 Capital</td><td>None</td><td>Risk framework excluded synthetic stables</td>
   <td>⚡ Pre-emptive</td><td>$0</td><td><span class="badge badge-green">A+</span></td>
@@ -1252,10 +1312,6 @@ is not "is Morpho safe?" - it's "which curator's risk framework do I trust?"
 <tr class="stbl-blue">
   <td>Gauntlet</td><td>None</td><td>Never entered; diversification policy enforced</td>
   <td>⚡ Pre-emptive</td><td>$0</td><td><span class="badge badge-green">A+</span></td>
-</tr>
-<tr class="stbl-green">
-  <td>Smokehouse</td><td>deUSD</td><td>Exited pre-collapse (~Nov 1)</td>
-  <td>⚡ Pre-emptive</td><td>$0</td><td><span class="badge badge-green">A</span></td>
 </tr>
 <tr class="stbl-amber">
   <td>MEV Capital</td><td>sdeUSD + xUSD</td><td>Removed sdeUSD/USDC; published post-mortem</td>
@@ -1288,27 +1344,276 @@ is not "is Morpho safe?" - it's "which curator's risk framework do I trust?"
 <ul>
   <li>Allowed sdeUSD/USDC allocation despite deUSD's opaque reserve backing</li>
   <li>Did not independently verify Stream Finance's financial health</li>
-  <li>Reactive rather than pre-emptive - bad debt was already realized when market was delisted</li>
+  <li>Reactive rather than pre-emptive — bad debt was already realized when market was delisted</li>
   <li>Response was sound but too slow given the pace of collapse</li>
 </ul>
 </div>""", unsafe_allow_html=True)
 
     alert("blue", "💡 The Lesson",
           "In the MetaMorpho model, <strong>curator due diligence is the primary risk control</strong>. "
-          "Morpho Blue's protocol-level safeguards - isolated markets, immutable parameters, public oracles - "
+          "Morpho Blue's protocol-level safeguards — isolated markets, immutable parameters, public oracles — "
           "function exactly as designed. What they do <em>not</em> do is evaluate whether a collateral asset "
           "is fundamentally sound. That judgment sits entirely with the curator. When a curator approves "
           "an allocation to a market backed by an opaque or illiquid asset, they are making a credit decision "
           "on behalf of every depositor in their vault. Integrators and depositors must evaluate curator "
-          "track record, risk frameworks, and responsiveness - not just the protocol's technical guarantees.")
+          "track record, risk frameworks, and responsiveness — not just the protocol's technical guarantees.")
 
     _sources_footer(
         "MEV Capital post-mortem (Nov 2025)",
         "Public reporting: Smokehouse, Re7, Gauntlet communications",
-        "Morpho GraphQL API - market and vault data",
+        "Morpho GraphQL API — market and vault data",
     )
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# SECTION 6 — VAULT LIQUIDITY
+# ══════════════════════════════════════════════════════════════════════════════
+def page_liquidity():
+    st.markdown("## 💧 Vault Liquidity")
+    st.caption("How vault utilization and liquidity evolved — and which vaults were most impacted")
+
+    st.markdown("""<div style="border-left:4px solid #3b82f6;padding:14px 18px;background:rgba(59,130,246,0.08);
+border-radius:0 8px 8px 0;margin-bottom:20px">
+<span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#3b82f6">Key Finding</span>
+<p style="margin:6px 0 0;font-size:15px;line-height:1.6;color:#e2e8f0">
+Affected markets hit <strong>100% utilization and locked lender withdrawals</strong> — but this crunch
+was <strong>completely contained</strong>. Every Morpho vault without xUSD/sdeUSD exposure remained fully
+liquid throughout the incident. Borrow rates in affected markets spiked to thousands of percent APY
+(compounding on a permanently frozen market), but adjacent markets were unaffected. This is what
+liquidity isolation looks like in practice.
+</p></div>""", unsafe_allow_html=True)
+
+    # ── Real data: sdeUSD/USDC market from historical_markets.json ────────────
+    hm = hist_market_sdeusd()
+
+    if not hm.empty:
+        sec_hdr("sdeUSD/USDC Market — Utilization, Borrow Rate & Liquidity (Nov 2025)",
+                "Historical market state during November 2025")
+
+        has_borrow_apy = "borrowApy" in hm.columns
+        n_rows = 3 if has_borrow_apy else 2
+        subplot_titles = (["Utilization %", "Borrow APY %", "Available Liquidity (USD)"] if has_borrow_apy
+                          else ["Utilization %", "Available Liquidity (USD)"])
+        row_heights   = [0.30, 0.30, 0.40] if has_borrow_apy else [0.45, 0.55]
+
+        fig_real = make_subplots(rows=n_rows, cols=1, shared_xaxes=True,
+                                 subplot_titles=subplot_titles,
+                                 row_heights=row_heights, vertical_spacing=0.08)
+
+        if "utilization" in hm.columns:
+            fig_real.add_trace(go.Scatter(
+                x=hm["date"], y=hm["utilization"]*100,
+                name="Utilization %", line=dict(color=RED, width=2.5), mode="lines",
+            ), row=1, col=1)
+            fig_real.update_yaxes(ticksuffix="%", range=[90, 104], row=1, col=1)
+
+        if has_borrow_apy:
+            fig_real.add_trace(go.Scatter(
+                x=hm["date"], y=hm["borrowApy"]*100,
+                name="Borrow APY %", line=dict(color=AMBER, width=2.5), mode="lines",
+            ), row=2, col=1)
+            fig_real.update_yaxes(ticksuffix="%", row=2, col=1)
+            liq_row = 3
+        else:
+            liq_row = 2
+
+        if "liquidityAssetsUsd" in hm.columns:
+            fig_real.add_trace(go.Scatter(
+                x=hm["date"], y=hm["liquidityAssetsUsd"],
+                name="Liquidity (USD)", fill="tozeroy",
+                fillcolor="rgba(59,130,246,0.12)",
+                line=dict(color=BLUE, width=2.5), mode="lines",
+            ), row=liq_row, col=1)
+            fig_real.update_yaxes(tickprefix="$", row=liq_row, col=1)
+
+        if "collateralAssetsUsd" in hm.columns:
+            fig_real.add_trace(go.Scatter(
+                x=hm["date"], y=hm["collateralAssetsUsd"],
+                name="Collateral Value (USD)", line=dict(color=PURP, width=2, dash="dot"), mode="lines",
+            ), row=liq_row, col=1)
+
+        fig_real.update_layout(**_plot(height=520 if has_borrow_apy else 440,
+                                       legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0)))
+        st.plotly_chart(fig_real, use_container_width=True)
+
+        # Compute KPIs from real data
+        util_vals  = hm["utilization"].dropna() if "utilization" in hm.columns else pd.Series(dtype=float)
+        liq_vals   = hm["liquidityAssetsUsd"].dropna() if "liquidityAssetsUsd" in hm.columns else pd.Series(dtype=float)
+        coll_vals  = hm["collateralAssetsUsd"].dropna() if "collateralAssetsUsd" in hm.columns else pd.Series(dtype=float)
+        apy_series = hm["borrowApy"].dropna() if has_borrow_apy else pd.Series(dtype=float)
+
+        util_peak   = f"{util_vals.max()*100:.0f}%" if len(util_vals) else "n/a"
+        liq_low     = f"${liq_vals.min():,.0f}" if len(liq_vals) else "n/a"
+        peak_apy_str = f"{apy_series.max()*100:.0f}%" if len(apy_series) else "n/a"
+        coll_collapse = ""
+        if len(coll_vals) >= 2:
+            start_c, end_c = coll_vals.iloc[0], coll_vals.iloc[-1]
+            coll_collapse = f"{(end_c-start_c)/start_c*100:.0f}%" if start_c else "n/a"
+
+        kpi_row(
+            ("Peak Utilization (sdeUSD mkt)", util_peak,      "Lenders unable to withdraw",              "red"),
+            ("Peak Borrow APY (Nov)",          peak_apy_str,   "Still compounding on locked market",        "amber"),
+            ("Liquidity Floor",                liq_low,        "Lowest available liquidity (Nov 2025)",     "amber"),
+            ("Collateral Value Collapse",      coll_collapse,  "sdeUSD collateral USD value change",        "red"),
+        )
+    else:
+        alert("amber", "Real market history not available",
+              "Run etl.py to populate historical_markets.json with sdeUSD/USDC market data.")
+
+    # ── Real market-level borrow APY from historical_markets.json ─────────────
+    sec_hdr("Market Borrow Rate Spikes — Nov 2025 (Real On-Chain Data)",
+            "Daily borrow APY for incident markets during November 2025")
+
+    apy_data = hist_market_borrow_apy()
+    if apy_data:
+        fig_apy = go.Figure()
+        color_map = {
+            "sdeUSD/USDC": RED,
+            "xUSD/USDC":   AMBER,
+            "deUSD/USDC":  PURP,
+            "deUSD/sUSDS": BLUE,
+        }
+        # Focus on Nov, cap at 500% for readability (spike continues exponentially beyond)
+        for label, df_apy in sorted(apy_data.items(), key=lambda x: -x[1]["borrow_apy_pct"].max()):
+            nov_df = df_apy[(df_apy["date"] >= pd.Timestamp("2025-11-01", tz="UTC")) &
+                            (df_apy["date"] <= pd.Timestamp("2025-11-30", tz="UTC"))].copy()
+            if nov_df.empty:
+                continue
+            max_apy = nov_df["borrow_apy_pct"].max()
+            if max_apy < 5:   # skip tiny markets
+                continue
+            color = color_map.get(label, "#6b7280")
+            # Cap at 500% so early-crisis dynamics are visible
+            nov_df["borrow_apy_capped"] = nov_df["borrow_apy_pct"].clip(upper=500)
+            fig_apy.add_trace(go.Scatter(
+                x=nov_df["date"], y=nov_df["borrow_apy_capped"],
+                name=label + (" (capped 500%)" if max_apy > 500 else ""),
+                mode="lines+markers",
+                line=dict(color=color, width=2.5 if label in ("sdeUSD/USDC","xUSD/USDC") else 1.5),
+                marker=dict(size=4),
+                customdata=nov_df["borrow_apy_pct"].values,
+                hovertemplate="%{x|%b %d}: <b>%{customdata:.1f}%</b> APY<extra>" + label + "</extra>",
+            ))
+        fig_apy.add_hline(y=100, line_dash="dash", line_color=RED, opacity=0.5,
+                          annotation_text="100% threshold", annotation_font_color=RED)
+        fig_apy.update_yaxes(ticksuffix="%", range=[0, 520], title_text="Borrow APY %")
+        fig_apy.update_xaxes(title_text="")
+        chart(fig_apy, height=360)
+        st.caption("Capped at 500% for readability — actual values continued exponentially higher (sdeUSD/USDC reached ~298,000% APY by Nov 30 due to compounding on permanently locked market)")
+    else:
+        alert("amber", "Historical borrow APY not available",
+              "Run python3 etl.py to populate historical_markets.json.")
+
+    # ── Utilization & Borrow Rate chart + table ────────────────────────────────
+    sec_hdr("Utilization & Borrow Rate Summary",
+            "Peak utilization and borrow rates across incident and comparison vaults")
+
+    # Pull peak APYs first so chart can use live values
+    apy_data_pre = hist_market_borrow_apy()
+    def _peak_apy_pre(label):
+        df = apy_data_pre.get(label)
+        if df is None or df.empty:
+            return None
+        nov = df[(df["date"] >= pd.Timestamp("2025-11-01", tz="UTC")) &
+                 (df["date"] <= pd.Timestamp("2025-11-14", tz="UTC"))]
+        return nov["borrow_apy_pct"].max() if not nov.empty else None
+
+    _sdeusd_apy = _peak_apy_pre("sdeUSD/USDC")
+    _xusd_apy   = _peak_apy_pre("xUSD/USDC")
+
+    _mkts   = ["sdeUSD/USDC\n(MEV Cap ETH)", "xUSD/USDC\n(MEV Cap Arb)",
+               "Re7 USDC\n(ETH)", "Gauntlet USDC\n(ETH)", "Smokehouse USDC\n(ETH)"]
+    _utils  = [100, 100, 60, 51, 62]
+    _apys   = [min(_sdeusd_apy, 500) if _sdeusd_apy else 100,
+               min(_xusd_apy,   500) if _xusd_apy   else 98,
+               5.9, 5.1, 5.8]
+    _colors_util = ["rgba(239,68,68,0.85)", "rgba(239,68,68,0.85)",
+                    "rgba(59,130,246,0.70)", "rgba(59,130,246,0.70)", "rgba(16,185,129,0.70)"]
+    _colors_apy  = ["rgba(239,68,68,0.55)", "rgba(239,68,68,0.55)",
+                    "rgba(59,130,246,0.40)", "rgba(59,130,246,0.40)", "rgba(16,185,129,0.40)"]
+
+    fig_util = go.Figure()
+    fig_util.add_trace(go.Bar(
+        name="Peak Utilization (%)", x=_mkts, y=_utils,
+        marker_color=_colors_util, width=0.35, offset=-0.18,
+        text=[f"{v}%" for v in _utils], textposition="outside",
+    ))
+    fig_util.add_trace(go.Bar(
+        name="Peak Borrow APY (%)", x=_mkts, y=_apys,
+        marker_color=_colors_apy, width=0.35, offset=0.18,
+        text=[f"{v:.0f}%" for v in _apys], textposition="outside",
+    ))
+    fig_util.update_layout(**_plot(
+        height=360,
+        yaxis=dict(title="% (capped at 500)", range=[0, 550], gridcolor="#1e293b"),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        margin=dict(l=12, r=12, t=50, b=60),
+        barmode="group",
+    ))
+    fig_util.add_hline(y=100, line_dash="dot", line_color="#ef4444",
+                       annotation_text="100% util threshold", annotation_position="top left")
+    st.plotly_chart(fig_util, use_container_width=True)
+    st.caption("Peak values during the incident window (Nov 3–14, 2025). APY capped at 500% for readability.")
+
+    sec_hdr("Vault / Market Liquidity Comparison",
+            "Liquidity metrics and TVL changes during the incident window (Nov 3–14, 2025)")
+
+    sdeusd_peak = _sdeusd_apy
+    xusd_peak   = _xusd_apy
+    sdeusd_peak_str = f"{sdeusd_peak:.1f}%" if sdeusd_peak is not None else "100%+"
+    xusd_peak_str   = f"{xusd_peak:.1f}%"   if xusd_peak   is not None else "~98%"
+
+    sdeusd_apy_src = "Morpho API" if sdeusd_peak is not None else "public reporting"
+    xusd_apy_src   = "Morpho API" if xusd_peak   is not None else "public reporting"
+
+    st.markdown(f"""
+<table class="stbl">
+<thead><tr><th>Market / Vault</th><th>Peak Utilization</th><th>Peak Borrow APY</th>
+<th>Withdrawals Impacted?</th><th>TVL Change (Nov 3–14)</th></tr></thead>
+<tbody>
+<tr class="stbl-red">
+  <td>sdeUSD/USDC market (MEV Cap ETH)</td><td><span class="badge badge-red">100%</span></td>
+  <td>{sdeusd_peak_str}</td><td><span class="badge badge-red">Yes — full month locked</span></td>
+  <td>–18%</td>
+</tr>
+<tr class="stbl-amber">
+  <td>xUSD/USDC market (MEV Cap Arb)</td><td><span class="badge badge-amber">~100%</span></td>
+  <td>{xusd_peak_str}</td><td><span class="badge badge-amber">Yes — multiple days</span></td>
+  <td>–22%</td>
+</tr>
+<tr class="stbl-blue">
+  <td>Re7 USDC (ETH)</td><td><span class="badge badge-green">~60%</span></td>
+  <td>~5.9%</td><td><span class="badge badge-green">No</span></td><td>+2%</td>
+</tr>
+<tr class="stbl-blue">
+  <td>Gauntlet USDC (ETH)</td><td><span class="badge badge-green">~51%</span></td>
+  <td>~5.1%</td><td><span class="badge badge-green">No</span></td><td>+5%</td>
+</tr>
+<tr class="stbl-green">
+  <td>Smokehouse USDC (ETH)</td><td><span class="badge badge-green">~62%</span></td>
+  <td>~5.8%</td><td><span class="badge badge-green">No</span></td><td>+8%</td>
+</tr>
+</tbody>
+</table>
+""", unsafe_allow_html=True)
+
+    alert("blue", "The Liquidity Risk-Sharing Question:",
+          "While Morpho markets are isolated at the collateral/risk level, there is a nuanced point "
+          "about liquidity: when a vault concentrates deposits into high-yield but risky markets, a "
+          "liquidity crunch in those markets <em>can</em> temporarily lock lenders across the entire "
+          "vault — even those whose funds are notionally allocated to safer markets. Vault-level "
+          "liquidity risk is shared among all depositors in that vault, even if collateral risk is not.")
+
+    _sources_footer(
+        "Morpho GraphQL API — historicalState (borrowApy, supplyAssetsUsd, utilization)",
+        "MEV Capital post-mortem (Nov 2025)",
+        "Public reporting: curator vault TVL figures",
+    )
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# SECTION 7 — ROOT CAUSE ANALYSIS
+# ══════════════════════════════════════════════════════════════════════════════
 def page_rootcause():
     st.markdown("## 🔎 Root Cause Analysis & Discussion")
     st.caption("Deep dive on why liquidations failed and what the incident reveals about DeFi risk architecture")
@@ -1318,25 +1623,25 @@ border-radius:0 8px 8px 0;margin-bottom:20px">
 <span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#a78bfa">Key Finding</span>
 <p style="margin:6px 0 0;font-size:15px;line-height:1.6;color:#e2e8f0">
 The root cause is deceptively simple: <strong>a static oracle made the protocol's liquidation engine
-blind to a real-world collapse</strong>. But the deeper lesson is about recursive dependencies -
+blind to a real-world collapse</strong>. But the deeper lesson is about recursive dependencies —
 deUSD was backed by xUSD, which was backed by borrowed deUSD. Once one link broke, the entire chain
 collapsed simultaneously, faster than any human or bot could respond. <strong>The protocol mechanics
 were sound; the collateral underwriting was not.</strong>
 </p></div>""", unsafe_allow_html=True)
 
-    # Q1 - Liquidation failure
+    # Q1 — Liquidation failure
     sec_hdr("Q1: Why Didn't the Liquidation Mechanism Work?")
 
     dd = dune_bad_debt()
     dune_confirmed = bool(dd and dd.get("markets"))
     oracle_proof = (" <strong>Confirmed by Dune:</strong> on-chain query of all Morpho Blue Liquidate events "
-                    "shows $0 badDebtAssets across all three incident markets - liquidations simply never fired."
+                    "shows $0 badDebtAssets across all three incident markets — liquidations simply never fired."
                     if dune_confirmed else "")
 
     factors = [
         {
             "color": "red",
-            "title": "Factor 1 - Oracle Hardcoding ($1.00 Price)",
+            "title": "Factor 1 — Oracle Hardcoding ($1.00 Price)",
             "cause": (
                 "Multiple protocols hardcoded xUSD's price at $1.00 to prevent cascade liquidations "
                 "during normal operations. In a genuine depeg this became catastrophic: market price "
@@ -1355,12 +1660,12 @@ were sound; the collateral underwriting was not.</strong>
         },
         {
             "color": "red",
-            "title": "Factor 2 - 100% Utilization Lock",
+            "title": "Factor 2 — 100% Utilization Lock",
             "cause": (
-                "Even if liquidations had triggered, vault utilization hit 100% - all available USDC "
+                "Even if liquidations had triggered, vault utilization hit 100% — all available USDC "
                 "was lent out. Liquidators couldn't source USDC from the vault to repay debt and seize "
                 "collateral. Borrow rates on sdeUSD/USDC spiked from ~48% (Nov 1) to 100%+ (Nov 7) per "
-                "Morpho API - a clear stress signal visible in advance, but positions couldn't be closed "
+                "Morpho API — a clear stress signal visible in advance, but positions couldn't be closed "
                 "regardless of rate once the market locked."
             ),
             "mitigation": (
@@ -1374,12 +1679,12 @@ were sound; the collateral underwriting was not.</strong>
         },
         {
             "color": "amber",
-            "title": "Factor 3 - Circular / Recursive Collateral",
+            "title": "Factor 3 — Circular / Recursive Collateral",
             "cause": (
                 "xUSD was used as collateral to borrow deUSD, which was used to mint more xUSD, which "
                 "was used to borrow more deUSD. This recursive loop meant true real-world backing was a "
                 "tiny fraction of face value. When any link in the chain broke, the entire loop collapsed "
-                "simultaneously - liquidation bots couldn't sequence positions because every position "
+                "simultaneously — liquidation bots couldn't sequence positions because every position "
                 "became insolvent at once."
             ),
             "mitigation": (
@@ -1393,12 +1698,12 @@ were sound; the collateral underwriting was not.</strong>
         },
         {
             "color": "amber",
-            "title": "Factor 4 - Speed of Collapse + Private Market Opacity",
+            "title": "Factor 4 — Speed of Collapse + Private Market Opacity",
             "cause": (
                 "xUSD went from $1.00 to $0.07 in 5 days. Even with functioning liquidation systems, "
                 "positions were deeply underwater before keepers could respond at scale. Compounding "
                 "this, the largest single exposure ($68M TelosC) sat in non-whitelisted private markets "
-                "invisible to public monitoring tools and the broader community - there was no early "
+                "invisible to public monitoring tools and the broader community — there was no early "
                 "warning system for the severity of what was building."
             ),
             "mitigation": (
@@ -1452,7 +1757,7 @@ were sound; the collateral underwriting was not.</strong>
         height=340,
         margin=dict(l=12, r=12, t=60, b=70),
         title=dict(
-            text="xUSD: Market Price vs Hardcoded Oracle Price - The Liquidation Blindspot",
+            text="xUSD: Market Price vs Hardcoded Oracle Price — The Liquidation Blindspot",
             y=0.97, x=0, xanchor="left", yanchor="top",
             font=dict(size=14),
         ),
@@ -1460,18 +1765,19 @@ were sound; the collateral underwriting was not.</strong>
     ))
     st.caption("The shaded gap between market price and oracle price is the zone where positions were "
                "economically insolvent but appeared fully collateralized on-chain. Morpho's liquidation "
-               "mechanism compares loan value to collateral value at oracle price - since the oracle never "
+               "mechanism compares loan value to collateral value at oracle price — since the oracle never "
                "moved, no position ever crossed its liquidation threshold.")
     st.plotly_chart(fig, use_container_width=True)
 
-    # Q2 - Liquidity sharing
-    sec_hdr("Q2: Are Liquidity Risks Shared Across Morpho?")
+    # Q2 — Liquidity sharing
+    sec_hdr("Q2: Are Liquidity Risks Shared Across Morpho?",
+            "Evaluating the claim that isolation doesn't fully protect against shared risk")
     c1, c2 = st.columns(2)
     with c1:
         alert("amber", "Arguments FOR shared liquidity risk:",
               "1. <strong>Vault-level pooling:</strong> Within a MetaMorpho vault, all depositors share "
               "utilization risk. If one market hits 100% utilization, ALL lenders in that vault are "
-              "temporarily locked - even those allocated to safe markets.<br><br>"
+              "temporarily locked — even those allocated to safe markets.<br><br>"
               "2. <strong>Curator credibility contagion:</strong> MEV Capital's vault bad debt created "
               "reputational pressure across all MEV Capital vaults and the curator model broadly.<br><br>"
               "3. <strong>Shared USDC supply:</strong> Morpho vaults compete for the same on-chain USDC "
@@ -1481,7 +1787,7 @@ were sound; the collateral underwriting was not.</strong>
     with c2:
         alert("green", "Arguments AGAINST shared liquidity risk (the isolation case):",
               "1. <strong>Collateral risk is fully isolated:</strong> A vault that doesn't list xUSD as "
-              "collateral has exactly zero bad debt exposure - structurally different from Aave v2 where "
+              "collateral has exactly zero bad debt exposure — structurally different from Aave v2 where "
               "all depositors share one collateral pool.<br><br>"
               "2. <strong>Only 2 public vaults had bad debt:</strong> The November 2025 event validated "
               "Morpho's isolation design. Only 2 public vaults had any bad debt. The rest operated "
@@ -1495,7 +1801,7 @@ were sound; the collateral underwriting was not.</strong>
           "The claim that 'liquidity risks are shared' is <strong>partially true at the vault level, "
           "but not at the protocol level</strong>. Morpho's isolation design successfully prevents "
           "<em>collateral risk</em> from being shared. However, <em>vault-level</em> liquidity risk "
-          "is shared among all depositors within a given vault - making vault design and curator "
+          "is shared among all depositors within a given vault — making vault design and curator "
           "judgment critical determinants of depositor outcomes. This reinforces why curator selection "
           "is the most important risk decision a prospective integrator will make.")
 
@@ -1504,15 +1810,15 @@ were sound; the collateral underwriting was not.</strong>
           "with pooled architectures (Euler, Silo) suffered far greater losses. Morpho's public vault "
           "public vault bad debt (~$1.6M) was less than 1% of ~$164M in verified cross-protocol bad debt "
           "(Euler $58M · Silo $22M · Gearbox $14M · Morpho Private $68M). Total exposure across all "
-          "protocols reached ~$280M+. Morpho's isolation model directly limited the damage - while "
+          "protocols reached ~$280M+. Morpho's isolation model directly limited the damage — while "
           "confirming that curator quality remains the decisive risk factor within Morpho itself.")
 
     _sources_footer(
-        "Morpho GraphQL API - market snapshot, historical state",
-        "Dune Analytics - on-chain Liquidate events (query IDs: 6900807, 6900808, 6900815)",
+        "Morpho GraphQL API — market snapshot, historical state",
+        "Dune Analytics — on-chain Liquidate events (query IDs: 6900807, 6900808, 6900815)",
         "Public reporting: The Block, QuillAudits, protocol post-mortems (Euler, Silo, Gearbox)",
         "MEV Capital post-mortem (Nov 2025)",
-        "Elixir announcement - USDC compensation program",
+        "Elixir announcement — USDC compensation program",
     )
 
 
