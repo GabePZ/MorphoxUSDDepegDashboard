@@ -824,8 +824,6 @@ with no curator oversight and no retail depositors involved. These require entir
     kpi_row(
         ("Incident Asset Markets", str(n_incident_mkts),
          "Markets with xUSD/deUSD/sdeUSD as collateral", "amber"),
-        ("Markets at 100% Utilization", str(at_max_util),
-         "Fully locked — lenders cannot withdraw", "red"),
         ("Total Vaults on Morpho", f"{total_vaults:,}" if total_vaults else "n/a",
          f"{incident_vaults} currently with incident-asset allocation · all unlisted", "blue"),
     )
