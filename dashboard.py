@@ -577,9 +577,9 @@ def page_summary():
     xusd_dd,   xusd_sub   = _dd("xUSD")
     sdeusd_dd, sdeusd_sub = _dd("sdeUSD")
 
-    # Peak utilization from market snapshot
+    # Peak utilization from market snapshot — only count markets with meaningful supply (>$100K)
     incident_cols = mkts[mkts["collateral"].isin(["xUSD","deUSD","sdeUSD"])]
-    n_locked = int((incident_cols["utilization"] >= 0.99).sum()) if len(incident_cols) else 0
+    n_locked = int(((incident_cols["utilization"] >= 0.99) & (incident_cols["supply_usd"] > 0.1)).sum()) if len(incident_cols) else 0
     # Vault totals from API
     total_vaults    = vs.get("total_vault_count", 0)
     # Full listed vault TVL from vault_summary.json (all 1,327 vaults)
