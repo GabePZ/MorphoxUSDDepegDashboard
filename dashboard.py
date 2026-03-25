@@ -1032,11 +1032,6 @@ knowingly (or should have).</p>
     fig_cp.update_yaxes(tickprefix="$", ticksuffix="M", title_text="Bad Debt ($M)")
     fig_cp.update_xaxes(tickfont=dict(size=11))
     chart(fig_cp, height=360)
-    st.caption(
-        "Sources: Euler ($45M), Silo ($22M), Gearbox ($18M) from public post-mortems and The Block reporting (Nov 2025). "
-        "Morpho public vault figure ($1.6M) from MEV Capital post-mortem and Morpho API. "
-        "Morpho private market ($68M) from TelosC/Plume incident report."
-    )
 
     st.markdown("""<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0 24px">
 <div class="alert alert-green" style="margin:0">
