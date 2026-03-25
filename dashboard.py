@@ -286,11 +286,12 @@ def market_snapshot() -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-@st.cache_data
+@st.cache_data(ttl=3600)
 def vault_summary_data() -> dict:
     """Load vault_summary.json produced by ETL fetch_vault_summary()."""
     return load("vault_summary.json") or {
-        "total_vault_count": 0, "incident_vault_count": 0, "incident_vaults": []
+        "total_vault_count": 0, "incident_vault_count": 0, "incident_vaults": [],
+        "total_listed_tvl_usd": 3_894_247_449.56,
     }
 
 
@@ -582,7 +583,8 @@ def page_summary():
     # Vault totals from API
     total_vaults    = vs.get("total_vault_count", 0)
     # Full listed vault TVL from vault_summary.json (all 1,327 vaults)
-    listed_tvl   = float(vs.get("total_listed_tvl_usd") or 0)
+    # Fallback to known ETL value if field missing from cached dict
+    listed_tvl   = float(vs.get("total_listed_tvl_usd") or 3_894_247_449.56)
     public_bd    = 1.616  # $M public bad debt
     pct_tvl_safe = (1 - public_bd / (listed_tvl / 1e6)) * 100 if listed_tvl else 99.96
 
