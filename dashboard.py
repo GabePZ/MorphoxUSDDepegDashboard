@@ -558,17 +558,6 @@ def page_summary():
     st.markdown("## Morpho Protocol — Depeg Incident Analysis")
     st.caption("November 2025 · xUSD (Stream Finance) / deUSD & sdeUSD (Elixir) Depeg Events")
 
-    st.markdown("""<div style="border-left:4px solid #3b82f6;padding:14px 18px;background:rgba(59,130,246,0.08);
-border-radius:0 8px 8px 0;margin-bottom:20px">
-<span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#3b82f6">Key Finding</span>
-<p style="margin:6px 0 0;font-size:15px;line-height:1.6;color:#e2e8f0">
-Morpho's isolation architecture <strong>worked exactly as designed</strong> — only 2 of 1,320+ public vaults
-had any bad debt, and those losses were contained entirely to curators who chose xUSD/sdeUSD exposure.
-The <strong>$68M private market loss</strong> (TelosC) is a different story: an institutional OTC-style position
-with no curator guardrails. Understanding the difference between these two types of loss is the
-central risk question for any prospective integrator.
-</p></div>""", unsafe_allow_html=True)
-
     alert("blue", "About This Dashboard",
           "This dashboard walks prospective curators and integrators through the November 2025 depeg "
           "events involving Stream Finance's xUSD and Elixir's deUSD/sdeUSD stablecoins, and how "
