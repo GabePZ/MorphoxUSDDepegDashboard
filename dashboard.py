@@ -1155,9 +1155,9 @@ is not "is Morpho safe?" — it's "which curator's risk framework do I trust?"
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# SECTION 6 — VAULT LIQUIDITY
+# SECTION 5 — ROOT CAUSE ANALYSIS
 # ══════════════════════════════════════════════════════════════════════════════
-def page_liquidity():
+def page_rootcause():
     st.markdown("## 💧 Vault Liquidity")
     st.caption("How vault utilization and liquidity evolved — and which vaults were most impacted")
 
