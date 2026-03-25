@@ -610,10 +610,6 @@ central risk question for any prospective integrator.
          f"{unaffected_vaults:,}" if unaffected_vaults else "1,318+",
          f"{total_vaults:,} total vaults · only 2 public vaults had any bad debt · isolation architecture validated",
          "green"),
-        ("On-Chain Bad Debt Recorded",
-         "$0",
-         "Dune query of all Morpho Blue Liquidate events — $0 badDebtAssets across all 3 incident markets · oracle blindspot",
-         "blue"),
     )
     # Row 2 — collateral collapse and market stress
     kpi_row(
