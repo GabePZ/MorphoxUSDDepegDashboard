@@ -1008,6 +1008,58 @@ knowingly (or should have).</p>
 </table>
 """, unsafe_allow_html=True)
 
+    sec_hdr("How Morpho Compared to Other Protocols",
+            "Total reported bad debt from the xUSD/deUSD depeg across DeFi")
+
+    # Cross-protocol bad debt data (public reporting, Nov 2025)
+    protocols   = ["Euler", "Silo", "Gearbox", "Morpho\n(Private)", "Morpho\n(Public)"]
+    bad_debt_m  = [45.0,    22.0,   18.0,       68.0,               1.616]
+    bar_colors  = [
+        "rgba(148,163,184,0.7)",   # Euler   - grey
+        "rgba(148,163,184,0.7)",   # Silo    - grey
+        "rgba(148,163,184,0.7)",   # Gearbox - grey
+        "rgba(239,68,68,0.73)",    # Morpho Private - red
+        "rgba(34,197,94,0.73)",    # Morpho Public  - green
+    ]
+    fig_cp = go.Figure()
+    fig_cp.add_trace(go.Bar(
+        x=protocols, y=bad_debt_m,
+        marker_color=bar_colors,
+        text=[f"${v:.0f}M" if v >= 1 else f"${v*1000:.0f}K" for v in bad_debt_m],
+        textposition="outside",
+        textfont=dict(size=12, color="#e2e8f0"),
+    ))
+    fig_cp.update_yaxes(tickprefix="$", ticksuffix="M", title_text="Bad Debt ($M)")
+    fig_cp.update_xaxes(tickfont=dict(size=11))
+    chart(fig_cp, height=360)
+    st.caption(
+        "Sources: Euler ($45M), Silo ($22M), Gearbox ($18M) from public post-mortems and The Block reporting (Nov 2025). "
+        "Morpho public vault figure ($1.6M) from MEV Capital post-mortem and Morpho API. "
+        "Morpho private market ($68M) from TelosC/Plume incident report."
+    )
+
+    st.markdown("""<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0 24px">
+<div class="alert alert-green" style="margin:0">
+<b>Why Morpho's public losses were so contained</b>
+<p style="margin:8px 0 0;font-size:13px;line-height:1.6">
+Morpho uses <strong>isolated markets</strong> — each vault is a standalone lending pair with its own
+collateral, oracle, and supply cap. A loss in one vault cannot propagate to another.
+Euler, Silo and Gearbox use pooled liquidity models where all depositors share collateral
+risk, so a single bad asset affects the entire pool.
+</p>
+</div>
+<div class="alert alert-amber" style="margin:0">
+<b>Why the private market loss was so large</b>
+<p style="margin:8px 0 0;font-size:13px;line-height:1.6">
+The $68M TelosC loss happened in a <strong>non-curated, permissionless direct market</strong>
+with no supply cap, no risk framework, and no independent oracle review.
+This is not comparable to any pooled protocol loss — it is closer to a bilateral repo
+position gone wrong. Isolation contained it; it did not prevent the position being
+taken in the first place.
+</p>
+</div>
+</div>""", unsafe_allow_html=True)
+
     sec_hdr("Were Any Curators Previously Exposed but Exited Early?")
     c1, c2 = st.columns(2)
     with c1:
