@@ -268,9 +268,20 @@ def fetch_vault_summary(
                 "incident_allocations": incident_allocs,
             })
 
+    total_listed_tvl = sum(
+        float((v.get("state") or {}).get("totalAssetsUsd") or 0)
+        for v in all_vaults if v.get("listed")
+    )
+    total_all_tvl = sum(
+        float((v.get("state") or {}).get("totalAssetsUsd") or 0)
+        for v in all_vaults
+    )
+
     return {
         "total_vault_count": total_count,
         "fetched_count": len(all_vaults),
+        "total_listed_tvl_usd": total_listed_tvl,
+        "total_all_tvl_usd": total_all_tvl,
         "incident_vault_count": len(incident_vaults),
         "incident_vaults": incident_vaults,
     }

@@ -1,6 +1,8 @@
 {
-  "total_vault_count": 1320,
-  "fetched_count": 1320,
+  "total_vault_count": 1327,
+  "fetched_count": 1327,
+  "total_listed_tvl_usd": 3894247449.556609,
+  "total_all_tvl_usd": 4102070416.3466306,
   "incident_vault_count": 13,
   "incident_vaults": [
     {
@@ -8,13 +10,13 @@
       "name": "Adpend USDC",
       "symbol": "adpUSDC",
       "listed": false,
-      "total_assets_usd": 6763683.476407201,
+      "total_assets_usd": 6893076.401615808,
       "incident_allocations": [
         {
           "market_key": "0x0f9563442d64ab3bd3bcb27058db0b0d4046a4c46f0acd811dacae9551d2b129",
           "collateral_symbol": "sdeUSD",
           "loan_symbol": "USDC",
-          "supply_usd": 6763683.325814366
+          "supply_usd": 6893076.251023773
         }
       ]
     },
@@ -23,13 +25,13 @@
       "name": "1337 USDC",
       "symbol": "1337USDC",
       "listed": false,
-      "total_assets_usd": 3605782.11575697,
+      "total_assets_usd": 3674765.679364986,
       "incident_allocations": [
         {
           "market_key": "0x0f9563442d64ab3bd3bcb27058db0b0d4046a4c46f0acd811dacae9551d2b129",
           "collateral_symbol": "sdeUSD",
           "loan_symbol": "USDC",
-          "supply_usd": 3605782.11575697
+          "supply_usd": 3674762.6805089
         }
       ]
     },
@@ -38,13 +40,13 @@
       "name": "Not Gauntlet",
       "symbol": "AUSD",
       "listed": false,
-      "total_assets_usd": 567560.3683767165,
+      "total_assets_usd": 576407.1556977349,
       "incident_allocations": [
         {
           "market_key": "0x9e90aec7d768403dacc9dd0d8320307fda3f980eed4df43e3e52168a1c667709",
           "collateral_symbol": "xUSD",
           "loan_symbol": "USDC",
-          "supply_usd": 567560.3038551111
+          "supply_usd": 576407.0911632645
         }
       ]
     },
@@ -53,13 +55,13 @@
       "name": "MEV Capital Elixir USDC",
       "symbol": "MC.eUSDC",
       "listed": false,
-      "total_assets_usd": 20557.668426006458,
+      "total_assets_usd": 20957.252438198964,
       "incident_allocations": [
         {
           "market_key": "0xbd1ad3b968f5f0552dbd8cf1989a62881407c5cccf9e49fb3657c8731caf0c1f",
           "collateral_symbol": "deUSD",
           "loan_symbol": "USDC",
-          "supply_usd": 20557.668426006458
+          "supply_usd": 20957.252438198964
         }
       ]
     },
@@ -68,13 +70,13 @@
       "name": "Vaultik USDC",
       "symbol": "vUSDC",
       "listed": false,
-      "total_assets_usd": 19102.61835778786,
+      "total_assets_usd": 19400.315015661923,
       "incident_allocations": [
         {
           "market_key": "0x9e90aec7d768403dacc9dd0d8320307fda3f980eed4df43e3e52168a1c667709",
           "collateral_symbol": "xUSD",
           "loan_symbol": "USDC",
-          "supply_usd": 19102.61835778786
+          "supply_usd": 19400.315015661923
         }
       ]
     },
@@ -83,7 +85,7 @@
       "name": "Bandit USDC",
       "symbol": "BUSDCV",
       "listed": false,
-      "total_assets_usd": 34.03923707036064,
+      "total_assets_usd": 34.04200110310055,
       "incident_allocations": [
         {
           "market_key": "0x0f9563442d64ab3bd3bcb27058db0b0d4046a4c46f0acd811dacae9551d2b129",
@@ -98,7 +100,7 @@
       "name": "ABRC",
       "symbol": "abrc",
       "listed": false,
-      "total_assets_usd": 3.9090595844195186,
+      "total_assets_usd": 3.9582328343061177,
       "incident_allocations": [
         {
           "market_key": "0x9e90aec7d768403dacc9dd0d8320307fda3f980eed4df43e3e52168a1c667709",
@@ -113,13 +115,13 @@
       "name": "RIMU USDC",
       "symbol": "RIMUusdc",
       "listed": false,
-      "total_assets_usd": 0.01020597220508944,
+      "total_assets_usd": 0.010205104822911464,
       "incident_allocations": [
         {
           "market_key": "0xbd1ad3b968f5f0552dbd8cf1989a62881407c5cccf9e49fb3657c8731caf0c1f",
           "collateral_symbol": "deUSD",
           "loan_symbol": "USDC",
-          "supply_usd": 3.9995972195902566e-06
+          "supply_usd": 3.999257302992637e-06
         }
       ]
     },
