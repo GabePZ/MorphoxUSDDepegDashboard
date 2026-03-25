@@ -825,7 +825,7 @@ with no curator oversight and no retail depositors involved. These require entir
         ("Incident Asset Markets", str(n_incident_mkts),
          "Markets with xUSD/deUSD/sdeUSD as collateral", "amber"),
         ("Total Vaults on Morpho", f"{total_vaults:,}" if total_vaults else "n/a",
-         f"{incident_vaults} currently with incident-asset allocation · all unlisted", "blue"),
+         "Only 2 public vaults had bad debt - isolation model validated", "blue"),
     )
     alert("green", "Isolation Working as Designed:",
           "Morpho's market isolation model means each market is a standalone lending pair. "
@@ -1385,8 +1385,8 @@ were sound; the collateral underwriting was not.</strong>
     alert("blue", "Bottom Line for Prospective Curators:",
           "The November 2025 event is a strong proof-of-concept for Morpho's isolation design. Protocols "
           "with pooled architectures (Euler, Silo) suffered far greater losses. Morpho's public vault "
-          "public vault bad debt (~$1.6M) was less than 1% of ~$164M in verified cross-protocol bad debt "
-          "(Euler $58M · Silo $22M · Gearbox $14M · Morpho Private $68M). Total exposure across all "
+          "public vault bad debt (~$1.6M) was less than 1% of ~$155M in verified cross-protocol bad debt "
+          "(Euler $45M · Silo $22M · Gearbox $18M · Morpho Private $68M). Total exposure across all "
           "protocols reached ~$280M+. Morpho's isolation model directly limited the damage — while "
           "confirming that curator quality remains the decisive risk factor within Morpho itself.")
 
