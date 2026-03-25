@@ -577,9 +577,8 @@ def page_summary():
     xusd_dd,   xusd_sub   = _dd("xUSD")
     sdeusd_dd, sdeusd_sub = _dd("sdeUSD")
 
-    # Peak utilization from market snapshot — only count markets with meaningful supply (>$100K)
-    incident_cols = mkts[mkts["collateral"].isin(["xUSD","deUSD","sdeUSD"])]
-    n_locked = int(((incident_cols["utilization"] >= 0.99) & (incident_cols["supply_usd"] > 0.1)).sum()) if len(incident_cols) else 0
+    # 3 known locked markets (xUSD Arb, sdeUSD ETH, TelosC Plume — Plume not in GraphQL snapshot)
+    n_locked = 3
     # Vault totals from API
     total_vaults    = vs.get("total_vault_count", 0)
     # Full listed vault TVL from vault_summary.json (all 1,327 vaults)
@@ -813,12 +812,13 @@ with no curator oversight and no retail depositors involved. These require entir
     sec_hdr("Morpho's Isolation Design — Big Picture")
     mkts = market_snapshot()
     vs   = vault_summary_data()
-    n_incident_mkts = len(mkts[mkts["collateral"].isin(["xUSD","deUSD","sdeUSD"])])
-    total_supply_incident = mkts[mkts["collateral"].isin(["xUSD","deUSD","sdeUSD"])]["supply_usd"].sum()
-    at_max_util = len(mkts[(mkts["collateral"].isin(["xUSD","deUSD","sdeUSD"])) & (mkts["utilization"] >= 0.99)])
-    # sdeUSD/USDC was delisted (supply cap → 0) after the incident, so it may lose the live flag
-    # but was equally impaired during the event. All 3 show as 100% util in the API snapshot.
-    n_impaired_total = at_max_util
+    # 3 meaningful markets: xUSD/USDC (Arb), sdeUSD/USDC (ETH), xUSD/USDC TelosC (Plume).
+    # Plume chain is not in the Morpho GraphQL snapshot so we hardcode the known count.
+    n_incident_mkts = 3
+    at_max_util = 3
+    n_impaired_total = 3
+    incident_all = mkts[mkts["collateral"].isin(["xUSD","deUSD","sdeUSD"])]
+    total_supply_incident = incident_all[incident_all["supply_usd"] > 0.1]["supply_usd"].sum()
     total_vaults    = vs.get("total_vault_count", 0)
     incident_vaults = vs.get("incident_vault_count", 0)
     kpi_row(
